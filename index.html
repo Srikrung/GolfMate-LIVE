@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GolfMate Live Leaderboard</title>
+<style>
+/* ════════════════════════════════════════════════════════
+   GOLFMATE LIVE LEADERBOARD
+   ├── 1. BASE & RESET
+   ├── 2. SHARED COLORS (dark/light)
+   ├── 3. HEADER
+   ├── 4. DATE BAR
+   ├── 5. HIST BANNER
+   ├── 6. FILTER
+   ├── 7. PORTRAIT — tabs, table, ticker
+   ├── 8. LANDSCAPE — score table, SG, screensaver, ticker
+   └── 9. ANIMATIONS
+════════════════════════════════════════════════════════ */
+
+/* ── 1. BASE ── */
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;}
+.scr{width:100%;overflow:hidden;}
+
+/* ── 2. COLORS ── */
+/* dark */
+body.dark{background:#070710;}
+.dark .hdr{background:#0e0e1e;border-bottom:1.5px solid rgba(255,255,255,0.09);}
+.dark .logo{color:#fff;} .dark .logo em{color:#0a84ff;font-style:normal;}
+.dark .hdr-sub{color:rgba(255,255,255,0.3);}
+.dark .stxt{color:rgba(255,255,255,0.38);}
+.dark .hbtn{border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.5);}
+.dark .dbar{background:#0b0b1a;border-bottom:1px solid rgba(255,255,255,0.06);}
+.dark .ddate{color:#fff;}
+.dark .dnav{color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.12);}
+.dark .hbanner{background:rgba(10,132,255,0.07);border-bottom:1px solid rgba(10,132,255,0.18);}
+.dark .hb-txt{color:#4da3ff;font-weight:600;}
+.dark .hb-r{color:rgba(255,255,255,0.28);}
+.dark .frow{background:#09091a;border-bottom:1px solid rgba(255,255,255,0.05);}
+.dark .fmeta{color:rgba(255,255,255,0.28);}
+.dark .fb.on{border:1.5px solid rgba(10,132,255,0.5);background:rgba(10,132,255,0.14);color:#4da3ff;}
+.dark .fb.off{border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.33);}
+/* dark table */
+.dark thead tr{background:#17172a;}
+.dark th{color:rgba(255,255,255,0.58);border-color:rgba(255,255,255,0.09);}
+.dark td{background:#0f0f1c;color:rgba(255,255,255,0.8);border-color:rgba(255,255,255,0.06);}
+.dark tr:nth-child(even) td{background:#111122;}
+.dark td.rk{background:#161628!important;color:rgba(255,255,255,0.45);border-color:rgba(255,255,255,0.09)!important;}
+.dark td.sub{background:#091b31;color:#4da3ff;border-color:rgba(10,132,255,0.28)!important;}
+.dark td.tot-g{background:#07101f;color:#b0d4ff;border-left-color:rgba(10,132,255,0.38)!important;}
+.dark td.tot-n{background:#07101f;color:#34d16a;border-right-color:rgba(10,132,255,0.38)!important;}
+.dark .loading-msg{color:rgba(255,255,255,0.3);}
+/* dark sg */
+.dark .sg-lbl{color:rgba(255,255,255,0.33);}
+.dark .sg-tbl th{background:#17172a;color:rgba(255,255,255,0.58);border-color:rgba(255,255,255,0.09);}
+.dark .sg-tbl td{background:#0f0f1c;color:rgba(255,255,255,0.75);border-color:rgba(255,255,255,0.055);}
+.dark .sg-tbl tr:nth-child(even) td{background:#111122;}
+/* dark tickers */
+.dark .tick1{background:#06130a;border-top:1px solid rgba(48,209,88,0.18);}
+.dark .tick2{background:#090916;border-top:1.5px solid rgba(255,255,255,0.09);}
+.dark .tick-hist{background:#101020;}
+.dark .t-lbl{color:rgba(255,255,255,0.5);}
+.dark .t-val{color:rgba(255,255,255,0.85);}
+.dark .t-empty{color:rgba(255,255,255,0.28);}
+/* dark landscape extras */
+.dark .view-title{background:#09091a;}
+.dark .vt-txt{color:#ffd60a;}
+.dark .vt-sub{color:rgba(255,255,255,0.3);}
+.dark .ss-progress{background:rgba(255,255,255,0.04);}
+.dark .ss-bar{background:rgba(10,132,255,0.35);}
+.dark .ss-dot{background:rgba(255,255,255,0.2);}
+.dark .ss-dot.on{background:#0a84ff;}
+.dark .ss-btn{border:1px solid rgba(48,209,88,0.3);background:rgba(48,209,88,0.08);color:#30d158;}
+.dark .divider{background:#0b0b18;}
+.dark td.erow-cell{background:#07070e!important;border-color:rgba(255,255,255,0.02)!important;}
+.dark td.sub9{background:#091b31!important;color:#4da3ff;border-color:rgba(10,132,255,0.3)!important;}
+.dark td.gross-cell{background:#07101f!important;color:#b0d4ff;border-left-color:rgba(10,132,255,0.38)!important;}
+.dark td.net-cell{background:#07101f!important;color:#34d16a;border-right-color:rgba(10,132,255,0.38)!important;}
+.dark td.erow-sub{background:#05101a!important;color:rgba(255,255,255,0.07)!important;border-color:rgba(255,255,255,0.02)!important;}
+
+/* light */
+body.light{background:#f0f0f5;}
+.light .hdr{background:#fff;border-bottom:1.5px solid rgba(0,0,0,0.08);}
+.light .logo{color:#1c1c1e;} .light .logo em{color:#0060cc;font-style:normal;}
+.light .hdr-sub{color:rgba(0,0,0,0.38);}
+.light .stxt{color:rgba(0,0,0,0.38);}
+.light .hbtn{border:1px solid rgba(0,0,0,0.12);background:rgba(0,0,0,0.03);color:rgba(0,0,0,0.45);}
+.light .dbar{background:#e8eaf2;border-bottom:1px solid rgba(0,0,0,0.07);}
+.light .ddate{color:#1c1c1e;}
+.light .dnav{color:rgba(0,0,0,0.4);border-color:rgba(0,0,0,0.1);}
+.light .hbanner{background:rgba(0,96,204,0.06);border-bottom:1px solid rgba(0,96,204,0.14);}
+.light .hb-txt{color:#0060cc;font-weight:600;}
+.light .hb-r{color:rgba(0,0,0,0.3);}
+.light .frow{background:#eceef6;border-bottom:1px solid rgba(0,0,0,0.06);}
+.light .fmeta{color:rgba(0,0,0,0.33);}
+.light .fb.on{border:1.5px solid rgba(0,96,204,0.4);background:rgba(0,96,204,0.09);color:#0060cc;}
+.light .fb.off{border:1px solid rgba(0,0,0,0.1);background:rgba(0,0,0,0.03);color:rgba(0,0,0,0.38);}
+/* light table */
+.light thead tr{background:#dde0ec;}
+.light th{color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1);}
+.light td{background:#fff;color:#1c1c1e;border-color:rgba(0,0,0,0.07);}
+.light tr:nth-child(even) td{background:#f5f5fb;}
+.light td.rk{background:#dde0ec!important;color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1)!important;}
+.light td.sub{background:#cce0ff;color:#003f8a;border-color:rgba(0,100,200,0.28)!important;}
+.light td.tot-g{background:#e4f2e4;color:#1a6020;}
+.light td.tot-n{background:#1a6b1a;color:#fff;}
+.light .loading-msg{color:rgba(0,0,0,0.3);}
+/* light sg */
+.light .sg-lbl{color:rgba(0,0,0,0.33);}
+.light .sg-tbl th{background:#dde0ec;color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1);}
+.light .sg-tbl td{background:#fff;color:#1c1c1e;border-color:rgba(0,0,0,0.07);}
+.light .sg-tbl tr:nth-child(even) td{background:#f5f5fb;}
+/* light tickers */
+.light .tick1{background:#0a3010;border-top:1px solid rgba(48,209,88,0.25);}
+.light .tick2{background:#18183a;border-top:1px solid rgba(0,0,0,0.1);}
+.light .t-lbl{color:rgba(255,255,255,0.6);}
+.light .t-val{color:rgba(255,255,255,0.92);}
+.light .t-empty{color:rgba(255,255,255,0.4);}
+/* light landscape extras */
+.light .view-title{background:#eceef6;}
+.light .vt-txt{color:#b07000;}
+.light .vt-sub{color:rgba(0,0,0,0.35);}
+.light .ss-progress{background:rgba(0,0,0,0.06);}
+.light .ss-bar{background:rgba(0,96,204,0.4);}
+.light .ss-dot{background:rgba(0,0,0,0.15);}
+.light .ss-dot.on{background:#0060cc;}
+.light .ss-btn{border:1px solid rgba(0,140,50,0.3);background:rgba(0,140,50,0.07);color:#1a7a3a;}
+.light .divider{background:#d8dae8;}
+.light td.erow-cell{background:#eceef4!important;border-color:rgba(0,0,0,0.03)!important;}
+.light td.sub9{background:#cce0ff!important;color:#003f8a;border-color:rgba(0,100,200,0.28)!important;}
+.light td.gross-cell{background:#e4f2e4!important;color:#1a6020;}
+.light td.net-cell{background:#1a6b1a!important;color:#fff;}
+.light td.erow-sub{background:#e4e6f0!important;color:rgba(0,0,0,0.12)!important;border-color:rgba(0,0,0,0.03)!important;}
+
+/* ── 3. HEADER ── */
+.hdr{display:flex;align-items:center;justify-content:space-between;}
+.logo{font-weight:800;letter-spacing:-.5px;}
+.hdr-sub{font-weight:500;}
+.hdr-r{display:flex;align-items:center;}
+.live-dot{border-radius:50%;background:#30d158;flex-shrink:0;animation:pulse 2s infinite;}
+.hist-dot{border-radius:50%;background:#4da3ff;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.hbtn{font-weight:600;cursor:pointer;font-family:inherit;}
+
+/* ── 4. DATE BAR ── */
+.dbar{display:flex;align-items:center;}
+.dnav{background:none;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid;}
+.dnav:disabled{opacity:.2;cursor:default;}
+.dcenter{flex:1;display:flex;align-items:center;justify-content:center;}
+.ddate{font-weight:700;}
+.dtag{font-weight:700;border-radius:999px;display:flex;align-items:center;}
+.dtag.live{background:rgba(48,209,88,0.15);color:#30d158;border:1px solid rgba(48,209,88,0.3);}
+.dtag.hist{background:rgba(10,132,255,0.13);color:#4da3ff;border:1px solid rgba(10,132,255,0.3);}
+.ddot{border-radius:50%;background:#30d158;}
+
+/* ── 5. HIST BANNER ── */
+.hbanner{display:flex;align-items:center;}
+
+/* ── 6. FILTER ── */
+.frow{display:flex;align-items:center;justify-content:space-between;}
+.fbtns{display:flex;}
+.fb{font-weight:700;cursor:pointer;}
+
+/* ── TABLE SHARED ── */
+table{border-collapse:collapse;width:100%;table-layout:fixed;}
+th{text-align:center;border:1px solid;font-weight:700;}
+th.tl{text-align:left;}
+td{text-align:center;border:1px solid;font-weight:600;vertical-align:middle;}
+td.tl{text-align:left;}
+td.rk{font-weight:700;}
+td.sub{font-weight:800;}
+td.tot-g{font-weight:800;border-left:2px solid;}
+td.tot-n{font-weight:800;border-right:2px solid;}
+.star{color:rgba(255,190,0,0.5);font-size:.6em;vertical-align:super;}
+.sg-lbl{font-weight:700;}
+.loading-msg{text-align:center;padding:40px 16px;font-weight:500;}
+
+/* score chips */
+.sc{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;}
+.sc.bir{background:#7a1a1a;color:#ff8080;}
+.sc.egl{background:#1a3560;color:#60b4ff;}
+.sc.hio{background:#c8a000;color:#000;}
+.dark .par{color:#4da3ff;font-weight:700;}
+.light .par{color:#004fc4;font-weight:700;}
+.dark .bog{color:rgba(255,255,255,0.52);}
+.light .bog{color:#555;}
+.dark .blk{color:rgba(255,255,255,0.12);}
+.light .blk{color:rgba(0,0,0,0.15);}
+
+/* ── TICKER SHARED ── */
+.tickers{display:flex;flex-direction:column;}
+.tick1,.tick2{display:flex;align-items:center;overflow:hidden;}
+.tick1 .tbadge{background:#1a5c1a;}
+.tick2 .tbadge{background:#0a84ff;}
+.tick-hist .tbadge{background:#444;}
+.tbadge{flex-shrink:0;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;white-space:nowrap;}
+.tscroll{flex:1;overflow:hidden;display:flex;align-items:center;}
+.trow{display:inline-flex;align-items:center;white-space:nowrap;}
+.trow.r1{animation:scrollt 40s linear infinite;}
+.trow.r2{animation:scrollt 20s linear infinite;}
+.trow.rh{animation:scrollt 30s linear infinite;}
+@keyframes scrollt{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.t-hi{color:#ffd60a;font-weight:800;}
+/* alert chips */
+.a-chip{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;flex-shrink:0;}
+.a-chip.bir{background:#7a1a1a;color:#ff8080;}
+.a-chip.egl{background:#1a3560;color:#60b4ff;}
+.a-chip.alb{background:#7a5800;color:#ffd060;}
+.a-chip.hio{background:#c8a000;color:#000;}
+.light .a-chip.bir{background:#cc0000;color:#fff;}
+.light .a-chip.egl{background:#004fc4;color:#fff;}
+.a-tag{font-weight:700;border-radius:.3em;}
+.a-tag.bir{background:rgba(255,128,128,0.18);color:#ff8080;}
+.a-tag.egl{background:rgba(96,180,255,0.18);color:#60b4ff;}
+.a-tag.alb{background:rgba(255,208,96,0.18);color:#ffd060;}
+.a-tag.hio{background:rgba(200,160,0,0.28);color:#ffd060;}
+.light .a-tag.bir{background:rgba(204,0,0,0.12);color:#cc0000;}
+.light .a-tag.egl{background:rgba(0,79,196,0.12);color:#004fc4;}
+.ahole{font-weight:700;border-radius:.25em;color:#fff;}
+.dark .ahole{background:rgba(255,255,255,0.07);}
+.light .ahole{background:rgba(0,0,0,0.12);}
+.atime{color:rgba(255,255,255,0.32);}
+
+/* ════════════════════════════════════════
+   PORTRAIT
+════════════════════════════════════════ */
+body.port{overflow:auto;}
+body.port .scr{max-width:480px;margin:0 auto;}
+/* header */
+body.port .hdr{padding:11px 14px;}
+body.port .logo{font-size:18px;}
+body.port .hdr-sub{font-size:11px;margin-left:8px;}
+body.port .hdr-r{gap:5px;}
+body.port .live-dot,body.port .hist-dot{width:7px;height:7px;}
+body.port .stxt{font-size:11px;}
+body.port .hbtn{padding:5px 9px;border-radius:13px;font-size:11px;}
+/* datebar */
+body.port .dbar{padding:6px 10px;gap:4px;}
+body.port .dnav{width:26px;height:26px;border-radius:8px;font-size:12px;}
+body.port .dcenter{gap:7px;}
+body.port .ddate{font-size:13px;}
+body.port .dtag{padding:3px 9px;font-size:10px;gap:4px;}
+body.port .ddot{width:6px;height:6px;}
+/* hist banner */
+body.port .hbanner{padding:5px 12px;font-size:11px;gap:6px;}
+/* filter */
+body.port .frow{padding:5px 11px;}
+body.port .fbtns{gap:5px;}
+body.port .fb{padding:4px 10px;border-radius:12px;font-size:12px;}
+body.port .fmeta{font-size:10px;}
+/* tabs */
+body.port .tabs{display:flex;gap:4px;padding:5px 10px 3px;}
+body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;}
+.dark body.port .tab.on,.dark .port .tab.on{background:#0a84ff;color:#fff;}
+.dark body.port .tab.off,.dark .port .tab.off{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.35);}
+.light body.port .tab.on,.light .port .tab.on{background:#0060cc;color:#fff;}
+.light body.port .tab.off,.light .port .tab.off{background:rgba(0,0,0,0.04);color:rgba(0,0,0,0.35);}
+body.port .dark .tabs{background:#09090f;}
+body.port .light .tabs{background:#e8eaf2;}
+/* scroll area — สูงสุด 6 คน */
+body.port .tbl-scroll{overflow-y:auto;max-height:calc(6 * 52px);}
+body.port .tbl-wrap{padding:6px 10px;}
+body.port th{font-size:10px;padding:6px 2px;}
+body.port td{font-size:15px;padding:8px 2px;}
+body.port td.rk{font-size:12px;}
+body.port td.sub{font-size:13px;}
+body.port td.tot-g,body.port td.tot-n{font-size:14px;}
+body.port .sg-lbl{font-size:11px;padding:5px 11px 2px;}
+body.port .sg-tbl th,body.port .sg-tbl td{font-size:12px;padding:6px 3px;border:0.5px solid;}
+/* ticker */
+body.port .tick1,body.port .tick2{height:32px;}
+body.port .tbadge{padding:0 10px;font-size:11px;height:100%;}
+body.port .trow{font-size:11px;}
+body.port .a-chip{width:17px;height:17px;font-size:9px;}
+body.port .a-tag{padding:1px 4px;font-size:9px;}
+body.port .ahole{padding:1px 4px;font-size:9px;}
+body.port .atime{font-size:9px;}
+
+/* ════════════════════════════════════════
+   LANDSCAPE — TV 50" เต็ม viewport
+════════════════════════════════════════ */
+body.land{overflow:hidden;height:100vh;}
+body.land .scr{
+  width:100%;
+  height:calc(100vh - 10.4vh);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+/* header */
+body.land .hdr{height:7vh;flex-shrink:0;padding:0 1.5vw;}
+body.land .logo{font-size:1.8vw;}
+body.land .hdr-sub{font-size:0.9vw;margin-left:0.6vw;}
+body.land .hdr-r{gap:0.6vw;}
+body.land .live-dot,body.land .hist-dot{width:0.55vw;height:0.55vw;}
+body.land .stxt{font-size:0.85vw;}
+body.land .hbtn{padding:0.35vh 0.8vw;border-radius:0.7vw;font-size:0.8vw;}
+/* datebar */
+body.land .dbar{height:4.5vh;flex-shrink:0;padding:0 1.5vw;gap:0.5vw;}
+body.land .dnav{width:1.8vw;height:1.8vw;border-radius:0.5vw;font-size:0.9vw;}
+body.land .dcenter{gap:0.6vw;}
+body.land .ddate{font-size:1vw;}
+body.land .dtag{padding:0.25vh 0.7vw;font-size:0.72vw;gap:0.3vw;}
+body.land .ddot{width:0.45vw;height:0.45vw;}
+/* hist banner */
+body.land .hbanner{height:3.5vh;flex-shrink:0;padding:0 1.5vw;gap:0.5vw;font-size:0.82vw;}
+/* filter */
+body.land .frow{height:4.5vh;flex-shrink:0;padding:0 1.5vw;}
+body.land .fbtns{gap:0.4vw;align-items:center;}
+body.land .fb{padding:0.3vh 0.9vw;border-radius:0.7vw;font-size:0.82vw;}
+body.land .fmeta{font-size:0.78vw;}
+body.land .ss-btn{padding:0.3vh 0.9vw;border-radius:0.7vw;font-size:0.78vw;font-weight:700;cursor:pointer;}
+/* screensaver progress */
+body.land .ss-progress{height:1px;flex-shrink:0;}
+body.land .ss-bar{height:1px;width:0%;transition:none;}
+/* view title */
+body.land .view-title{height:4vh;flex-shrink:0;display:flex;align-items:center;padding:0 1.5vw;gap:0.5vw;}
+body.land .vt-txt{font-size:0.95vw;font-weight:800;letter-spacing:.3px;}
+body.land .vt-sub{font-size:0.72vw;}
+body.land .ss-dots{display:flex;gap:0.3vw;margin-left:auto;}
+body.land .ss-dot{width:0.45vw;height:0.45vw;border-radius:50%;}
+/* slbl */
+body.land .slbl{height:3vh;flex-shrink:0;font-size:0.85vw;font-weight:700;padding:0 1.4vw;display:flex;align-items:center;gap:0.4vw;}
+body.land .slbl span{font-size:0.65vw;opacity:.35;font-weight:400;}
+/* score table */
+body.land .tbl-wrap{flex:1;overflow:hidden;padding:0 1vw;}
+body.land .tbl-wrap table{height:100%;}
+body.land th{font-size:0.95vw;padding:0.3vh 0.1vw;}
+body.land td{font-size:1.4vw;padding:0 0.1vw;}
+body.land td.rk{font-size:1.3vw;}
+body.land td.nm-cell{text-align:left;padding-left:0.5vw!important;font-weight:700;font-size:1.3vw;color:#fff;}
+body.land td.nm-cell .nsub{font-size:0.7vw;opacity:.38;font-weight:400;display:block;}
+body.land .sc{width:1.8vw;height:1.8vw;font-size:0.9vw;}
+body.land td.sub9{font-weight:800;font-size:1.5vw;border-left:2px solid!important;border-right:2px solid!important;}
+body.land td.gross-cell{font-weight:800;font-size:1.5vw;border-left:2px solid!important;}
+body.land td.net-cell{font-weight:800;font-size:1.6vw;border-right:2px solid!important;}
+/* divider */
+body.land .divider{height:0.3vh;flex-shrink:0;}
+/* SG */
+body.land .sg-lbl{font-size:0.85vw;padding:0 1.4vw;}
+body.land .sg-tbl-wrap{flex-shrink:0;padding:0 1vw 0.3vh;}
+body.land .sg-tbl th{font-size:0.9vw;padding:0.3vh 0.3vw;}
+body.land .sg-tbl td{font-size:1.5vw;padding:0.45vh 0.3vw;}
+body.land .sg-tbl td.nm2{text-align:left;padding-left:0.8vw;font-weight:700;font-size:1.4vw;color:#fff;}
+/* ticker fixed */
+body.land .tickers{position:fixed;bottom:0;left:0;width:100%;z-index:100;}
+body.land .tick1,body.land .tick2{height:5.2vh;}
+body.land .tbadge{padding:0 1.1vw;font-size:0.9vw;height:100%;}
+body.land .trow{font-size:0.9vw;}
+body.land .a-chip{width:1.4vw;height:1.4vw;font-size:0.72vw;}
+body.land .a-tag{padding:0.1vh 0.4vw;font-size:0.68vw;}
+body.land .ahole{padding:0.1vh 0.4vw;font-size:0.72vw;}
+body.land .atime{font-size:0.62vw;}
+</style>
+</head>
+
+<body class="port dark">
+<div class="scr" id="scr">
+
+  <!-- ── HEADER ── -->
+  <div class="hdr">
+    <div style="display:flex;align-items:center">
+      <div class="logo">Golf<em>Mate</em></div>
+      <span class="hdr-sub" id="hdr-sub">Live Leaderboard</span>
+    </div>
+    <div class="hdr-r">
+      <div id="sdot" class="live-dot"></div>
+      <span class="stxt" id="stxt">กำลังโหลด...</span>
+      <button class="hbtn" id="tbtn" onclick="toggleTheme()">🌙</button>
+      <button class="hbtn" id="obtn" onclick="toggleOrient()">📱</button>
+      <button class="hbtn" onclick="fetchLB()">⟳</button>
+    </div>
+  </div>
+
+  <!-- ── DATE BAR ── -->
+  <div class="dbar">
+    <button class="dnav" id="dprev" onclick="goPrev()">←</button>
+    <div class="dcenter">
+      <div class="ddate" id="ddate">23 มี.ค. 2569</div>
+      <div class="dtag live" id="dtag">
+        <div class="ddot" id="ddot"></div>
+        <span id="dtag-txt">Live</span>
+      </div>
+    </div>
+    <button class="dnav" id="dnext" onclick="goNext()" disabled>→</button>
+  </div>
+
+  <!-- ── HIST BANNER ── -->
+  <div class="hbanner" id="hbanner" style="display:none">
+    <span>📂</span>
+    <span class="hb-txt">ข้อมูลย้อนหลัง — ไม่มี Live refresh</span>
+    <span class="hb-r" style="margin-left:auto" id="hb-date"></span>
+  </div>
+
+  <!-- ── FILTER ── -->
+  <div class="frow">
+    <div class="fbtns" id="filter-wrap"></div>
+    <span class="fmeta" id="fmeta">—</span>
+  </div>
+
+  <!-- ── PORTRAIT CONTENT ── -->
+  <div id="port-content">
+    <!-- tabs -->
+    <div class="tabs" id="port-tabs">
+      <div class="tab on" id="tab-score" onclick="setTab('score')">🏆 สกอร์</div>
+      <div class="tab off" id="tab-sg" onclick="setTab('sg')">⛳ FW·GIR·Putt</div>
+    </div>
+    <!-- scroll area -->
+    <div id="tbl-scroll-wrap" class="tbl-scroll">
+      <div id="port-body"><div class="loading-msg">⟳ กำลังโหลด...</div></div>
+    </div>
+    <!-- tickers portrait -->
+    <div class="tickers" id="port-tickers"></div>
+  </div>
+
+  <!-- ── LANDSCAPE CONTENT ── -->
+  <div id="land-content" style="display:none;flex:1;display:none;flex-direction:column;overflow:hidden;">
+
+    <!-- screensaver progress -->
+    <div class="ss-progress"><div class="ss-bar" id="ss-bar"></div></div>
+
+    <!-- view title -->
+    <div class="view-title">
+      <span class="vt-txt" id="vt-txt">🏆 ผู้นำการแข่งขัน</span>
+      <span class="vt-sub" id="vt-sub">แสดง Top 6 · เรียงตาม Net Score</span>
+      <div class="ss-dots" id="ss-dots"></div>
+      <button class="ss-btn" id="ss-btn" onclick="toggleSS()" style="margin-left:0.8vw">▶ Screensaver</button>
+    </div>
+
+    <!-- score table label -->
+    <div class="slbl">📋 ตารางสกอร์รายหลุม
+      <span>วงแดง=Birdie · วงน้ำเงิน=Eagle · ฟ้า=Par · เทา=Bogey+</span>
+    </div>
+    <div class="tbl-wrap">
+      <table><thead id="land-score-head"></thead><tbody id="land-score-body"></tbody></table>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SG -->
+    <div class="slbl sg-lbl">⛳ FW · GIR · Putt รวม</div>
+    <div class="sg-tbl-wrap">
+      <table class="sg-tbl">
+        <thead><tr>
+          <th class="tl" style="width:18%">ชื่อ</th>
+          <th>FW</th><th>GIR</th><th>Putt</th><th>เฉลี่ย</th><th>หลุม</th>
+        </tr></thead>
+        <tbody id="land-sg-body"></tbody>
+      </table>
+    </div>
+
+    <!-- tickers landscape (fixed via CSS) -->
+    <div class="tickers" id="land-tickers"></div>
+  </div>
+
+</div><!-- /scr -->
+
+<script>
+/* ════════════════════════════════════════════════════
+   CONFIG
+════════════════════════════════════════════════════ */
+const CFG = {
+  firebase:      'https://golfmate-4d819-default-rtdb.asia-southeast1.firebasedatabase.app',
+  refreshSec:    30,
+  ssIntervalSec: 8,
+  portraitMaxPx: 900,
+};
+
+const PARS = [4,3,5,3,5,4,3,4,4,3,4,4,5,3,4,4,4,5];
+const MEDALS = ['🥇','🥈','🥉'];
+
+/* ════════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════════ */
+let allP = [], room = '', tab = 'score';
+let isLive = true, dateOffset = 0;
+let orientOvr = null;   // null=auto 'port' 'land'
+let isDark = true;
+let refreshTimer = null;
+
+// alerts
+let confirmed = {}, pending = {}, prevSc = {}, prevH = {};
+
+// screensaver
+let ssActive = false, ssRooms = [], ssIdx = 0, ssTimer = null;
+
+// swipe (portrait)
+let swipeStartX = 0;
+
+/* ════════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════════ */
+function init() {
+  try { isDark = localStorage.getItem('lb_dark') !== 'false'; } catch(e) {}
+  try { orientOvr = localStorage.getItem('lb_orient') || null; } catch(e) {}
+  applyTheme();
+  applyOrient();
+  window.addEventListener('resize', () => { if (!orientOvr) applyOrient(); });
+  window.addEventListener('orientationchange', () => { setTimeout(() => { if (!orientOvr) applyOrient(); }, 100); });
+  // swipe portrait
+  document.getElementById('tbl-scroll-wrap').addEventListener('touchstart', e => { swipeStartX = e.touches[0].clientX; }, {passive:true});
+  document.getElementById('tbl-scroll-wrap').addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - swipeStartX;
+    if (Math.abs(dx) > 60) swipeRoom(dx < 0 ? 1 : -1);
+  }, {passive:true});
+  fetchLB();
+  refreshTimer = setInterval(fetchLB, CFG.refreshSec * 1000);
+  setInterval(tickClock, 1000);
+}
+
+/* ════════════════════════════════════════════════════
+   THEME
+════════════════════════════════════════════════════ */
+function applyTheme() {
+  const isPort = document.body.classList.contains('port');
+  document.body.className = (isPort ? 'port' : 'land') + ' ' + (isDark ? 'dark' : 'light');
+  document.getElementById('tbtn').textContent = isDark ? '🌙' : '☀️';
+  try { localStorage.setItem('lb_dark', isDark ? 'true' : 'false'); } catch(e) {}
+}
+function toggleTheme() { isDark = !isDark; applyTheme(); renderAll(); }
+
+/* ════════════════════════════════════════════════════
+   ORIENTATION
+════════════════════════════════════════════════════ */
+function isPortrait() {
+  if (orientOvr === 'port') return true;
+  if (orientOvr === 'land') return false;
+  return window.innerHeight > window.innerWidth || window.innerWidth < CFG.portraitMaxPx;
+}
+function applyOrient() {
+  const port = isPortrait();
+  document.body.className = (port ? 'port' : 'land') + ' ' + (isDark ? 'dark' : 'light');
+  document.getElementById('obtn').textContent = port ? '📺' : '📱';
+  document.getElementById('obtn').className = 'hbtn' + (orientOvr ? ' ovr' : '');
+  document.getElementById('port-content').style.display = port ? 'block' : 'none';
+  const lc = document.getElementById('land-content');
+  lc.style.display = port ? 'none' : 'flex';
+  lc.style.flexDirection = 'column';
+  lc.style.flex = '1';
+  lc.style.overflow = 'hidden';
+  try { localStorage.setItem('lb_orient', orientOvr || ''); } catch(e) {}
+}
+function toggleOrient() {
+  const port = isPortrait();
+  orientOvr = port ? 'land' : 'port';
+  applyOrient();
+  renderAll();
+}
+
+/* ════════════════════════════════════════════════════
+   STATUS
+════════════════════════════════════════════════════ */
+function setSt(s, ts) {
+  const dot = document.getElementById('sdot');
+  const txt = document.getElementById('stxt');
+  if (s === 'ok') {
+    dot.className = 'live-dot';
+    txt.textContent = 'ออนไลน์' + (ts ? ' · ' + new Date(ts).toLocaleTimeString('th-TH') : '');
+  } else if (s === 'loading') {
+    dot.className = 'hist-dot';
+    txt.textContent = 'กำลังโหลด...';
+  } else {
+    dot.className = 'hist-dot';
+    txt.style.color = '#ff453a';
+    txt.textContent = 'ไม่มีสัญญาณ';
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   DATE
+════════════════════════════════════════════════════ */
+function getDateKey(offset) {
+  const d = new Date();
+  d.setDate(d.getDate() - offset);
+  return d.toISOString().split('T')[0].replace(/-/g, '');
+}
+function formatDateTH(offset) {
+  const d = new Date();
+  d.setDate(d.getDate() - offset);
+  return d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+function updateDateBar() {
+  isLive = dateOffset === 0;
+  document.getElementById('ddate').textContent = formatDateTH(dateOffset);
+  document.getElementById('dtag').className = 'dtag ' + (isLive ? 'live' : 'hist');
+  document.getElementById('ddot').style.display = isLive ? 'block' : 'none';
+  document.getElementById('dtag-txt').textContent = isLive ? 'Live' : '📂 ย้อนหลัง';
+  document.getElementById('dnext').disabled = dateOffset === 0;
+  document.getElementById('dnext').style.opacity = dateOffset === 0 ? '.2' : '1';
+  document.getElementById('hbanner').style.display = isLive ? 'none' : 'flex';
+  document.getElementById('hb-date').textContent = formatDateTH(dateOffset) + ' · การแข่งขันจบแล้ว';
+  // auto-refresh only when live
+  clearInterval(refreshTimer);
+  if (isLive) refreshTimer = setInterval(fetchLB, CFG.refreshSec * 1000);
+}
+function goPrev() { dateOffset++; updateDateBar(); fetchLB(); }
+function goNext() { if (dateOffset > 0) { dateOffset--; updateDateBar(); fetchLB(); } }
+
+/* ════════════════════════════════════════════════════
+   FETCH
+════════════════════════════════════════════════════ */
+async function fetchLB() {
+  setSt('loading');
+  try {
+    const dk = getDateKey(dateOffset);
+    const res = await fetch(`${CFG.firebase}/scores/${dk}.json`);
+    const d = await res.json();
+    allP = [];
+    if (d) Object.values(d).forEach(rd => {
+      if (rd) Object.values(rd).forEach(p => { if (p && p.name) allP.push(p); });
+    });
+    detectAlerts();
+    buildFilter();
+    renderAll();
+    setSt('ok', new Date().toISOString());
+  } catch(e) {
+    setSt('err');
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   ALERTS
+════════════════════════════════════════════════════ */
+function detectAlerts() {
+  const now = new Date();
+  const ts = now.toLocaleTimeString('th-TH', { hour:'2-digit', minute:'2-digit' });
+  const pars = (allP.find(p => p.pars && p.pars.length===18) || { pars: PARS }).pars;
+  allP.forEach(p => {
+    const sc = p.scores || [], ps = prevSc[p.name] || [];
+    const ph = prevH[p.name] || 0, ch = p.holesPlayed || 0;
+    const holeChanged = ch > ph;
+    sc.forEach((s, h) => {
+      if (s === null || s === undefined) return;
+      const key = p.name + '_' + h, par = pars[h] || 4, diff = s - par;
+      if (diff >= -1) return;
+      if (holeChanged && pending[key]) { delete pending[key]; return; }
+      if (s !== ps[h]) {
+        let type = 'Birdie', cls = 'bir';
+        if (s === 1) { type='HIO'; cls='hio'; }
+        else if (diff <= -3) { type='Albatross'; cls='alb'; }
+        else if (diff <= -2) { type='Eagle'; cls='egl'; }
+        pending[key] = { name:p.name, hole:h, score:s, par, type, cls, time:ts };
+      }
+    });
+    Object.keys(pending).forEach(k => {
+      const a = pending[k];
+      if (a.name !== p.name) return;
+      const cur = sc[a.hole];
+      if (cur === a.score) { confirmed[k] = {...a}; delete pending[k]; }
+      else { delete pending[k]; delete confirmed[k]; }
+    });
+    prevSc[p.name] = [...sc];
+    prevH[p.name] = ch;
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   FILTER
+════════════════════════════════════════════════════ */
+function buildFilter() {
+  const rooms = [...new Set(allP.map(p => p.room).filter(Boolean))].sort();
+  const w = document.getElementById('filter-wrap');
+  w.innerHTML = `<button class="fb on" data-room="" onclick="setRoom('')">ทั้งหมด (${allP.length})</button>`;
+  rooms.forEach(r => {
+    const c = allP.filter(p => p.room === r).length;
+    w.innerHTML += `<button class="fb off" data-room="${r}" onclick="setRoom('${r}')">${r} (${c})</button>`;
+  });
+  const vis = allP.filter(p => !room || p.room === room);
+  const rs = [...new Set(vis.map(p => p.room).filter(Boolean))];
+  const course = (allP[0] && allP[0].course) || '';
+  if (course) document.getElementById('hdr-sub').textContent = 'Live · ' + course;
+  document.getElementById('fmeta').textContent = vis.length + ' คน · ' + rs.length + ' กลุ่ม' + (course ? ' · ' + course : '');
+  // update ss rooms
+  ssRooms = ['', ...rooms];
+  renderSSDots();
+}
+function setRoom(r) {
+  room = r;
+  document.querySelectorAll('.fb').forEach(b => b.className = 'fb ' + (b.dataset.room === r ? 'on' : 'off'));
+  renderAll();
+}
+function swipeRoom(dir) {
+  const rooms = [...new Set(allP.map(p => p.room).filter(Boolean))].sort();
+  const all = ['', ...rooms];
+  let idx = all.indexOf(room) + dir;
+  idx = Math.max(0, Math.min(all.length - 1, idx));
+  setRoom(all[idx]);
+}
+
+/* ════════════════════════════════════════════════════
+   TAB (portrait)
+════════════════════════════════════════════════════ */
+function setTab(t) {
+  tab = t;
+  document.getElementById('tab-score').className = 'tab ' + (t==='score' ? 'on' : 'off');
+  document.getElementById('tab-sg').className    = 'tab ' + (t==='sg'    ? 'on' : 'off');
+  renderPortrait();
+}
+
+/* ════════════════════════════════════════════════════
+   RENDER ALL
+════════════════════════════════════════════════════ */
+function renderAll() {
+  if (isPortrait()) renderPortrait();
+  else renderLandscape();
+  renderTicker();
+}
+
+/* ════════════════════════════════════════════════════
+   PORTRAIT RENDER
+════════════════════════════════════════════════════ */
+function getPortList() {
+  let list = allP.filter(p => !room || p.room === room);
+  return [...list].sort((a,b) => {
+    const an = (a.total||0)-(a.hcp||0), bn = (b.total||0)-(b.hcp||0);
+    if (a.holesPlayed===18 && b.holesPlayed!==18) return -1;
+    if (b.holesPlayed===18 && a.holesPlayed!==18) return  1;
+    return an - bn;
+  });
+}
+function renderPortrait() {
+  const list = getPortList();
+  const el = document.getElementById('port-body');
+  if (!list.length) { el.innerHTML = '<div class="loading-msg">⛳ ยังไม่มีสกอร์</div>'; return; }
+  if (tab === 'score') el.innerHTML = renderPortScore(list);
+  else el.innerHTML = renderPortSG(list);
+}
+function renderPortScore(list) {
+  const dk = isDark, thc = dk ? '#4da3ff' : '#0060cc';
+  const nc = dk ? 'color:#34d16a' : 'color:#1a6020';
+  const rows = list.map((p, i) => {
+    const tot=p.total||0, hcp=p.hcp||0, net=tot-hcp, done=p.holesPlayed===18;
+    const f9 = p.scores && p.scores.slice(0,9).some(v=>v!==null) ? p.scores.slice(0,9).reduce((a,v)=>a+(v||0),0) : null;
+    const b9 = p.scores && p.scores.slice(9).some(v=>v!==null)   ? p.scores.slice(9).reduce((a,v)=>a+(v||0),0)   : null;
+    return `<tr>
+      <td class="rk">${i<3?MEDALS[i]:'#'+(i+1)}</td>
+      <td class="tl" style="padding-left:7px;font-weight:700">${p.name}
+        <div style="font-size:.6em;opacity:.38;font-weight:400">${p.room||'—'} · HCP${hcp}</div></td>
+      <td class="sub">${f9!==null?f9:'—'}</td>
+      <td class="sub" style="${b9===null?'opacity:.35':''}">${b9!==null?b9:'—'}</td>
+      <td class="tot-g">${tot||'—'}${done?'':'<span class="star">*</span>'}</td>
+      <td class="tot-n" style="${nc}">${net}${done?'':'<span class="star">*</span>'}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="tbl-wrap"><table>
+    <thead><tr>
+      <th style="width:10%">H</th>
+      <th class="tl" style="padding-left:7px">ชื่อ</th>
+      <th style="width:13%">F9</th><th style="width:13%">B9</th>
+      <th style="width:14%;color:${thc}">Gross</th>
+      <th style="width:14%;color:${thc}">Net</th>
+    </tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function renderPortSG(list) {
+  if (!list.length) return '<div class="loading-msg">ยังไม่มีข้อมูล FW·GIR·Putt</div>';
+  const dk=isDark, gc=dk?'#30d158':'#1a7a3a', bc=dk?'#4da3ff':'#0060cc';
+  const sorted = [...list].filter(p=>p.putt!=null).sort((a,b)=>a.putt-b.putt);
+  const rows = sorted.map((p,i) => {
+    const h=p.holesPlayed||0, avg=h>0&&p.putt!=null?(p.putt/h).toFixed(1):'—';
+    return `<tr>
+      <td class="tl" style="padding-left:7px;font-weight:700">${i<3?MEDALS[i]:'#'+(i+1)} ${p.name}</td>
+      <td style="color:${gc};font-weight:700">${p.fw||0}</td>
+      <td style="color:${bc};font-weight:700">${p.gir||0}</td>
+      <td style="color:${gc};font-weight:800">${p.putt}</td>
+      <td>${avg}</td>
+      <td style="opacity:.42;font-size:.82em">${h}/18</td>
+    </tr>`;
+  }).join('');
+  return `<div class="sg-lbl" style="padding:5px 11px 2px">⛳ FW · GIR · Putt</div>
+  <div class="tbl-wrap"><table class="sg-tbl">
+    <thead><tr>
+      <th class="tl" style="padding-left:7px">ชื่อ</th>
+      <th>FW</th><th>GIR</th><th>Putt</th><th>เฉลี่ย</th><th>หลุม</th>
+    </tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+/* ════════════════════════════════════════════════════
+   LANDSCAPE RENDER
+════════════════════════════════════════════════════ */
+function getLandList() {
+  let list = allP.filter(p => !room || p.room === room);
+  return [...list].sort((a,b) => {
+    const an=(a.total||0)-(a.hcp||0), bn=(b.total||0)-(b.hcp||0);
+    if (a.holesPlayed===18 && b.holesPlayed!==18) return -1;
+    if (b.holesPlayed===18 && a.holesPlayed!==18) return  1;
+    return an-bn;
+  }).slice(0, 6);
+}
+function scoreCell(s, par) {
+  if (s===null||s===undefined) return `<td class="blk">—</td>`;
+  const d = s-par;
+  if (s===1) return `<td><span class="sc hio">${s}</span></td>`;
+  if (d<=-2) return `<td><span class="sc egl">${s}</span></td>`;
+  if (d===-1) return `<td><span class="sc bir">${s}</span></td>`;
+  if (d===0) return `<td class="par">${s}</td>`;
+  return `<td class="bog">${s}</td>`;
+}
+function renderLandscape() {
+  const list = getLandList();
+  const thc = isDark ? '#4da3ff' : '#0060cc';
+  const holeHeaders = PARS.map((_,h) => `<th style="width:2.6%">${h+1}</th>`).join('');
+  document.getElementById('land-score-head').innerHTML = `<tr>
+    <th style="width:3.5%">อันดับ</th>
+    <th class="tl" style="width:9%;padding-left:0.5vw">ชื่อ</th>
+    ${holeHeaders}
+    <th class="sub9" style="width:3%;color:${thc}">F9</th>
+    <th class="sub9" style="width:3%;color:${thc}">B9</th>
+    <th class="gross-cell" style="width:3.5%;color:${thc}">Gross</th>
+    <th class="net-cell" style="width:3.5%;color:${thc}">Net</th>
+  </tr>`;
+
+  let rows = '';
+  const EMPTY_PH = `<span style="visibility:hidden">ประสิทธิ์ ม.<span class="nsub">A01 · HCP15</span></span>`;
+  for (let i=0; i<6; i++) {
+    if (i < list.length) {
+      const p = list[i];
+      const gross = (p.scores||[]).filter(v=>v!==null).reduce((a,v)=>a+v, 0);
+      const net   = gross - (p.hcp||0);
+      const done  = p.holesPlayed===18;
+      const f9    = (p.scores||[]).slice(0,9).some(v=>v!==null) ? (p.scores||[]).slice(0,9).filter(v=>v!==null).reduce((a,v)=>a+v,0) : null;
+      const b9    = (p.scores||[]).slice(9).some(v=>v!==null)   ? (p.scores||[]).slice(9).filter(v=>v!==null).reduce((a,v)=>a+v,0)   : null;
+      const scores = (p.scores||Array(18).fill(null)).map((s,h) => scoreCell(s, PARS[h])).join('');
+      rows += `<tr>
+        <td class="rk">${i<3?MEDALS[i]:'#'+(i+1)}</td>
+        <td class="nm-cell tl">${p.name}<span class="nsub">${p.room||'—'} · HCP${p.hcp||0}</span></td>
+        ${scores}
+        <td class="sub9">${f9!==null?f9:'—'}</td>
+        <td class="sub9" style="${b9===null?'opacity:.3':''}">${b9!==null?b9:'—'}</td>
+        <td class="gross-cell">${gross||'—'}${done?'':'<span class="star">*</span>'}</td>
+        <td class="net-cell">${net}${done?'':'<span class="star">*</span>'}</td>
+      </tr>`;
+    } else {
+      const ep = PARS.map(()=>`<td class="erow-cell blk"></td>`).join('');
+      rows += `<tr>
+        <td class="rk erow-cell" style="color:rgba(255,255,255,0.06)!important">—</td>
+        <td class="nm-cell tl erow-cell" style="color:rgba(255,255,255,0.06)!important">${EMPTY_PH}</td>
+        ${ep}
+        <td class="erow-sub">—</td>
+        <td class="erow-sub">—</td>
+        <td class="erow-sub" style="border-left:2px solid transparent">—</td>
+        <td class="erow-sub" style="border-right:2px solid transparent">—</td>
+      </tr>`;
+    }
+  }
+  document.getElementById('land-score-body').innerHTML = rows;
+
+  // SG — 6 แถวเสมอ
+  const dk=isDark, gc=dk?'#30d158':'#1a7a3a', bc=dk?'#4da3ff':'#0060cc';
+  const sgAll = allP.filter(p=>!room||p.room===room).filter(p=>p.putt!=null).sort((a,b)=>a.putt-b.putt);
+  const EMPTY_NM = `<span style="visibility:hidden">ประสิทธิ์ ม.</span>`;
+  let sgRows = '';
+  for (let i=0; i<6; i++) {
+    if (i < sgAll.length) {
+      const p = sgAll[i];
+      const h=p.holesPlayed||0, avg=h>0?(p.putt/h).toFixed(1):'—';
+      sgRows += `<tr>
+        <td class="nm2">${i<3?MEDALS[i]:'#'+(i+1)} ${p.name}</td>
+        <td style="color:${gc};font-weight:700">${p.fw||0}</td>
+        <td style="color:${bc};font-weight:700">${p.gir||0}</td>
+        <td style="color:${gc};font-weight:800">${p.putt}</td>
+        <td>${avg}</td>
+        <td style="opacity:.42;font-size:.82em">${h}/18</td>
+      </tr>`;
+    } else {
+      sgRows += `<tr>
+        <td class="nm2 erow-cell" style="color:rgba(255,255,255,0.06)!important">${EMPTY_NM}</td>
+        <td class="erow-cell">—</td><td class="erow-cell">—</td>
+        <td class="erow-cell">—</td><td class="erow-cell">—</td><td class="erow-cell">—</td>
+      </tr>`;
+    }
+  }
+  document.getElementById('land-sg-body').innerHTML = sgRows;
+
+  // view title
+  const ROOM_NAMES = { '': '🏆 ผู้นำการแข่งขัน' };
+  const ROOM_SUBS  = { '': 'แสดง Top 6 · เรียงตาม Net Score' };
+  ssRooms.forEach(r => {
+    if (r) { ROOM_NAMES[r] = `🏆 ผู้นำกลุ่ม ${r}`; ROOM_SUBS[r] = `กลุ่ม ${r} · Top 6 · Net Score`; }
+  });
+  document.getElementById('vt-txt').textContent = ROOM_NAMES[room] || `🏆 ผู้นำกลุ่ม ${room}`;
+  document.getElementById('vt-sub').textContent = ROOM_SUBS[room]  || `กลุ่ม ${room} · Top 6`;
+  renderSSDots();
+}
+
+/* ════════════════════════════════════════════════════
+   SCREENSAVER
+════════════════════════════════════════════════════ */
+function renderSSDots() {
+  const d = document.getElementById('ss-dots');
+  if (!d) return;
+  d.innerHTML = ssRooms.map((r,i) =>
+    `<div class="ss-dot ${room===r?'on':''}" id="ssd-${i}"></div>`).join('');
+}
+function startSSBar() {
+  const bar = document.getElementById('ss-bar');
+  if (!bar) return;
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  requestAnimationFrame(() => {
+    bar.style.transition = `width ${CFG.ssIntervalSec}s linear`;
+    bar.style.width = '100%';
+  });
+}
+function toggleSS() {
+  ssActive = !ssActive;
+  const btn = document.getElementById('ss-btn');
+  if (ssActive) {
+    btn.textContent = '⏸ หยุด';
+    if (!ssRooms.length) ssRooms = [''];
+    ssIdx = ssRooms.indexOf(room);
+    if (ssIdx < 0) ssIdx = 0;
+    runSS();
+  } else {
+    btn.textContent = '▶ Screensaver';
+    clearTimeout(ssTimer);
+    const bar = document.getElementById('ss-bar');
+    if (bar) { bar.style.transition='none'; bar.style.width='0%'; }
+  }
+}
+function runSS() {
+  if (!ssActive) return;
+  room = ssRooms[ssIdx] || '';
+  document.querySelectorAll('.fb').forEach(b => b.className='fb '+(b.dataset.room===room?'on':'off'));
+  renderLandscape();
+  startSSBar();
+  ssTimer = setTimeout(() => {
+    ssIdx = (ssIdx+1) % ssRooms.length;
+    runSS();
+  }, CFG.ssIntervalSec * 1000);
+}
+
+/* ════════════════════════════════════════════════════
+   TICKER
+════════════════════════════════════════════════════ */
+function buildTickerContent() {
+  const vis = allP.filter(p => !room || p.room === room);
+  const sorted = [...vis].sort((a,b) => {
+    const an=(a.total||0)-(a.hcp||0), bn=(b.total||0)-(b.hcp||0);
+    if (a.holesPlayed===18 && b.holesPlayed!==18) return -1;
+    if (b.holesPlayed===18 && a.holesPlayed!==18) return  1;
+    return an-bn;
+  });
+  const lead  = sorted[0];
+  const puLd  = [...vis].filter(p=>p.putt!=null).sort((a,b)=>a.putt-b.putt)[0];
+  const course= (allP[0]&&allP[0].course)||'';
+  const now   = new Date();
+  const ts    = now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const ds    = now.toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'});
+  const sep   = '<span style="margin:0 1em;opacity:.25">◆</span>';
+  const item  = (lbl,val,hi) =>
+    `<span style="display:inline-flex;align-items:center;margin-right:1.5em">` +
+    `<span class="t-lbl">${lbl}</span>&nbsp;<span class="${hi?'t-hi':'t-val'}">${val}</span></span>`;
+
+  // LIVE info (ticker2)
+  const liveItems = [
+    lead  ? item('🏆 ผู้นำ', lead.name+' Net '+((lead.total||0)-(lead.hcp||0)), true) : null,
+    puLd  ? item('⛳ Putt', puLd.name+' '+puLd.putt+' พัต', true) : null,
+    course? item('📍', course, false) : null,
+    item('📅', ds, false),
+    item('⏰', ts, false),
+    item('👥', vis.length+' คน', false),
+    item('📡', 'อัปเดตทุก '+CFG.refreshSec+' วิ', false),
+  ].filter(Boolean).join(sep);
+
+  // Birdie alerts (ticker1)
+  const alerts = Object.values(confirmed);
+  let alertHTML = '';
+  if (!alerts.length) {
+    const ph = `<span class="t-empty" style="padding:0 1em">รอ Birdie+ แรกของวัน...</span>`;
+    alertHTML = ph + ph;
+  } else {
+    alerts.sort((a,b) => a.hole - b.hole);
+    const psep = '<span style="margin:0 1.5em;opacity:.2">|</span>';
+    const items = alerts.map(a =>
+      `<span style="display:inline-flex;align-items:center;margin-right:1.5em;gap:0.25em">` +
+      `<span class="a-chip ${a.cls}">${a.score}</span>` +
+      `<span style="font-weight:800;color:#fff">${a.name}</span>` +
+      `<span class="a-tag ${a.cls}" style="padding:1px 5px">${a.type}</span>` +
+      `<span class="ahole" style="padding:1px 4px">หลุม ${a.hole+1}</span>` +
+      `<span class="atime">${a.time}</span>` +
+      `</span>`).join(psep);
+    alertHTML = items + psep + items;
+  }
+
+  if (!isLive) {
+    const hist = `ข้อมูลย้อนหลัง ${formatDateTH(dateOffset)} &nbsp;◆&nbsp; ไม่มี Live refresh &nbsp;◆&nbsp; กด ← → เพื่อเลือกวัน`;
+    return { t1: alertHTML, t2: hist + '&nbsp;&nbsp;&nbsp;' + hist, histMode: true };
+  }
+  return { t1: alertHTML, t2: liveItems + sep + liveItems, histMode: false };
+}
+
+function renderTicker() {
+  const { t1, t2, histMode } = buildTickerContent();
+  const mkTickers = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML =
+      `<div class="tick1"><div class="tbadge">สกอร์</div><div class="tscroll"><div class="trow r1">${t1}</div></div></div>` +
+      `<div class="${histMode?'tick2 tick-hist':'tick2'}">` +
+        `<div class="tbadge" ${histMode?'style="background:#444"':''}>` +
+          `${histMode?'📂 เก็บ':'⛳ LIVE'}</div>` +
+        `<div class="tscroll"><div class="trow r2">${t2}</div></div></div>`;
+  };
+  mkTickers('port-tickers');
+  mkTickers('land-tickers');
+}
+
+function tickClock() { renderTicker(); }
+
+/* ════════════════════════════════════════════════════
+   START
+════════════════════════════════════════════════════ */
+updateDateBar();
+init();
+</script>
+</body>
+</html>
