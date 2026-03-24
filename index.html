@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>GolfMate Live Leaderboard</title>
+
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GolfMate">
+
 <style>
 /* ════════════════════════════════════════════════════════
    GOLFMATE LIVE LEADERBOARD
@@ -94,8 +100,7 @@ body.light{background:#f0f0f5;}
 .light td.rk{background:#dde0ec!important;color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1)!important;}
 .light td.sub{background:#cce0ff;color:#003f8a;border-color:rgba(0,100,200,0.28)!important;}
 .light td.tot-g{background:#e4f2e4;color:#1a6020;}
-/* แก้ไขสีพื้นหลัง Net ให้สว่างแบบเดียวกับ Gross (ธีมสว่าง) */
-.light td.tot-n{background:#e4f2e4;color:#1a6020;border-right-color:rgba(0,0,0,0.1)!important;}
+.light td.tot-n{background:#e4f2e4;color:#1a6020;border-right-color:rgba(0,0,0,0.1)!important;} /* สี Net */
 .light .loading-msg{color:rgba(0,0,0,0.3);}
 
 /* light sg */
@@ -170,12 +175,11 @@ td.tot-n{font-weight:800;border-right:2px solid;}
 .sg-lbl{font-weight:700;}
 .loading-msg{text-align:center;padding:40px 16px;font-weight:500;}
 
-/* score chips (ค่าพื้นฐาน) */
+/* score chips (ค่าพื้นฐานแนวนอนและโหมด Light) */
 .sc{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;}
 .sc.bir{background:#7a1a1a;color:#ff8080;}
 .sc.egl{background:#1a3560;color:#60b4ff;}
 .sc.hio{background:#c8a000;color:#000;}
-
 .light .par{color:#004fc4;font-weight:700;}
 .light .bog{color:#555;}
 .light .blk{color:rgba(0,0,0,0.15);}
@@ -252,7 +256,7 @@ body.port .fmeta{font-size:10px;}
 body.port .tabs{display:flex;gap:4px;padding:5px 10px 3px;}
 body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;transition:0.2s;}
 
-/* แก้ไขสี Tab ใน Dark Mode ให้สว่างขึ้น ชัดเจนขึ้น */
+/* สี Tab สว่างขึ้น ชัดเจนขึ้น */
 .dark body.port .tab.on, .dark .port .tab.on { background: rgba(10, 132, 255, 0.15); color: #4da3ff; border: 1px solid rgba(10, 132, 255, 0.5); }
 .dark body.port .tab.off, .dark .port .tab.off { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.7); border: 1px solid transparent; }
 .light body.port .tab.on, .light .port .tab.on { background: rgba(0, 96, 204, 0.1); color: #0060cc; border: 1px solid rgba(0, 96, 204, 0.4); }
@@ -460,7 +464,7 @@ body.land .atime{font-size:0.62vw;}
     <div class="tickers" id="port-tickers"></div>
   </div>
 
-  <div id="land-content" style="display:none;flex:1;display:none;flex-direction:column;overflow:hidden;">
+  <div id="land-content" style="display:none;flex:1;flex-direction:column;overflow:hidden;">
     <div class="ss-progress"><div class="ss-bar" id="ss-bar"></div></div>
     <div class="view-title">
       <span class="vt-txt" id="vt-txt">🏆 ผู้นำการแข่งขัน</span>
