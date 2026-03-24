@@ -94,8 +94,8 @@ body.light{background:#f0f0f5;}
 .light td.rk{background:#dde0ec!important;color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1)!important;}
 .light td.sub{background:#cce0ff;color:#003f8a;border-color:rgba(0,100,200,0.28)!important;}
 .light td.tot-g{background:#e4f2e4;color:#1a6020;}
-/* [แก้ไข] เปลี่ยนสีพื้นหลัง Net ให้สว่างแบบเดียวกับ Gross */
-.light td.tot-n{background:#e4f2e4;color:#1a6020;}
+/* แก้ไขสีพื้นหลัง Net ให้สว่างแบบเดียวกับ Gross (ธีมสว่าง) */
+.light td.tot-n{background:#e4f2e4;color:#1a6020;border-right-color:rgba(0,0,0,0.1)!important;}
 .light .loading-msg{color:rgba(0,0,0,0.3);}
 
 /* light sg */
@@ -170,17 +170,16 @@ td.tot-n{font-weight:800;border-right:2px solid;}
 .sg-lbl{font-weight:700;}
 .loading-msg{text-align:center;padding:40px 16px;font-weight:500;}
 
-/* score chips */
+/* score chips (ค่าพื้นฐาน) */
 .sc{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;}
 .sc.bir{background:#7a1a1a;color:#ff8080;}
 .sc.egl{background:#1a3560;color:#60b4ff;}
 .sc.hio{background:#c8a000;color:#000;}
-.dark .par{color:#4da3ff;font-weight:700;}
+
 .light .par{color:#004fc4;font-weight:700;}
-.dark .bog{color:rgba(255,255,255,0.52);}
 .light .bog{color:#555;}
-.dark .blk{color:rgba(255,255,255,0.12);}
 .light .blk{color:rgba(0,0,0,0.15);}
+.dark .blk{color:rgba(255,255,255,0.12);}
 
 /* ── TICKER SHARED ── */
 .tickers{display:flex;flex-direction:column;}
@@ -199,12 +198,6 @@ td.tot-n{font-weight:800;border-right:2px solid;}
 
 /* alert chips */
 .a-chip{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;flex-shrink:0;}
-.a-chip.bir{background:#7a1a1a;color:#ff8080;}
-.a-chip.egl{background:#1a3560;color:#60b4ff;}
-.a-chip.alb{background:#7a5800;color:#ffd060;}
-.a-chip.hio{background:#c8a000;color:#000;}
-.light .a-chip.bir{background:#cc0000;color:#fff;}
-.light .a-chip.egl{background:#004fc4;color:#fff;}
 .a-tag{font-weight:700;border-radius:.3em;}
 .a-tag.bir{background:rgba(255,128,128,0.18);color:#ff8080;}
 .a-tag.egl{background:rgba(96,180,255,0.18);color:#60b4ff;}
@@ -218,7 +211,7 @@ td.tot-n{font-weight:800;border-right:2px solid;}
 .atime{color:rgba(255,255,255,0.32);}
 
 /* ════════════════════════════════════════
-   PORTRAIT (UPDATED: 100dvh + Safe Zone)
+   PORTRAIT (100dvh + Safe Zone + 3 Tabs)
 ════════════════════════════════════════ */
 body.port {
   overflow: hidden !important; 
@@ -259,7 +252,7 @@ body.port .fmeta{font-size:10px;}
 body.port .tabs{display:flex;gap:4px;padding:5px 10px 3px;}
 body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;transition:0.2s;}
 
-/* [แก้ไข] สีของ Tab ให้สว่างขึ้นและเห็นชัดเจนใน Dark/Light Theme */
+/* แก้ไขสี Tab ใน Dark Mode ให้สว่างขึ้น ชัดเจนขึ้น */
 .dark body.port .tab.on, .dark .port .tab.on { background: rgba(10, 132, 255, 0.15); color: #4da3ff; border: 1px solid rgba(10, 132, 255, 0.5); }
 .dark body.port .tab.off, .dark .port .tab.off { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.7); border: 1px solid transparent; }
 .light body.port .tab.on, .light .port .tab.on { background: rgba(0, 96, 204, 0.1); color: #0060cc; border: 1px solid rgba(0, 96, 204, 0.4); }
@@ -293,35 +286,48 @@ body.port .sg-lbl{font-size:11px;padding:5px 11px 2px;}
 
 /* ── ตารางสถิติแบบกลุ่ม (Group Stats Table) ── */
 body.port .stats-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
-body.port .stats-tbl th { padding: 8px 4px; text-align: center; font-weight: 700; border: 1px solid; }
-body.port .stats-tbl td { padding: 10px 4px; text-align: center; font-weight: 800; border: 1px solid; }
 body.port .stats-tbl .tl { text-align: left; padding-left: 10px; }
 
-/* ธีมสีของตารางสถิติ */
-.dark .stats-tbl th { background: #17172a; border-color: rgba(255,255,255,0.09); color: rgba(255,255,255,0.58); }
-.dark .stats-tbl td { background: #0f0f1c; border-color: rgba(255,255,255,0.06); }
-.dark .stats-tbl tr:nth-child(even) td { background: #111122; }
+/* ── ล็อคเส้นตารางให้บาง 0.5px ทุกตารางในแนวตั้ง ── */
+body.port th, body.port td { border: 0.5px solid !important; }
 
-.light .stats-tbl th { background: #dde0ec; border-color: rgba(0,0,0,0.1); color: rgba(0,0,0,0.48); }
-.light .stats-tbl td { background: #fff; border-color: rgba(0,0,0,0.07); }
-.light .stats-tbl tr:nth-child(even) td { background: #f5f5fb; }
+/* ล็อคสีเส้นขอบ (ไม่ให้ดูดสีตัวอักษร) */
+.light body.port th { border-color: rgba(0, 0, 0, 0.1) !important; background: #dde0ec; color: rgba(0,0,0,0.48); }
+.light body.port td { border-color: rgba(0, 0, 0, 0.07) !important; background: #fff; }
+.light body.port tr:nth-child(even) td { background: #f5f5fb; }
 
-/* Dynamic Text Colors สำหรับสถิติ (Dark/Light) */
-.c-hio, .c-alba, .c-egl { color: #ffd60a; }
-.light .c-hio, .light .c-alba, .light .c-egl { color: #d4a000; }
+.dark body.port th { border-color: rgba(255, 255, 255, 0.09) !important; background: #17172a; color: rgba(255,255,255,0.58); }
+.dark body.port td { border-color: rgba(255, 255, 255, 0.06) !important; background: #0f0f1c; }
+.dark body.port tr:nth-child(even) td { background: #111122; }
 
-.c-bir { color: #30d158; }
-.light .c-bir { color: #1a7a3a; }
+/* ── อัปเดตชุดสีสัญลักษณ์ และ ตัวหนังสือคะแนน (เฉพาะแนวตั้ง ธีมมืด ตามบรีฟ) ── */
+/* HIO: วงกลมเหลืองทอง ตัวดำ */
+.dark body.port .sc.hio, .dark body.port .a-chip.hio { background: #ffd60a !important; color: #000 !important; }
+.dark body.port .c-hio { color: #ffd60a !important; }
 
-.c-par { color: #fff; }
-.light .c-par { color: #1c1c1e; } /* สีดำเทาแทนสีขาวในโหมดสว่าง */
+/* Albatross & Eagle: วงกลมน้ำเงิน ตัวฟ้า */
+.dark body.port .sc.egl, .dark body.port .sc.alb, .dark body.port .a-chip.egl, .dark body.port .a-chip.alb { background: #0a84ff !important; color: #b0d4ff !important; }
+.dark body.port .c-alba, .dark body.port .c-egl { color: #0a84ff !important; }
 
-.c-bog, .c-dbl { color: #8e8e93; }
-.light .c-bog, .light .c-dbl { color: #888; }
+/* Birdie: วงกลมแดง ตัวแดงอ่อน */
+.dark body.port .sc.bir, .dark body.port .a-chip.bir { background: #ff453a !important; color: #ffb3b0 !important; }
+.dark body.port .c-bir { color: #ff453a !important; }
 
-.c-le { color: #ff453a; }
-.light .c-le { color: #cc0000; }
+/* Par: ตัวฟ้า */
+.dark body.port .par, .dark body.port .c-par { color: #4da3ff !important; font-weight: 700; }
 
+/* Bogey: ตัวเทา */
+.dark body.port .bog, .dark body.port .c-bog { color: #8e8e93 !important; }
+
+/* Double Bogey & เละ: ตัวแดง */
+.dark body.port .c-dbl, .dark body.port .c-le { color: #ff453a !important; }
+
+/* ── ชุดสีสถิติ ธีมสว่าง (เพื่อให้ไม่เพี้ยน) ── */
+.light body.port .c-hio, .light body.port .c-alba, .light body.port .c-egl { color: #d4a000; }
+.light body.port .c-bir { color: #1a7a3a; }
+.light body.port .c-par { color: #1c1c1e; }
+.light body.port .c-bog, .light body.port .c-dbl { color: #888; }
+.light body.port .c-le { color: #cc0000; }
 .c-zero { color: rgba(255,255,255,0.1); font-weight: 400; }
 .light .c-zero { color: rgba(0,0,0,0.15); font-weight: 400; }
 
@@ -517,7 +523,7 @@ function init() {
   window.addEventListener('resize', () => { if (!orientOvr) applyOrient(); });
   window.addEventListener('orientationchange', () => { setTimeout(() => { if (!orientOvr) applyOrient(); }, 100); });
   
-  // swipe portrait (This triggers swipeRoom regardless of current Tab)
+  // swipe portrait
   document.getElementById('tbl-scroll-wrap').addEventListener('touchstart', e => { swipeStartX = e.touches[0].clientX; }, {passive:true});
   document.getElementById('tbl-scroll-wrap').addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - swipeStartX;
