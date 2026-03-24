@@ -7,15 +7,6 @@
 <style>
 /* ════════════════════════════════════════════════════════
    GOLFMATE LIVE LEADERBOARD
-   ├── 1. BASE & RESET
-   ├── 2. SHARED COLORS (dark/light)
-   ├── 3. HEADER
-   ├── 4. DATE BAR
-   ├── 5. HIST BANNER
-   ├── 6. FILTER
-   ├── 7. PORTRAIT — tabs, table, ticker (UPDATED: 100dvh & 3 Tabs)
-   ├── 8. LANDSCAPE — score table, SG, screensaver, ticker
-   └── 9. ANIMATIONS
 ════════════════════════════════════════════════════════ */
 
 /* ── 1. BASE ── */
@@ -41,6 +32,7 @@ body.dark{background:#070710;}
 .dark .fmeta{color:rgba(255,255,255,0.28);}
 .dark .fb.on{border:1.5px solid rgba(10,132,255,0.5);background:rgba(10,132,255,0.14);color:#4da3ff;}
 .dark .fb.off{border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.33);}
+
 /* dark table */
 .dark thead tr{background:#17172a;}
 .dark th{color:rgba(255,255,255,0.58);border-color:rgba(255,255,255,0.09);}
@@ -51,11 +43,7 @@ body.dark{background:#070710;}
 .dark td.tot-g{background:#07101f;color:#b0d4ff;border-left-color:rgba(10,132,255,0.38)!important;}
 .dark td.tot-n{background:#07101f;color:#34d16a;border-right-color:rgba(10,132,255,0.38)!important;}
 .dark .loading-msg{color:rgba(255,255,255,0.3);}
-/* dark sg */
-.dark .sg-lbl{color:rgba(255,255,255,0.33);}
-.dark .sg-tbl th{background:#17172a;color:rgba(255,255,255,0.58);border-color:rgba(255,255,255,0.09);}
-.dark .sg-tbl td{background:#0f0f1c;color:rgba(255,255,255,0.75);border-color:rgba(255,255,255,0.055);}
-.dark .sg-tbl tr:nth-child(even) td{background:#111122;}
+
 /* dark tickers */
 .dark .tick1{background:#06130a;border-top:1px solid rgba(48,209,88,0.18);}
 .dark .tick2{background:#090916;border-top:1.5px solid rgba(255,255,255,0.09);}
@@ -63,6 +51,7 @@ body.dark{background:#070710;}
 .dark .t-lbl{color:rgba(255,255,255,0.5);}
 .dark .t-val{color:rgba(255,255,255,0.85);}
 .dark .t-empty{color:rgba(255,255,255,0.28);}
+
 /* dark landscape extras */
 .dark .view-title{background:#09091a;}
 .dark .vt-txt{color:#ffd60a;}
@@ -96,6 +85,7 @@ body.light{background:#f0f0f5;}
 .light .fmeta{color:rgba(0,0,0,0.33);}
 .light .fb.on{border:1.5px solid rgba(0,96,204,0.4);background:rgba(0,96,204,0.09);color:#0060cc;}
 .light .fb.off{border:1px solid rgba(0,0,0,0.1);background:rgba(0,0,0,0.03);color:rgba(0,0,0,0.38);}
+
 /* light table */
 .light thead tr{background:#dde0ec;}
 .light th{color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1);}
@@ -104,19 +94,23 @@ body.light{background:#f0f0f5;}
 .light td.rk{background:#dde0ec!important;color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1)!important;}
 .light td.sub{background:#cce0ff;color:#003f8a;border-color:rgba(0,100,200,0.28)!important;}
 .light td.tot-g{background:#e4f2e4;color:#1a6020;}
-.light td.tot-n{background:#1a6b1a;color:#fff;}
+/* [แก้ไข] เปลี่ยนสีพื้นหลัง Net ให้สว่างแบบเดียวกับ Gross */
+.light td.tot-n{background:#e4f2e4;color:#1a6020;}
 .light .loading-msg{color:rgba(0,0,0,0.3);}
+
 /* light sg */
 .light .sg-lbl{color:rgba(0,0,0,0.33);}
 .light .sg-tbl th{background:#dde0ec;color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1);}
 .light .sg-tbl td{background:#fff;color:#1c1c1e;border-color:rgba(0,0,0,0.07);}
 .light .sg-tbl tr:nth-child(even) td{background:#f5f5fb;}
+
 /* light tickers */
 .light .tick1{background:#0a3010;border-top:1px solid rgba(48,209,88,0.25);}
 .light .tick2{background:#18183a;border-top:1px solid rgba(0,0,0,0.1);}
 .light .t-lbl{color:rgba(255,255,255,0.6);}
 .light .t-val{color:rgba(255,255,255,0.92);}
 .light .t-empty{color:rgba(255,255,255,0.4);}
+
 /* light landscape extras */
 .light .view-title{background:#eceef6;}
 .light .vt-txt{color:#b07000;}
@@ -202,6 +196,7 @@ td.tot-n{font-weight:800;border-right:2px solid;}
 .trow.rh{animation:scrollt 30s linear infinite;}
 @keyframes scrollt{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 .t-hi{color:#ffd60a;font-weight:800;}
+
 /* alert chips */
 .a-chip{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;flex-shrink:0;}
 .a-chip.bir{background:#7a1a1a;color:#ff8080;}
@@ -262,11 +257,14 @@ body.port .fmeta{font-size:10px;}
 
 /* tabs */
 body.port .tabs{display:flex;gap:4px;padding:5px 10px 3px;}
-body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;}
-.dark body.port .tab.on,.dark .port .tab.on{background:#0a84ff;color:#fff;}
-.dark body.port .tab.off,.dark .port .tab.off{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.35);}
-.light body.port .tab.on,.light .port .tab.on{background:#0060cc;color:#fff;}
-.light body.port .tab.off,.light .port .tab.off{background:rgba(0,0,0,0.04);color:rgba(0,0,0,0.35);}
+body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;transition:0.2s;}
+
+/* [แก้ไข] สีของ Tab ให้สว่างขึ้นและเห็นชัดเจนใน Dark/Light Theme */
+.dark body.port .tab.on, .dark .port .tab.on { background: rgba(10, 132, 255, 0.15); color: #4da3ff; border: 1px solid rgba(10, 132, 255, 0.5); }
+.dark body.port .tab.off, .dark .port .tab.off { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.7); border: 1px solid transparent; }
+.light body.port .tab.on, .light .port .tab.on { background: rgba(0, 96, 204, 0.1); color: #0060cc; border: 1px solid rgba(0, 96, 204, 0.4); }
+.light body.port .tab.off, .light .port .tab.off { background: rgba(0, 0, 0, 0.04); color: rgba(0, 0, 0, 0.5); border: 1px solid transparent; }
+
 body.port .dark .tabs{background:#09090f;}
 body.port .light .tabs{background:#e8eaf2;}
 
@@ -292,15 +290,40 @@ body.port td.rk{font-size:12px;}
 body.port td.sub{font-size:13px;}
 body.port td.tot-g,body.port td.tot-n{font-size:14px;}
 body.port .sg-lbl{font-size:11px;padding:5px 11px 2px;}
-body.port .sg-tbl th,body.port .sg-tbl td{font-size:12px;padding:6px 3px;border:0.5px solid;}
 
-/* ตารางสถิติที่เลียนแบบจากรูปภาพ */
-.stats-card {
-  margin: 10px;
-  background: #0f0f1c;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.1);
-}
+/* ── ตารางสถิติแบบกลุ่ม (Group Stats Table) ── */
+body.port .stats-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+body.port .stats-tbl th { padding: 8px 4px; text-align: center; font-weight: 700; border: 1px solid; }
+body.port .stats-tbl td { padding: 10px 4px; text-align: center; font-weight: 800; border: 1px solid; }
+body.port .stats-tbl .tl { text-align: left; padding-left: 10px; }
+
+/* ธีมสีของตารางสถิติ */
+.dark .stats-tbl th { background: #17172a; border-color: rgba(255,255,255,0.09); color: rgba(255,255,255,0.58); }
+.dark .stats-tbl td { background: #0f0f1c; border-color: rgba(255,255,255,0.06); }
+.dark .stats-tbl tr:nth-child(even) td { background: #111122; }
+
+.light .stats-tbl th { background: #dde0ec; border-color: rgba(0,0,0,0.1); color: rgba(0,0,0,0.48); }
+.light .stats-tbl td { background: #fff; border-color: rgba(0,0,0,0.07); }
+.light .stats-tbl tr:nth-child(even) td { background: #f5f5fb; }
+
+/* Dynamic Text Colors สำหรับสถิติ (Dark/Light) */
+.c-hio, .c-alba, .c-egl { color: #ffd60a; }
+.light .c-hio, .light .c-alba, .light .c-egl { color: #d4a000; }
+
+.c-bir { color: #30d158; }
+.light .c-bir { color: #1a7a3a; }
+
+.c-par { color: #fff; }
+.light .c-par { color: #1c1c1e; } /* สีดำเทาแทนสีขาวในโหมดสว่าง */
+
+.c-bog, .c-dbl { color: #8e8e93; }
+.light .c-bog, .light .c-dbl { color: #888; }
+
+.c-le { color: #ff453a; }
+.light .c-le { color: #cc0000; }
+
+.c-zero { color: rgba(255,255,255,0.1); font-weight: 400; }
+.light .c-zero { color: rgba(0,0,0,0.15); font-weight: 400; }
 
 /* ticker */
 body.port .tick1,body.port .tick2{height:32px;}
@@ -320,7 +343,6 @@ body.land .scr{
   height:calc(100vh - 10.4vh);
   display:flex;flex-direction:column;overflow:hidden;
 }
-/* header */
 body.land .hdr{height:7vh;flex-shrink:0;padding:0 1.5vw;}
 body.land .logo{font-size:1.8vw;}
 body.land .hdr-sub{font-size:0.9vw;margin-left:0.6vw;}
@@ -328,34 +350,27 @@ body.land .hdr-r{gap:0.6vw;}
 body.land .live-dot,body.land .hist-dot{width:0.55vw;height:0.55vw;}
 body.land .stxt{font-size:0.85vw;}
 body.land .hbtn{padding:0.35vh 0.8vw;border-radius:0.7vw;font-size:0.8vw;}
-/* datebar */
 body.land .dbar{height:4.5vh;flex-shrink:0;padding:0 1.5vw;gap:0.5vw;}
 body.land .dnav{width:1.8vw;height:1.8vw;border-radius:0.5vw;font-size:0.9vw;}
 body.land .dcenter{gap:0.6vw;}
 body.land .ddate{font-size:1vw;}
 body.land .dtag{padding:0.25vh 0.7vw;font-size:0.72vw;gap:0.3vw;}
 body.land .ddot{width:0.45vw;height:0.45vw;}
-/* hist banner */
 body.land .hbanner{height:3.5vh;flex-shrink:0;padding:0 1.5vw;gap:0.5vw;font-size:0.82vw;}
-/* filter */
 body.land .frow{height:4.5vh;flex-shrink:0;padding:0 1.5vw;}
 body.land .fbtns{gap:0.4vw;align-items:center;}
 body.land .fb{padding:0.3vh 0.9vw;border-radius:0.7vw;font-size:0.82vw;}
 body.land .fmeta{font-size:0.78vw;}
 body.land .ss-btn{padding:0.3vh 0.9vw;border-radius:0.7vw;font-size:0.78vw;font-weight:700;cursor:pointer;}
-/* screensaver progress */
 body.land .ss-progress{height:1px;flex-shrink:0;}
 body.land .ss-bar{height:1px;width:0%;transition:none;}
-/* view title */
 body.land .view-title{height:4vh;flex-shrink:0;display:flex;align-items:center;padding:0 1.5vw;gap:0.5vw;}
 body.land .vt-txt{font-size:0.95vw;font-weight:800;letter-spacing:.3px;}
 body.land .vt-sub{font-size:0.72vw;}
 body.land .ss-dots{display:flex;gap:0.3vw;margin-left:auto;}
 body.land .ss-dot{width:0.45vw;height:0.45vw;border-radius:50%;}
-/* slbl */
 body.land .slbl{height:3vh;flex-shrink:0;font-size:0.85vw;font-weight:700;padding:0 1.4vw;display:flex;align-items:center;gap:0.4vw;}
 body.land .slbl span{font-size:0.65vw;opacity:.35;font-weight:400;}
-/* score table */
 body.land .tbl-wrap{flex:1;overflow:hidden;padding:0 1vw;}
 body.land .tbl-wrap table{height:100%;}
 body.land th{font-size:0.95vw;padding:0.3vh 0.1vw;}
@@ -367,15 +382,12 @@ body.land .sc{width:1.8vw;height:1.8vw;font-size:0.9vw;}
 body.land td.sub9{font-weight:800;font-size:1.5vw;border-left:2px solid!important;border-right:2px solid!important;}
 body.land td.gross-cell{font-weight:800;font-size:1.5vw;border-left:2px solid!important;}
 body.land td.net-cell{font-weight:800;font-size:1.6vw;border-right:2px solid!important;}
-/* divider */
 body.land .divider{height:0.3vh;flex-shrink:0;}
-/* SG */
 body.land .sg-lbl{font-size:0.85vw;padding:0 1.4vw;}
 body.land .sg-tbl-wrap{flex-shrink:0;padding:0 1vw 0.3vh;}
 body.land .sg-tbl th{font-size:0.9vw;padding:0.3vh 0.3vw;}
 body.land .sg-tbl td{font-size:1.5vw;padding:0.45vh 0.3vw;}
 body.land .sg-tbl td.nm2{text-align:left;padding-left:0.8vw;font-weight:700;font-size:1.4vw;color:#fff;}
-/* ticker fixed */
 body.land .tickers{position:fixed;bottom:0;left:0;width:100%;z-index:100;}
 body.land .tick1,body.land .tick2{height:5.2vh;}
 body.land .tbadge{padding:0 1.1vw;font-size:0.9vw;height:100%;}
@@ -435,11 +447,6 @@ body.land .atime{font-size:0.62vw;}
       <div class="tab off" id="tab-sg" onclick="setTab('sg')">⛳ FW·GIR·Putt</div>
     </div>
     
-    <div id="stats-filter-wrap" style="display:none; padding: 10px; background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.05);">
-      <select id="stats-player-select" onchange="renderPlayerStats()" style="width:100%; padding:8px; border-radius:8px; background:#1c1c1e; color:white; border:1px solid #444; font-size:14px;">
-      </select>
-    </div>
-
     <div id="tbl-scroll-wrap" class="tbl-scroll">
       <div id="port-body"><div class="loading-msg">⟳ กำลังโหลด...</div></div>
     </div>
@@ -448,25 +455,18 @@ body.land .atime{font-size:0.62vw;}
   </div>
 
   <div id="land-content" style="display:none;flex:1;display:none;flex-direction:column;overflow:hidden;">
-
     <div class="ss-progress"><div class="ss-bar" id="ss-bar"></div></div>
-
     <div class="view-title">
       <span class="vt-txt" id="vt-txt">🏆 ผู้นำการแข่งขัน</span>
       <span class="vt-sub" id="vt-sub">แสดง Top 6 · เรียงตาม Net Score</span>
       <div class="ss-dots" id="ss-dots"></div>
       <button class="ss-btn" id="ss-btn" onclick="toggleSS()" style="margin-left:0.8vw">▶ Screensaver</button>
     </div>
-
-    <div class="slbl">📋 ตารางสกอร์รายหลุม
-      <span>วงแดง=Birdie · วงน้ำเงิน=Eagle · ฟ้า=Par · เทา=Bogey+</span>
-    </div>
+    <div class="slbl">📋 ตารางสกอร์รายหลุม<span>วงแดง=Birdie · วงน้ำเงิน=Eagle · ฟ้า=Par · เทา=Bogey+</span></div>
     <div class="tbl-wrap">
       <table><thead id="land-score-head"></thead><tbody id="land-score-body"></tbody></table>
     </div>
-
     <div class="divider"></div>
-
     <div class="slbl sg-lbl">⛳ FW · GIR · Putt รวม</div>
     <div class="sg-tbl-wrap">
       <table class="sg-tbl">
@@ -477,7 +477,6 @@ body.land .atime{font-size:0.62vw;}
         <tbody id="land-sg-body"></tbody>
       </table>
     </div>
-
     <div class="tickers" id="land-tickers"></div>
   </div>
 
@@ -500,17 +499,11 @@ const MEDALS = ['🥇','🥈','🥉'];
 ════════════════════════════════════════════════════ */
 let allP = [], room = '', tab = 'score';
 let isLive = true, dateOffset = 0;
-let orientOvr = null;   // null=auto 'port' 'land'
+let orientOvr = null;
 let isDark = true;
 let refreshTimer = null;
-
-// alerts
 let confirmed = {}, pending = {}, prevSc = {}, prevH = {};
-
-// screensaver
 let ssActive = false, ssRooms = [], ssIdx = 0, ssTimer = null;
-
-// swipe (portrait)
 let swipeStartX = 0;
 
 /* ════════════════════════════════════════════════════
@@ -523,12 +516,14 @@ function init() {
   applyOrient();
   window.addEventListener('resize', () => { if (!orientOvr) applyOrient(); });
   window.addEventListener('orientationchange', () => { setTimeout(() => { if (!orientOvr) applyOrient(); }, 100); });
-  // swipe portrait
+  
+  // swipe portrait (This triggers swipeRoom regardless of current Tab)
   document.getElementById('tbl-scroll-wrap').addEventListener('touchstart', e => { swipeStartX = e.touches[0].clientX; }, {passive:true});
   document.getElementById('tbl-scroll-wrap').addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - swipeStartX;
     if (Math.abs(dx) > 60) swipeRoom(dx < 0 ? 1 : -1);
   }, {passive:true});
+  
   fetchLB();
   refreshTimer = setInterval(fetchLB, CFG.refreshSec * 1000);
   setInterval(tickClock, 1000);
@@ -558,7 +553,7 @@ function applyOrient() {
   document.body.className = (port ? 'port' : 'land') + ' ' + (isDark ? 'dark' : 'light');
   document.getElementById('obtn').textContent = port ? '📺' : '📱';
   document.getElementById('obtn').className = 'hbtn' + (orientOvr ? ' ovr' : '');
-  document.getElementById('port-content').style.display = port ? 'flex' : 'none'; // Changed to flex for 100dvh structure
+  document.getElementById('port-content').style.display = port ? 'flex' : 'none';
   const lc = document.getElementById('land-content');
   lc.style.display = port ? 'none' : 'flex';
   lc.style.flexDirection = 'column';
@@ -615,7 +610,6 @@ function updateDateBar() {
   document.getElementById('dnext').style.opacity = dateOffset === 0 ? '.2' : '1';
   document.getElementById('hbanner').style.display = isLive ? 'none' : 'flex';
   document.getElementById('hb-date').textContent = formatDateTH(dateOffset) + ' · การแข่งขันจบแล้ว';
-  // auto-refresh only when live
   clearInterval(refreshTimer);
   if (isLive) refreshTimer = setInterval(fetchLB, CFG.refreshSec * 1000);
 }
@@ -686,33 +680,23 @@ function detectAlerts() {
 function buildFilter() {
   const rooms = [...new Set(allP.map(p => p.room).filter(Boolean))].sort();
   const w = document.getElementById('filter-wrap');
-  w.innerHTML = `<button class="fb on" data-room="" onclick="setRoom('')">ทั้งหมด (${allP.length})</button>`;
+  w.innerHTML = `<button class="fb ${room===''?'on':'off'}" data-room="" onclick="setRoom('')">ทั้งหมด (${allP.length})</button>`;
   rooms.forEach(r => {
     const c = allP.filter(p => p.room === r).length;
-    w.innerHTML += `<button class="fb off" data-room="${r}" onclick="setRoom('${r}')">${r} (${c})</button>`;
+    w.innerHTML += `<button class="fb ${room===r?'on':'off'}" data-room="${r}" onclick="setRoom('${r}')">${r} (${c})</button>`;
   });
   const vis = allP.filter(p => !room || p.room === room);
   const rs = [...new Set(vis.map(p => p.room).filter(Boolean))];
   const course = (allP[0] && allP[0].course) || '';
   if (course) document.getElementById('hdr-sub').textContent = 'Live · ' + course;
   document.getElementById('fmeta').textContent = vis.length + ' คน · ' + rs.length + ' กลุ่ม' + (course ? ' · ' + course : '');
-  // update ss rooms
   ssRooms = ['', ...rooms];
   renderSSDots();
-
-  // อัปเดต Dropdown สถิติด้วยถ้ารายชื่อเปลี่ยน
-  if(isPortrait() && tab === 'stats') {
-      updateStatsDropdown();
-  }
 }
 function setRoom(r) {
   room = r;
-  document.querySelectorAll('.fb').forEach(b => b.className = 'fb ' + (b.dataset.room === r ? 'on' : 'off'));
+  buildFilter();
   renderAll();
-  if(isPortrait() && tab === 'stats') {
-      updateStatsDropdown();
-      renderPlayerStats();
-  }
 }
 function swipeRoom(dir) {
   const rooms = [...new Set(allP.map(p => p.room).filter(Boolean))].sort();
@@ -723,7 +707,7 @@ function swipeRoom(dir) {
 }
 
 /* ════════════════════════════════════════════════════
-   TAB (portrait) — NEW LOGIC FOR 3 TABS
+   TAB (portrait)
 ════════════════════════════════════════════════════ */
 function setTab(t) {
   tab = t;
@@ -731,19 +715,15 @@ function setTab(t) {
   document.getElementById('tab-stats').className = 'tab ' + (t==='stats' ? 'on' : 'off');
   document.getElementById('tab-sg').className    = 'tab ' + (t==='sg'    ? 'on' : 'off');
 
-  // แสดง/ซ่อน Dropdown เฉพาะตอนกดแท็บสถิติ
-  document.getElementById('stats-filter-wrap').style.display = (t === 'stats' ? 'block' : 'none');
-
   if (t === 'stats') {
-    updateStatsDropdown();
-    renderPlayerStats();
+    renderGroupStats();
   } else {
     renderPortrait();
   }
 }
 
 /* ════════════════════════════════════════════════════
-   PORTRAIT STATS TAB (NEW)
+   PORTRAIT STATS TAB (Group View)
 ════════════════════════════════════════════════════ */
 function countScoreTypes(scores, pars) {
   let counts = { hio:0, alba:0, egl:0, bir:0, par:0, bog:0, dbl:0, le:0 };
@@ -763,45 +743,54 @@ function countScoreTypes(scores, pars) {
   return counts;
 }
 
-function updateStatsDropdown() {
-  const vis = allP.filter(p => !room || p.room === room);
-  const sel = document.getElementById('stats-player-select');
-  const current = sel.value;
-  
-  sel.innerHTML = vis.map(p => `<option value="${p.name}" ${p.name===current?'selected':''}>${p.name}</option>`).join('');
-  
-  // ถ้าคนที่เลือกไว้ก่อนหน้าไม่อยู่ในกลุ่มที่ filter ใหม่ ให้รีเซ็ตเป็นคนแรก
-  if (!vis.find(p => p.name === current) && vis.length > 0) {
-     sel.value = vis[0].name; 
-  }
-}
-
-function renderPlayerStats() {
+function renderGroupStats() {
   if (tab !== 'stats') return;
-  const name = document.getElementById('stats-player-select').value;
-  const p = allP.find(x => x.name === name);
-  const pars = (allP.find(x => x.pars) || {pars: PARS}).pars;
   
-  if (!p) {
-    document.getElementById('port-body').innerHTML = '<div class="loading-msg">ไม่พบข้อมูลผู้เล่น</div>';
+  if (!room) {
+    document.getElementById('port-body').innerHTML = `
+      <div class="loading-msg" style="padding-top:40px;">
+        📂 โปรดเลือกกลุ่มด้านบน<br>
+        <span style="font-size:0.8em;opacity:0.6;">(เช่น A00, A01) เพื่อดูสถิติเปรียบเทียบในกลุ่ม</span>
+      </div>`;
     return;
   }
-  
-  const c = countScoreTypes(p.scores || [], pars);
-  
-  const html = `
-    <div class="stats-card">
-      <table style="width:100%; border-collapse: collapse;">
-        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#ffd60a; font-weight:700;">HIO</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#ffd60a;">${c.hio || '—'}</td></tr>
-        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#ffd60a; font-weight:700;">Albatross</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#ffd60a;">${c.alba || '—'}</td></tr>
-        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#ffd60a; font-weight:700;">Eagle</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#ffd60a;">${c.egl || '—'}</td></tr>
-        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#30d158; font-weight:700;">Birdie</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#30d158;">${c.bir || '—'}</td></tr>
-        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#fff; font-weight:700;">Par</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#fff;">${c.par || '—'}</td></tr>
-        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#8e8e93; font-weight:700;">Bogey</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#8e8e93;">${c.bog || '—'}</td></tr>
-        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#8e8e93; font-weight:700;">Double</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#8e8e93;">${c.dbl || '—'}</td></tr>
-        <tr><td style="padding:12px; color:#ff453a; font-weight:700;">เละ</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#ff453a;">${c.le || '—'}</td></tr>
-      </table>
-    </div>`;
+
+  const list = allP.filter(p => p.room === room).sort((a,b) => (a.total-a.hcp)-(b.total-b.hcp));
+  if (!list.length) {
+    document.getElementById('port-body').innerHTML = '<div class="loading-msg">ไม่มีข้อมูลผู้เล่นในกลุ่มนี้</div>';
+    return;
+  }
+
+  const pars = (allP.find(x => x.pars) || {pars: PARS}).pars;
+  const statsList = list.map(p => countScoreTypes(p.scores || [], pars));
+
+  const rowsInfo = [
+    { l: 'HIO', k: 'hio', c: 'c-hio' },
+    { l: 'Albatross', k: 'alba', c: 'c-alba' },
+    { l: 'Eagle', k: 'egl', c: 'c-egl' },
+    { l: 'Birdie', k: 'bir', c: 'c-bir' },
+    { l: 'Par', k: 'par', c: 'c-par' },
+    { l: 'Bogey', k: 'bog', c: 'c-bog' },
+    { l: 'Double', k: 'dbl', c: 'c-dbl' },
+    { l: 'เละ', k: 'le', c: 'c-le' }
+  ];
+
+  let html = `<div class="tbl-wrap" style="padding:10px;"><table class="stats-tbl"><thead><tr>`;
+  html += `<th class="tl" style="width:28%">สถิติกลุ่ม ${room}</th>`;
+  list.forEach(p => { html += `<th>${p.name}</th>`; });
+  html += `</tr></thead><tbody>`;
+
+  rowsInfo.forEach(r => {
+    html += `<tr><td class="tl ${r.c}">${r.l}</td>`;
+    list.forEach((p, i) => {
+      const val = statsList[i][r.k];
+      const cellCls = val > 0 ? r.c : 'c-zero';
+      html += `<td class="${cellCls}">${val || '—'}</td>`;
+    });
+    html += `</tr>`;
+  });
+
+  html += `</tbody></table></div>`;
   document.getElementById('port-body').innerHTML = html;
 }
 
@@ -811,7 +800,7 @@ function renderPlayerStats() {
 function renderAll() {
   if (isPortrait()) {
     if (tab === 'stats') {
-        renderPlayerStats();
+        renderGroupStats();
     } else {
         renderPortrait();
     }
@@ -834,6 +823,7 @@ function getPortList() {
   });
 }
 function renderPortrait() {
+  if (tab === 'stats') return;
   const list = getPortList();
   const el = document.getElementById('port-body');
   if (!list.length) { el.innerHTML = '<div class="loading-msg">⛳ ยังไม่มีข้อมูล</div>'; return; }
@@ -960,7 +950,6 @@ function renderLandscape() {
   }
   document.getElementById('land-score-body').innerHTML = rows;
 
-  // SG — 6 แถวเสมอ
   const dk=isDark, gc=dk?'#30d158':'#1a7a3a', bc=dk?'#4da3ff':'#0060cc';
   const sgAll = allP.filter(p=>!room||p.room===room).filter(p=>p.putt!=null).sort((a,b)=>a.putt-b.putt);
   const EMPTY_NM = `<span style="visibility:hidden">ประสิทธิ์ ม.</span>`;
@@ -987,7 +976,6 @@ function renderLandscape() {
   }
   document.getElementById('land-sg-body').innerHTML = sgRows;
 
-  // view title
   const ROOM_NAMES = { '': '🏆 ผู้นำการแข่งขัน' };
   const ROOM_SUBS  = { '': 'แสดง Top 6 · เรียงตาม Net Score' };
   ssRooms.forEach(r => {
@@ -1067,7 +1055,6 @@ function buildTickerContent() {
     `<span style="display:inline-flex;align-items:center;margin-right:1.5em">` +
     `<span class="t-lbl">${lbl}</span>&nbsp;<span class="${hi?'t-hi':'t-val'}">${val}</span></span>`;
 
-  // LIVE info (ticker2)
   const liveItems = [
     lead  ? item('🏆 ผู้นำ', lead.name+' Net '+((lead.total||0)-(lead.hcp||0)), true) : null,
     puLd  ? item('⛳ Putt', puLd.name+' '+puLd.putt+' พัต', true) : null,
@@ -1078,7 +1065,6 @@ function buildTickerContent() {
     item('📡', 'อัปเดตทุก '+CFG.refreshSec+' วิ', false),
   ].filter(Boolean).join(sep);
 
-  // Birdie alerts (ticker1)
   const alerts = Object.values(confirmed);
   let alertHTML = '';
   if (!alerts.length) {
