@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>GolfMate Live Leaderboard</title>
 <style>
 /* ════════════════════════════════════════════════════════
@@ -13,7 +13,7 @@
    ├── 4. DATE BAR
    ├── 5. HIST BANNER
    ├── 6. FILTER
-   ├── 7. PORTRAIT — tabs, table, ticker
+   ├── 7. PORTRAIT — tabs, table, ticker (UPDATED: 100dvh & 3 Tabs)
    ├── 8. LANDSCAPE — score table, SG, screensaver, ticker
    └── 9. ANIMATIONS
 ════════════════════════════════════════════════════════ */
@@ -223,11 +223,24 @@ td.tot-n{font-weight:800;border-right:2px solid;}
 .atime{color:rgba(255,255,255,0.32);}
 
 /* ════════════════════════════════════════
-   PORTRAIT
+   PORTRAIT (UPDATED: 100dvh + Safe Zone)
 ════════════════════════════════════════ */
-body.port{overflow:auto;}
-body.port .scr{max-width:480px;margin:0 auto;}
-/* header */
+body.port {
+  overflow: hidden !important; 
+  height: 100vh;
+  height: 100dvh; 
+  display: flex;
+  flex-direction: column;
+}
+body.port .scr {
+  max-width: 480px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* header & datebar */
 body.port .hdr{padding:11px 14px;}
 body.port .logo{font-size:18px;}
 body.port .hdr-sub{font-size:11px;margin-left:8px;}
@@ -235,20 +248,18 @@ body.port .hdr-r{gap:5px;}
 body.port .live-dot,body.port .hist-dot{width:7px;height:7px;}
 body.port .stxt{font-size:11px;}
 body.port .hbtn{padding:5px 9px;border-radius:13px;font-size:11px;}
-/* datebar */
 body.port .dbar{padding:6px 10px;gap:4px;}
 body.port .dnav{width:26px;height:26px;border-radius:8px;font-size:12px;}
 body.port .dcenter{gap:7px;}
 body.port .ddate{font-size:13px;}
 body.port .dtag{padding:3px 9px;font-size:10px;gap:4px;}
 body.port .ddot{width:6px;height:6px;}
-/* hist banner */
 body.port .hbanner{padding:5px 12px;font-size:11px;gap:6px;}
-/* filter */
 body.port .frow{padding:5px 11px;}
 body.port .fbtns{gap:5px;}
 body.port .fb{padding:4px 10px;border-radius:12px;font-size:12px;}
 body.port .fmeta{font-size:10px;}
+
 /* tabs */
 body.port .tabs{display:flex;gap:4px;padding:5px 10px 3px;}
 body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;}
@@ -258,8 +269,22 @@ body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7
 .light body.port .tab.off,.light .port .tab.off{background:rgba(0,0,0,0.04);color:rgba(0,0,0,0.35);}
 body.port .dark .tabs{background:#09090f;}
 body.port .light .tabs{background:#e8eaf2;}
-/* scroll area — สูงสุด 6 คน */
-body.port .tbl-scroll{overflow-y:auto;max-height:calc(6 * 52px);}
+
+/* scroll area */
+body.port #port-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* เว้นระยะเผื่อ URL Bar ด้านล่าง */
+  padding-bottom: calc(env(safe-area-inset-bottom) + 5px); 
+}
+body.port .tbl-scroll {
+  flex: 1;
+  overflow: auto; /* เลื่อนได้ทั้ง X และ Y */
+  -webkit-overflow-scrolling: touch;
+}
+
 body.port .tbl-wrap{padding:6px 10px;}
 body.port th{font-size:10px;padding:6px 2px;}
 body.port td{font-size:15px;padding:8px 2px;}
@@ -268,6 +293,15 @@ body.port td.sub{font-size:13px;}
 body.port td.tot-g,body.port td.tot-n{font-size:14px;}
 body.port .sg-lbl{font-size:11px;padding:5px 11px 2px;}
 body.port .sg-tbl th,body.port .sg-tbl td{font-size:12px;padding:6px 3px;border:0.5px solid;}
+
+/* ตารางสถิติที่เลียนแบบจากรูปภาพ */
+.stats-card {
+  margin: 10px;
+  background: #0f0f1c;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
 /* ticker */
 body.port .tick1,body.port .tick2{height:32px;}
 body.port .tbadge{padding:0 10px;font-size:11px;height:100%;}
@@ -356,7 +390,6 @@ body.land .atime{font-size:0.62vw;}
 <body class="port dark">
 <div class="scr" id="scr">
 
-  <!-- ── HEADER ── -->
   <div class="hdr">
     <div style="display:flex;align-items:center">
       <div class="logo">Golf<em>Mate</em></div>
@@ -371,7 +404,6 @@ body.land .atime{font-size:0.62vw;}
     </div>
   </div>
 
-  <!-- ── DATE BAR ── -->
   <div class="dbar">
     <button class="dnav" id="dprev" onclick="goPrev()">←</button>
     <div class="dcenter">
@@ -384,41 +416,41 @@ body.land .atime{font-size:0.62vw;}
     <button class="dnav" id="dnext" onclick="goNext()" disabled>→</button>
   </div>
 
-  <!-- ── HIST BANNER ── -->
   <div class="hbanner" id="hbanner" style="display:none">
     <span>📂</span>
     <span class="hb-txt">ข้อมูลย้อนหลัง — ไม่มี Live refresh</span>
     <span class="hb-r" style="margin-left:auto" id="hb-date"></span>
   </div>
 
-  <!-- ── FILTER ── -->
   <div class="frow">
     <div class="fbtns" id="filter-wrap"></div>
     <span class="fmeta" id="fmeta">—</span>
   </div>
 
-  <!-- ── PORTRAIT CONTENT ── -->
   <div id="port-content">
-    <!-- tabs -->
+    
     <div class="tabs" id="port-tabs">
       <div class="tab on" id="tab-score" onclick="setTab('score')">🏆 สกอร์</div>
+      <div class="tab off" id="tab-stats" onclick="setTab('stats')">📊 สถิติ</div>
       <div class="tab off" id="tab-sg" onclick="setTab('sg')">⛳ FW·GIR·Putt</div>
     </div>
-    <!-- scroll area -->
+    
+    <div id="stats-filter-wrap" style="display:none; padding: 10px; background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.05);">
+      <select id="stats-player-select" onchange="renderPlayerStats()" style="width:100%; padding:8px; border-radius:8px; background:#1c1c1e; color:white; border:1px solid #444; font-size:14px;">
+      </select>
+    </div>
+
     <div id="tbl-scroll-wrap" class="tbl-scroll">
       <div id="port-body"><div class="loading-msg">⟳ กำลังโหลด...</div></div>
     </div>
-    <!-- tickers portrait -->
+
     <div class="tickers" id="port-tickers"></div>
   </div>
 
-  <!-- ── LANDSCAPE CONTENT ── -->
   <div id="land-content" style="display:none;flex:1;display:none;flex-direction:column;overflow:hidden;">
 
-    <!-- screensaver progress -->
     <div class="ss-progress"><div class="ss-bar" id="ss-bar"></div></div>
 
-    <!-- view title -->
     <div class="view-title">
       <span class="vt-txt" id="vt-txt">🏆 ผู้นำการแข่งขัน</span>
       <span class="vt-sub" id="vt-sub">แสดง Top 6 · เรียงตาม Net Score</span>
@@ -426,7 +458,6 @@ body.land .atime{font-size:0.62vw;}
       <button class="ss-btn" id="ss-btn" onclick="toggleSS()" style="margin-left:0.8vw">▶ Screensaver</button>
     </div>
 
-    <!-- score table label -->
     <div class="slbl">📋 ตารางสกอร์รายหลุม
       <span>วงแดง=Birdie · วงน้ำเงิน=Eagle · ฟ้า=Par · เทา=Bogey+</span>
     </div>
@@ -436,7 +467,6 @@ body.land .atime{font-size:0.62vw;}
 
     <div class="divider"></div>
 
-    <!-- SG -->
     <div class="slbl sg-lbl">⛳ FW · GIR · Putt รวม</div>
     <div class="sg-tbl-wrap">
       <table class="sg-tbl">
@@ -448,13 +478,10 @@ body.land .atime{font-size:0.62vw;}
       </table>
     </div>
 
-    <!-- tickers landscape (fixed via CSS) -->
     <div class="tickers" id="land-tickers"></div>
   </div>
 
-</div><!-- /scr -->
-
-<script>
+</div><script>
 /* ════════════════════════════════════════════════════
    CONFIG
 ════════════════════════════════════════════════════ */
@@ -531,7 +558,7 @@ function applyOrient() {
   document.body.className = (port ? 'port' : 'land') + ' ' + (isDark ? 'dark' : 'light');
   document.getElementById('obtn').textContent = port ? '📺' : '📱';
   document.getElementById('obtn').className = 'hbtn' + (orientOvr ? ' ovr' : '');
-  document.getElementById('port-content').style.display = port ? 'block' : 'none';
+  document.getElementById('port-content').style.display = port ? 'flex' : 'none'; // Changed to flex for 100dvh structure
   const lc = document.getElementById('land-content');
   lc.style.display = port ? 'none' : 'flex';
   lc.style.flexDirection = 'column';
@@ -672,11 +699,20 @@ function buildFilter() {
   // update ss rooms
   ssRooms = ['', ...rooms];
   renderSSDots();
+
+  // อัปเดต Dropdown สถิติด้วยถ้ารายชื่อเปลี่ยน
+  if(isPortrait() && tab === 'stats') {
+      updateStatsDropdown();
+  }
 }
 function setRoom(r) {
   room = r;
   document.querySelectorAll('.fb').forEach(b => b.className = 'fb ' + (b.dataset.room === r ? 'on' : 'off'));
   renderAll();
+  if(isPortrait() && tab === 'stats') {
+      updateStatsDropdown();
+      renderPlayerStats();
+  }
 }
 function swipeRoom(dir) {
   const rooms = [...new Set(allP.map(p => p.room).filter(Boolean))].sort();
@@ -687,26 +723,106 @@ function swipeRoom(dir) {
 }
 
 /* ════════════════════════════════════════════════════
-   TAB (portrait)
+   TAB (portrait) — NEW LOGIC FOR 3 TABS
 ════════════════════════════════════════════════════ */
 function setTab(t) {
   tab = t;
   document.getElementById('tab-score').className = 'tab ' + (t==='score' ? 'on' : 'off');
+  document.getElementById('tab-stats').className = 'tab ' + (t==='stats' ? 'on' : 'off');
   document.getElementById('tab-sg').className    = 'tab ' + (t==='sg'    ? 'on' : 'off');
-  renderPortrait();
+
+  // แสดง/ซ่อน Dropdown เฉพาะตอนกดแท็บสถิติ
+  document.getElementById('stats-filter-wrap').style.display = (t === 'stats' ? 'block' : 'none');
+
+  if (t === 'stats') {
+    updateStatsDropdown();
+    renderPlayerStats();
+  } else {
+    renderPortrait();
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   PORTRAIT STATS TAB (NEW)
+════════════════════════════════════════════════════ */
+function countScoreTypes(scores, pars) {
+  let counts = { hio:0, alba:0, egl:0, bir:0, par:0, bog:0, dbl:0, le:0 };
+  scores.forEach((s, i) => {
+    if (s === null || s === undefined) return;
+    const p = pars[i];
+    const diff = s - p;
+    if (s === 1) counts.hio++;
+    else if (diff <= -3) counts.alba++;
+    else if (diff === -2) counts.egl++;
+    else if (diff === -1) counts.bir++;
+    else if (diff === 0) counts.par++;
+    else if (diff === 1) counts.bog++;
+    else if (diff === 2) counts.dbl++;
+    else if (diff >= 3) counts.le++;
+  });
+  return counts;
+}
+
+function updateStatsDropdown() {
+  const vis = allP.filter(p => !room || p.room === room);
+  const sel = document.getElementById('stats-player-select');
+  const current = sel.value;
+  
+  sel.innerHTML = vis.map(p => `<option value="${p.name}" ${p.name===current?'selected':''}>${p.name}</option>`).join('');
+  
+  // ถ้าคนที่เลือกไว้ก่อนหน้าไม่อยู่ในกลุ่มที่ filter ใหม่ ให้รีเซ็ตเป็นคนแรก
+  if (!vis.find(p => p.name === current) && vis.length > 0) {
+     sel.value = vis[0].name; 
+  }
+}
+
+function renderPlayerStats() {
+  if (tab !== 'stats') return;
+  const name = document.getElementById('stats-player-select').value;
+  const p = allP.find(x => x.name === name);
+  const pars = (allP.find(x => x.pars) || {pars: PARS}).pars;
+  
+  if (!p) {
+    document.getElementById('port-body').innerHTML = '<div class="loading-msg">ไม่พบข้อมูลผู้เล่น</div>';
+    return;
+  }
+  
+  const c = countScoreTypes(p.scores || [], pars);
+  
+  const html = `
+    <div class="stats-card">
+      <table style="width:100%; border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#ffd60a; font-weight:700;">HIO</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#ffd60a;">${c.hio || '—'}</td></tr>
+        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#ffd60a; font-weight:700;">Albatross</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#ffd60a;">${c.alba || '—'}</td></tr>
+        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#ffd60a; font-weight:700;">Eagle</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#ffd60a;">${c.egl || '—'}</td></tr>
+        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#30d158; font-weight:700;">Birdie</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#30d158;">${c.bir || '—'}</td></tr>
+        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#fff; font-weight:700;">Par</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#fff;">${c.par || '—'}</td></tr>
+        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#8e8e93; font-weight:700;">Bogey</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#8e8e93;">${c.bog || '—'}</td></tr>
+        <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);"><td style="padding:12px; color:#8e8e93; font-weight:700;">Double</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#8e8e93;">${c.dbl || '—'}</td></tr>
+        <tr><td style="padding:12px; color:#ff453a; font-weight:700;">เละ</td><td style="text-align:right; padding:12px; font-weight:800; font-size:1.1em; color:#ff453a;">${c.le || '—'}</td></tr>
+      </table>
+    </div>`;
+  document.getElementById('port-body').innerHTML = html;
 }
 
 /* ════════════════════════════════════════════════════
    RENDER ALL
 ════════════════════════════════════════════════════ */
 function renderAll() {
-  if (isPortrait()) renderPortrait();
-  else renderLandscape();
+  if (isPortrait()) {
+    if (tab === 'stats') {
+        renderPlayerStats();
+    } else {
+        renderPortrait();
+    }
+  } else {
+    renderLandscape();
+  }
   renderTicker();
 }
 
 /* ════════════════════════════════════════════════════
-   PORTRAIT RENDER
+   PORTRAIT RENDER (Score & SG)
 ════════════════════════════════════════════════════ */
 function getPortList() {
   let list = allP.filter(p => !room || p.room === room);
@@ -720,9 +836,10 @@ function getPortList() {
 function renderPortrait() {
   const list = getPortList();
   const el = document.getElementById('port-body');
-  if (!list.length) { el.innerHTML = '<div class="loading-msg">⛳ ยังไม่มีสกอร์</div>'; return; }
+  if (!list.length) { el.innerHTML = '<div class="loading-msg">⛳ ยังไม่มีข้อมูล</div>'; return; }
+  
   if (tab === 'score') el.innerHTML = renderPortScore(list);
-  else el.innerHTML = renderPortSG(list);
+  else if (tab === 'sg') el.innerHTML = renderPortSG(list);
 }
 function renderPortScore(list) {
   const dk = isDark, thc = dk ? '#4da3ff' : '#0060cc';
