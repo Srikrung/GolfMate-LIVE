@@ -104,7 +104,6 @@ body.light{background:#f0f0f5;}
 .light td.rk{background:#dde0ec!important;color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1)!important;}
 .light td.sub{background:#cce0ff;color:#003f8a;border-color:rgba(0,100,200,0.28)!important;}
 .light td.tot-g{background:#e4f2e4;color:#1a6020;}
-/* แก้สี Net โหมดสว่าง เป็นสีเหลือง */
 .light td.tot-n{background:#1a6b1a;color:#ffd60a;}
 .light td.net-cell{background:#1a6b1a!important;color:#ffd60a!important;border-right-color:rgba(10,132,255,0.38)!important;}
 
@@ -263,7 +262,7 @@ body.port .fmeta{font-size:10px;}
 body.port .tabs{display:flex;gap:4px;padding:5px 10px 0px; flex-shrink:0;} /* ชิดตารางมากขึ้น */
 body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;}
 
-/* ★ สี Tabs โหมดมืด ให้เป็นสีขาว 100% บังคับด้วย !important ★ */
+/* สี Tabs โหมดมืด ให้เป็นสีขาว 100% บังคับด้วย !important */
 .dark body.port .tab.on, .dark .port .tab.on { background:#0a84ff; color:#ffffff !important; }
 .dark body.port .tab.off, .dark .port .tab.off { background:rgba(255,255,255,0.15); color:#ffffff !important; }
 
@@ -272,17 +271,17 @@ body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7
 body.port .dark .tabs{background:#09090f;}
 body.port .light .tabs{background:#e8eaf2;}
 
-/* scroll area — ยกเลิกการจัดกึ่งกลาง (Vertical Center) ปล่อยตารางชิดบนธรรมชาติ */
+/* scroll area */
 body.port .tbl-scroll{
   overflow-y:auto; flex:1; max-height:none;
 }
-body.port #port-body { width: 100%; } /* เอา margin: auto 0 ออกเรียบร้อย */
+body.port #port-body { width: 100%; } 
 body.port .tbl-wrap{padding:2px 4px 6px; width: 100%;} /* ลด padding ด้านบนเพื่อให้ชิด Tab */
 
 /* Auto-Sizing Font สำหรับตารางมือถือ */
-body.port th{font-size:clamp(9px, 2.4vw, 11px); padding:6px 1px; white-space:nowrap;}
-body.port td{font-size:clamp(10px, 2.8vw, 12px); padding:8px 1px; white-space:nowrap;}
-body.port td.rk{font-size:clamp(9px, 2.4vw, 11px);}
+body.port th{font-size:clamp(8.5px, 2.2vw, 11px); padding:6px 1px; white-space:nowrap;}
+body.port td{font-size:clamp(9.5px, 2.6vw, 12px); padding:8px 1px; white-space:nowrap;}
+body.port td.rk{font-size:clamp(8.5px, 2.2vw, 11px);}
 body.port .sg-lbl{font-size:11px;padding:5px 11px 2px;}
 body.port .sg-tbl th,body.port .sg-tbl td{font-size:12px;padding:6px 3px;border:0.5px solid;}
 
@@ -700,7 +699,7 @@ function renderAll() {
 }
 
 /* ════════════════════════════════════════════════════
-   PORTRAIT RENDER (NEW SMART TABLE)
+   PORTRAIT RENDER (NEW SMART 8-11 COLUMNS)
 ════════════════════════════════════════════════════ */
 function getPortList() {
   let list = allP.filter(p => !room || p.room === room);
@@ -725,7 +724,7 @@ function renderPortScore(list) {
   const dk = isDark, thc = dk ? '#4da3ff' : '#0060cc';
   const nc = dk ? 'color:#34d16a' : 'color:#ffd60a';
 
-  // 1. คำนวณสถิติของทุกคนในกลุ่ม (เละ, DB, BG, Par, BD, EG, AB, HIO)
+  // 1. คำนวณสถิติ
   let totals = { le:0, db:0, bg:0, pa:0, bd:0, eg:0, ab:0, hio:0 };
   
   list.forEach(p => {
@@ -736,37 +735,36 @@ function renderPortScore(list) {
       if (s === 1) { c.hio++; return; } // HIO
       
       let diff = s - pars[h];
-      if (diff >= 3) c.le++;        // เละ (+3 หรือแย่กว่า)
-      else if (diff === 2) c.db++;  // DB (+2)
-      else if (diff === 1) c.bg++;  // BG (+1)
-      else if (diff === 0) c.pa++;  // Par (0)
-      else if (diff === -1) c.bd++; // BD (-1)
-      else if (diff === -2) c.eg++; // EG (-2)
-      else if (diff <= -3) c.ab++;  // AB (-3 หรือดีกว่า)
+      if (diff >= 3) c.le++;
+      else if (diff === 2) c.db++;
+      else if (diff === 1) c.bg++;
+      else if (diff === 0) c.pa++;
+      else if (diff === -1) c.bd++;
+      else if (diff === -2) c.eg++;
+      else if (diff <= -3) c.ab++;
     });
-    p._st = c; // เก็บสถิติไว้ในตัวแปรของแต่ละคน
-    Object.keys(totals).forEach(k => totals[k] += c[k]); // บวกเข้ายอดรวมกลุ่ม
+    p._st = c; 
+    Object.keys(totals).forEach(k => totals[k] += c[k]); 
   });
 
-  // 2. สร้างหัวตาราง (Dynamic Header) - แสดงเฉพาะคอลัมน์ที่มีข้อมูล
+  // 2. สร้างหัวตาราง (ยืนพื้น 8 ช่อง + งอกเพิ่ม 3 ช่องตามเงื่อนไข)
   let headers = `<th>H</th><th class="tl" style="width:100%; padding-left:3px">ชื่อ</th>`;
-  if (totals.le > 0) headers += `<th>เละ</th>`;
-  if (totals.db > 0) headers += `<th>DB</th>`;
-  if (totals.bg > 0) headers += `<th>BG</th>`;
-  if (totals.pa > 0) headers += `<th>Par</th>`;
-  if (totals.bd > 0) headers += `<th>BD</th>`;
+  headers += `<th>เละ</th><th>DB</th><th>BG</th><th>Par</th><th>BD</th>`; // แสดงยืนพื้นตลอด
+  
+  // ซ่อน/แสดง 3 ช่องพิเศษตามข้อมูลจริง
   if (totals.eg > 0) headers += `<th>EG</th>`;
   if (totals.ab > 0) headers += `<th>AB</th>`;
   if (totals.hio > 0) headers += `<th>HIO</th>`;
-  headers += `<th style="color:${thc}">Net</th>`;
+  
+  headers += `<th style="color:${thc}">Net</th>`; // คอลัมน์ที่ 8 (สุดท้ายเสมอ)
 
   // สีเฉพาะสำหรับแต่ละสถิติ
-  const cLe = dk ? '#ff453a' : '#cc0000'; // แดงเข้ม
+  const cLe = dk ? '#ff453a' : '#cc0000'; // แดง
   const cDb = dk ? '#ff9f0a' : '#d2691e'; // ส้ม
   const cBg = dk ? 'rgba(255,255,255,0.4)' : '#666666'; // เทา
-  const cPa = dk ? '#4da3ff' : '#0060cc'; // น้ำเงิน
-  const cBd = dk ? '#ff8080' : '#cc0000'; // ชมพู/แดง
-  const cEg = dk ? '#60b4ff' : '#004fc4'; // ฟ้า
+  const cPa = dk ? '#4da3ff' : '#0060cc'; // ฟ้า
+  const cBd = dk ? '#ff8080' : '#cc0000'; // ชมพู
+  const cEg = dk ? '#60b4ff' : '#004fc4'; // น้ำเงินสว่าง
   const cAb = dk ? '#ffd060' : '#b08d00'; // ทอง
   const cHio = dk ? '#ffd60a' : '#e6b800'; // เหลือง
 
@@ -779,19 +777,21 @@ function renderPortScore(list) {
       <td class="rk">${i < 3 ? MEDALS[i] : '#' + (i + 1)}</td>
       <td class="tl" style="padding-left:3px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px;">${p.name}</td>`;
 
-    // ฟังก์ชันช่วยสร้างช่องสถิติ (ถ้าทำไม่ได้=จางและมีขีด)
     const cell = (val, colHex) => {
-         const v = val > 0 ? val : '-';
-         const op = val > 0 ? '1' : '0.25';
+         const v = val > 0 ? val : '-'; // ถ้าเป็น 0 ใส่ขีด
+         const op = val > 0 ? '1' : '0.25'; // ถ้าเป็น 0 ให้สีจางลง
          const fw = val > 0 ? '700' : '500';
          return `<td style="color:${colHex}; opacity:${op}; font-weight:${fw}">${v}</td>`;
     };
 
-    if (totals.le > 0) row += cell(c.le, cLe);
-    if (totals.db > 0) row += cell(c.db, cDb);
-    if (totals.bg > 0) row += cell(c.bg, cBg);
-    if (totals.pa > 0) row += cell(c.pa, cPa);
-    if (totals.bd > 0) row += cell(c.bd, cBd);
+    // แถวยืนพื้น
+    row += cell(c.le, cLe);
+    row += cell(c.db, cDb);
+    row += cell(c.bg, cBg);
+    row += cell(c.pa, cPa);
+    row += cell(c.bd, cBd);
+
+    // แถวพิเศษ (แสดงเฉพาะเมื่อกลุ่มนี้มีสกอร์นั้น)
     if (totals.eg > 0) row += cell(c.eg, cEg);
     if (totals.ab > 0) row += cell(c.ab, cAb);
     if (totals.hio > 0) row += cell(c.hio, cHio);
@@ -828,7 +828,7 @@ function renderPortSG(list) {
 }
 
 /* ════════════════════════════════════════════════════
-   LANDSCAPE RENDER
+   LANDSCAPE RENDER (NO CHANGES)
 ════════════════════════════════════════════════════ */
 function getLandList() {
   let list = allP.filter(p => !room || p.room === room);
