@@ -61,7 +61,7 @@ body.dark{background:#070710;}
 .dark .tick2{background:#090916;border-top:1.5px solid rgba(255,255,255,0.09);}
 .dark .tick-hist{background:#101020;}
 .dark .t-lbl{color:rgba(255,255,255,0.5);}
-.dark .t-val{color:#ffffff;} 
+.dark .t-val{color:rgba(255,255,255,0.85);}
 .dark .t-empty{color:rgba(255,255,255,0.28);}
 /* dark landscape extras */
 .dark .view-title{background:#09091a;}
@@ -104,9 +104,7 @@ body.light{background:#f0f0f5;}
 .light td.rk{background:#dde0ec!important;color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1)!important;}
 .light td.sub{background:#cce0ff;color:#003f8a;border-color:rgba(0,100,200,0.28)!important;}
 .light td.tot-g{background:#e4f2e4;color:#1a6020;}
-.light td.tot-n{background:#1a6b1a;color:#ffd60a;}
-.light td.net-cell{background:#1a6b1a!important;color:#ffd60a!important;border-right-color:rgba(10,132,255,0.38)!important;}
-
+.light td.tot-n{background:#1a6b1a;color:#fff;}
 .light .loading-msg{color:rgba(0,0,0,0.3);}
 /* light sg */
 .light .sg-lbl{color:rgba(0,0,0,0.33);}
@@ -117,7 +115,7 @@ body.light{background:#f0f0f5;}
 .light .tick1{background:#0a3010;border-top:1px solid rgba(48,209,88,0.25);}
 .light .tick2{background:#18183a;border-top:1px solid rgba(0,0,0,0.1);}
 .light .t-lbl{color:rgba(255,255,255,0.6);}
-.light .t-val{color:#ffffff;} 
+.light .t-val{color:rgba(255,255,255,0.92);}
 .light .t-empty{color:rgba(255,255,255,0.4);}
 /* light landscape extras */
 .light .view-title{background:#eceef6;}
@@ -132,6 +130,7 @@ body.light{background:#f0f0f5;}
 .light td.erow-cell{background:#eceef4!important;border-color:rgba(0,0,0,0.03)!important;}
 .light td.sub9{background:#cce0ff!important;color:#003f8a;border-color:rgba(0,100,200,0.28)!important;}
 .light td.gross-cell{background:#e4f2e4!important;color:#1a6020;}
+.light td.net-cell{background:#1a6b1a!important;color:#fff;}
 .light td.erow-sub{background:#e4e6f0!important;color:rgba(0,0,0,0.12)!important;border-color:rgba(0,0,0,0.03)!important;}
 
 /* ── 3. HEADER ── */
@@ -164,9 +163,7 @@ body.light{background:#f0f0f5;}
 .fb{font-weight:700;cursor:pointer;}
 
 /* ── TABLE SHARED ── */
-table{border-collapse:collapse;}
-body.port table {table-layout:auto; width:100%;} /* ปลดล็อกให้ตารางหดขยายได้อิสระในมือถือ */
-body.land table {table-layout:fixed; width:100%;}
+table{border-collapse:collapse;width:100%;table-layout:fixed;}
 th{text-align:center;border:1px solid;font-weight:700;}
 th.tl{text-align:left;}
 td{text-align:center;border:1px solid;font-weight:600;vertical-align:middle;}
@@ -192,7 +189,7 @@ td.tot-n{font-weight:800;border-right:2px solid;}
 .light .blk{color:rgba(0,0,0,0.15);}
 
 /* ── TICKER SHARED ── */
-.tickers{display:flex;flex-direction:column;flex-shrink:0;}
+.tickers{display:flex;flex-direction:column;}
 .tick1,.tick2{display:flex;align-items:center;overflow:hidden;}
 .tick1 .tbadge{background:#1a5c1a;}
 .tick2 .tbadge{background:#0a84ff;}
@@ -204,7 +201,7 @@ td.tot-n{font-weight:800;border-right:2px solid;}
 .trow.r2{animation:scrollt 20s linear infinite;}
 .trow.rh{animation:scrollt 30s linear infinite;}
 @keyframes scrollt{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-.t-hi{color:#ffffff;font-weight:800;}
+.t-hi{color:#ffd60a;font-weight:800;}
 /* alert chips */
 .a-chip{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;flex-shrink:0;}
 .a-chip.bir{background:#7a1a1a;color:#ff8080;}
@@ -223,19 +220,14 @@ td.tot-n{font-weight:800;border-right:2px solid;}
 .ahole{font-weight:700;border-radius:.25em;color:#fff;}
 .dark .ahole{background:rgba(255,255,255,0.07);}
 .light .ahole{background:rgba(0,0,0,0.12);}
-.atime{color:rgba(255,255,255,0.5);}
+.atime{color:rgba(255,255,255,0.32);}
 
 /* ════════════════════════════════════════
-   PORTRAIT (UPDATED)
+   PORTRAIT
 ════════════════════════════════════════ */
-body.port{overflow:hidden;}
-/* หดหน้าจอ ใช้ 100dvh หลบ URL มือถือ */
-body.port .scr{
-  display:flex; flex-direction:column; height:100vh; height:100dvh; max-width:480px; margin:0 auto; overflow:hidden;
-}
-
-body.port .hdr, body.port .dbar, body.port .hbanner, body.port .frow { flex-shrink:0; }
-
+body.port{overflow:auto;}
+body.port .scr{max-width:480px;margin:0 auto;}
+/* header */
 body.port .hdr{padding:11px 14px;}
 body.port .logo{font-size:18px;}
 body.port .hdr-sub{font-size:11px;margin-left:8px;}
@@ -243,49 +235,40 @@ body.port .hdr-r{gap:5px;}
 body.port .live-dot,body.port .hist-dot{width:7px;height:7px;}
 body.port .stxt{font-size:11px;}
 body.port .hbtn{padding:5px 9px;border-radius:13px;font-size:11px;}
+/* datebar */
 body.port .dbar{padding:6px 10px;gap:4px;}
 body.port .dnav{width:26px;height:26px;border-radius:8px;font-size:12px;}
 body.port .dcenter{gap:7px;}
 body.port .ddate{font-size:13px;}
 body.port .dtag{padding:3px 9px;font-size:10px;gap:4px;}
 body.port .ddot{width:6px;height:6px;}
+/* hist banner */
 body.port .hbanner{padding:5px 12px;font-size:11px;gap:6px;}
+/* filter */
 body.port .frow{padding:5px 11px;}
 body.port .fbtns{gap:5px;}
 body.port .fb{padding:4px 10px;border-radius:12px;font-size:12px;}
 body.port .fmeta{font-size:10px;}
-
-/* flex container for scrolling area */
-#port-content { display:flex; flex-direction:column; flex:1; overflow:hidden; }
-
 /* tabs */
-body.port .tabs{display:flex;gap:4px;padding:5px 10px 0px; flex-shrink:0;} /* ชิดตารางมากขึ้น */
+body.port .tabs{display:flex;gap:4px;padding:5px 10px 3px;}
 body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;}
-
-/* สี Tabs โหมดมืด ให้เป็นสีขาว 100% บังคับด้วย !important */
-.dark body.port .tab.on, .dark .port .tab.on { background:#0a84ff; color:#ffffff !important; }
-.dark body.port .tab.off, .dark .port .tab.off { background:rgba(255,255,255,0.15); color:#ffffff !important; }
-
-.light body.port .tab.on,.light .port .tab.on{background:#0060cc;color:#ffffff;}
-.light body.port .tab.off,.light .port .tab.off{background:rgba(0,0,0,0.08);color:#333333;}
+.dark body.port .tab.on,.dark .port .tab.on{background:#0a84ff;color:#fff;}
+.dark body.port .tab.off,.dark .port .tab.off{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.35);}
+.light body.port .tab.on,.light .port .tab.on{background:#0060cc;color:#fff;}
+.light body.port .tab.off,.light .port .tab.off{background:rgba(0,0,0,0.04);color:rgba(0,0,0,0.35);}
 body.port .dark .tabs{background:#09090f;}
 body.port .light .tabs{background:#e8eaf2;}
-
-/* scroll area */
-body.port .tbl-scroll{
-  overflow-y:auto; flex:1; max-height:none;
-}
-body.port #port-body { width: 100%; } 
-body.port .tbl-wrap{padding:2px 4px 6px; width: 100%;} /* ลด padding ด้านบนเพื่อให้ชิด Tab */
-
-/* Auto-Sizing Font สำหรับตารางมือถือ */
-body.port th{font-size:clamp(8.5px, 2.2vw, 11px); padding:6px 1px; white-space:nowrap;}
-body.port td{font-size:clamp(9.5px, 2.6vw, 12px); padding:8px 1px; white-space:nowrap;}
-body.port td.rk{font-size:clamp(8.5px, 2.2vw, 11px);}
+/* scroll area — สูงสุด 6 คน */
+body.port .tbl-scroll{overflow-y:auto;max-height:calc(6 * 52px);}
+body.port .tbl-wrap{padding:6px 10px;}
+body.port th{font-size:10px;padding:6px 2px;}
+body.port td{font-size:15px;padding:8px 2px;}
+body.port td.rk{font-size:12px;}
+body.port td.sub{font-size:13px;}
+body.port td.tot-g,body.port td.tot-n{font-size:14px;}
 body.port .sg-lbl{font-size:11px;padding:5px 11px 2px;}
 body.port .sg-tbl th,body.port .sg-tbl td{font-size:12px;padding:6px 3px;border:0.5px solid;}
-
-/* ticker portrait styling */
+/* ticker */
 body.port .tick1,body.port .tick2{height:32px;}
 body.port .tbadge{padding:0 10px;font-size:11px;height:100%;}
 body.port .trow{font-size:11px;}
@@ -293,10 +276,6 @@ body.port .a-chip{width:17px;height:17px;font-size:9px;}
 body.port .a-tag{padding:1px 4px;font-size:9px;}
 body.port .ahole{padding:1px 4px;font-size:9px;}
 body.port .atime{font-size:9px;}
-
-/* กันบั๊กทีวี: ซ่อน Ticker มือถือในจอ Landscape ทิ้ง */
-body.land #port-tickers { display: none !important; }
-body.port #land-tickers { display: none !important; }
 
 /* ════════════════════════════════════════
    LANDSCAPE — TV 50" เต็ม viewport
@@ -307,6 +286,7 @@ body.land .scr{
   height:calc(100vh - 10.4vh);
   display:flex;flex-direction:column;overflow:hidden;
 }
+/* header */
 body.land .hdr{height:7vh;flex-shrink:0;padding:0 1.5vw;}
 body.land .logo{font-size:1.8vw;}
 body.land .hdr-sub{font-size:0.9vw;margin-left:0.6vw;}
@@ -314,27 +294,34 @@ body.land .hdr-r{gap:0.6vw;}
 body.land .live-dot,body.land .hist-dot{width:0.55vw;height:0.55vw;}
 body.land .stxt{font-size:0.85vw;}
 body.land .hbtn{padding:0.35vh 0.8vw;border-radius:0.7vw;font-size:0.8vw;}
+/* datebar */
 body.land .dbar{height:4.5vh;flex-shrink:0;padding:0 1.5vw;gap:0.5vw;}
 body.land .dnav{width:1.8vw;height:1.8vw;border-radius:0.5vw;font-size:0.9vw;}
 body.land .dcenter{gap:0.6vw;}
 body.land .ddate{font-size:1vw;}
 body.land .dtag{padding:0.25vh 0.7vw;font-size:0.72vw;gap:0.3vw;}
 body.land .ddot{width:0.45vw;height:0.45vw;}
+/* hist banner */
 body.land .hbanner{height:3.5vh;flex-shrink:0;padding:0 1.5vw;gap:0.5vw;font-size:0.82vw;}
+/* filter */
 body.land .frow{height:4.5vh;flex-shrink:0;padding:0 1.5vw;}
 body.land .fbtns{gap:0.4vw;align-items:center;}
 body.land .fb{padding:0.3vh 0.9vw;border-radius:0.7vw;font-size:0.82vw;}
 body.land .fmeta{font-size:0.78vw;}
 body.land .ss-btn{padding:0.3vh 0.9vw;border-radius:0.7vw;font-size:0.78vw;font-weight:700;cursor:pointer;}
+/* screensaver progress */
 body.land .ss-progress{height:1px;flex-shrink:0;}
 body.land .ss-bar{height:1px;width:0%;transition:none;}
+/* view title */
 body.land .view-title{height:4vh;flex-shrink:0;display:flex;align-items:center;padding:0 1.5vw;gap:0.5vw;}
 body.land .vt-txt{font-size:0.95vw;font-weight:800;letter-spacing:.3px;}
 body.land .vt-sub{font-size:0.72vw;}
 body.land .ss-dots{display:flex;gap:0.3vw;margin-left:auto;}
 body.land .ss-dot{width:0.45vw;height:0.45vw;border-radius:50%;}
+/* slbl */
 body.land .slbl{height:3vh;flex-shrink:0;font-size:0.85vw;font-weight:700;padding:0 1.4vw;display:flex;align-items:center;gap:0.4vw;}
 body.land .slbl span{font-size:0.65vw;opacity:.35;font-weight:400;}
+/* score table */
 body.land .tbl-wrap{flex:1;overflow:hidden;padding:0 1vw;}
 body.land .tbl-wrap table{height:100%;}
 body.land th{font-size:0.95vw;padding:0.3vh 0.1vw;}
@@ -346,12 +333,15 @@ body.land .sc{width:1.8vw;height:1.8vw;font-size:0.9vw;}
 body.land td.sub9{font-weight:800;font-size:1.5vw;border-left:2px solid!important;border-right:2px solid!important;}
 body.land td.gross-cell{font-weight:800;font-size:1.5vw;border-left:2px solid!important;}
 body.land td.net-cell{font-weight:800;font-size:1.6vw;border-right:2px solid!important;}
+/* divider */
 body.land .divider{height:0.3vh;flex-shrink:0;}
+/* SG */
 body.land .sg-lbl{font-size:0.85vw;padding:0 1.4vw;}
 body.land .sg-tbl-wrap{flex-shrink:0;padding:0 1vw 0.3vh;}
 body.land .sg-tbl th{font-size:0.9vw;padding:0.3vh 0.3vw;}
 body.land .sg-tbl td{font-size:1.5vw;padding:0.45vh 0.3vw;}
 body.land .sg-tbl td.nm2{text-align:left;padding-left:0.8vw;font-weight:700;font-size:1.4vw;color:#fff;}
+/* ticker fixed */
 body.land .tickers{position:fixed;bottom:0;left:0;width:100%;z-index:100;}
 body.land .tick1,body.land .tick2{height:5.2vh;}
 body.land .tbadge{padding:0 1.1vw;font-size:0.9vw;height:100%;}
@@ -366,6 +356,7 @@ body.land .atime{font-size:0.62vw;}
 <body class="port dark">
 <div class="scr" id="scr">
 
+  <!-- ── HEADER ── -->
   <div class="hdr">
     <div style="display:flex;align-items:center">
       <div class="logo">Golf<em>Mate</em></div>
@@ -380,12 +371,11 @@ body.land .atime{font-size:0.62vw;}
     </div>
   </div>
 
-  <div class="tickers" id="port-tickers"></div>
-
+  <!-- ── DATE BAR ── -->
   <div class="dbar">
     <button class="dnav" id="dprev" onclick="goPrev()">←</button>
     <div class="dcenter">
-      <div class="ddate" id="ddate"></div>
+      <div class="ddate" id="ddate">23 มี.ค. 2569</div>
       <div class="dtag live" id="dtag">
         <div class="ddot" id="ddot"></div>
         <span id="dtag-txt">Live</span>
@@ -394,31 +384,41 @@ body.land .atime{font-size:0.62vw;}
     <button class="dnav" id="dnext" onclick="goNext()" disabled>→</button>
   </div>
 
+  <!-- ── HIST BANNER ── -->
   <div class="hbanner" id="hbanner" style="display:none">
     <span>📂</span>
     <span class="hb-txt">ข้อมูลย้อนหลัง — ไม่มี Live refresh</span>
     <span class="hb-r" style="margin-left:auto" id="hb-date"></span>
   </div>
 
+  <!-- ── FILTER ── -->
   <div class="frow">
     <div class="fbtns" id="filter-wrap"></div>
     <span class="fmeta" id="fmeta">—</span>
   </div>
 
+  <!-- ── PORTRAIT CONTENT ── -->
   <div id="port-content">
+    <!-- tabs -->
     <div class="tabs" id="port-tabs">
       <div class="tab on" id="tab-score" onclick="setTab('score')">🏆 สกอร์</div>
       <div class="tab off" id="tab-sg" onclick="setTab('sg')">⛳ FW·GIR·Putt</div>
     </div>
+    <!-- scroll area -->
     <div id="tbl-scroll-wrap" class="tbl-scroll">
       <div id="port-body"><div class="loading-msg">⟳ กำลังโหลด...</div></div>
     </div>
+    <!-- tickers portrait -->
+    <div class="tickers" id="port-tickers"></div>
   </div>
 
-  <div id="land-content" style="display:none;flex:1;flex-direction:column;overflow:hidden;">
+  <!-- ── LANDSCAPE CONTENT ── -->
+  <div id="land-content" style="display:none;flex:1;display:none;flex-direction:column;overflow:hidden;">
 
+    <!-- screensaver progress -->
     <div class="ss-progress"><div class="ss-bar" id="ss-bar"></div></div>
 
+    <!-- view title -->
     <div class="view-title">
       <span class="vt-txt" id="vt-txt">🏆 ผู้นำการแข่งขัน</span>
       <span class="vt-sub" id="vt-sub">แสดง Top 6 · เรียงตาม Net Score</span>
@@ -426,6 +426,7 @@ body.land .atime{font-size:0.62vw;}
       <button class="ss-btn" id="ss-btn" onclick="toggleSS()" style="margin-left:0.8vw">▶ Screensaver</button>
     </div>
 
+    <!-- score table label -->
     <div class="slbl">📋 ตารางสกอร์รายหลุม
       <span>วงแดง=Birdie · วงน้ำเงิน=Eagle · ฟ้า=Par · เทา=Bogey+</span>
     </div>
@@ -435,6 +436,7 @@ body.land .atime{font-size:0.62vw;}
 
     <div class="divider"></div>
 
+    <!-- SG -->
     <div class="slbl sg-lbl">⛳ FW · GIR · Putt รวม</div>
     <div class="sg-tbl-wrap">
       <table class="sg-tbl">
@@ -446,10 +448,13 @@ body.land .atime{font-size:0.62vw;}
       </table>
     </div>
 
+    <!-- tickers landscape (fixed via CSS) -->
     <div class="tickers" id="land-tickers"></div>
   </div>
 
-</div><script>
+</div><!-- /scr -->
+
+<script>
 /* ════════════════════════════════════════════════════
    CONFIG
 ════════════════════════════════════════════════════ */
@@ -526,7 +531,7 @@ function applyOrient() {
   document.body.className = (port ? 'port' : 'land') + ' ' + (isDark ? 'dark' : 'light');
   document.getElementById('obtn').textContent = port ? '📺' : '📱';
   document.getElementById('obtn').className = 'hbtn' + (orientOvr ? ' ovr' : '');
-  document.getElementById('port-content').style.display = port ? 'flex' : 'none';
+  document.getElementById('port-content').style.display = port ? 'block' : 'none';
   const lc = document.getElementById('land-content');
   lc.style.display = port ? 'none' : 'flex';
   lc.style.flexDirection = 'column';
@@ -583,6 +588,7 @@ function updateDateBar() {
   document.getElementById('dnext').style.opacity = dateOffset === 0 ? '.2' : '1';
   document.getElementById('hbanner').style.display = isLive ? 'none' : 'flex';
   document.getElementById('hb-date').textContent = formatDateTH(dateOffset) + ' · การแข่งขันจบแล้ว';
+  // auto-refresh only when live
   clearInterval(refreshTimer);
   if (isLive) refreshTimer = setInterval(fetchLB, CFG.refreshSec * 1000);
 }
@@ -663,6 +669,7 @@ function buildFilter() {
   const course = (allP[0] && allP[0].course) || '';
   if (course) document.getElementById('hdr-sub').textContent = 'Live · ' + course;
   document.getElementById('fmeta').textContent = vis.length + ' คน · ' + rs.length + ' กลุ่ม' + (course ? ' · ' + course : '');
+  // update ss rooms
   ssRooms = ['', ...rooms];
   renderSSDots();
 }
@@ -699,7 +706,7 @@ function renderAll() {
 }
 
 /* ════════════════════════════════════════════════════
-   PORTRAIT RENDER (NEW SMART 8-11 COLUMNS)
+   PORTRAIT RENDER
 ════════════════════════════════════════════════════ */
 function getPortList() {
   let list = allP.filter(p => !room || p.room === room);
@@ -710,100 +717,39 @@ function getPortList() {
     return an - bn;
   });
 }
-
 function renderPortrait() {
   const list = getPortList();
   const el = document.getElementById('port-body');
-  if (!allP.length) { el.innerHTML = '<div class="loading-msg">⛳ ไม่มีการแข่งขัน</div>'; return; }
-  if (!list.length) { el.innerHTML = '<div class="loading-msg">ยังไม่มีข้อมูลกลุ่มนี้</div>'; return; }
+  if (!list.length) { el.innerHTML = '<div class="loading-msg">⛳ ยังไม่มีสกอร์</div>'; return; }
   if (tab === 'score') el.innerHTML = renderPortScore(list);
   else el.innerHTML = renderPortSG(list);
 }
-
 function renderPortScore(list) {
   const dk = isDark, thc = dk ? '#4da3ff' : '#0060cc';
-  const nc = dk ? 'color:#34d16a' : 'color:#ffd60a';
-
-  // 1. คำนวณสถิติ
-  let totals = { le:0, db:0, bg:0, pa:0, bd:0, eg:0, ab:0, hio:0 };
-  
-  list.forEach(p => {
-    let c = { le:0, db:0, bg:0, pa:0, bd:0, eg:0, ab:0, hio:0 };
-    const pars = p.pars || PARS;
-    (p.scores || []).forEach((s, h) => {
-      if (s == null) return;
-      if (s === 1) { c.hio++; return; } // HIO
-      
-      let diff = s - pars[h];
-      if (diff >= 3) c.le++;
-      else if (diff === 2) c.db++;
-      else if (diff === 1) c.bg++;
-      else if (diff === 0) c.pa++;
-      else if (diff === -1) c.bd++;
-      else if (diff === -2) c.eg++;
-      else if (diff <= -3) c.ab++;
-    });
-    p._st = c; 
-    Object.keys(totals).forEach(k => totals[k] += c[k]); 
-  });
-
-  // 2. สร้างหัวตาราง (ยืนพื้น 8 ช่อง + งอกเพิ่ม 3 ช่องตามเงื่อนไข)
-  let headers = `<th>H</th><th class="tl" style="width:100%; padding-left:3px">ชื่อ</th>`;
-  headers += `<th>เละ</th><th>DB</th><th>BG</th><th>Par</th><th>BD</th>`; // แสดงยืนพื้นตลอด
-  
-  // ซ่อน/แสดง 3 ช่องพิเศษตามข้อมูลจริง
-  if (totals.eg > 0) headers += `<th>EG</th>`;
-  if (totals.ab > 0) headers += `<th>AB</th>`;
-  if (totals.hio > 0) headers += `<th>HIO</th>`;
-  
-  headers += `<th style="color:${thc}">Net</th>`; // คอลัมน์ที่ 8 (สุดท้ายเสมอ)
-
-  // สีเฉพาะสำหรับแต่ละสถิติ
-  const cLe = dk ? '#ff453a' : '#cc0000'; // แดง
-  const cDb = dk ? '#ff9f0a' : '#d2691e'; // ส้ม
-  const cBg = dk ? 'rgba(255,255,255,0.4)' : '#666666'; // เทา
-  const cPa = dk ? '#4da3ff' : '#0060cc'; // ฟ้า
-  const cBd = dk ? '#ff8080' : '#cc0000'; // ชมพู
-  const cEg = dk ? '#60b4ff' : '#004fc4'; // น้ำเงินสว่าง
-  const cAb = dk ? '#ffd060' : '#b08d00'; // ทอง
-  const cHio = dk ? '#ffd60a' : '#e6b800'; // เหลือง
-
-  // 3. สร้างแถวข้อมูลตาราง
+  const nc = dk ? 'color:#34d16a' : 'color:#1a6020';
   const rows = list.map((p, i) => {
-    const tot = p.total || 0, hcp = p.hcp || 0, net = tot - hcp, done = p.holesPlayed === 18;
-    let c = p._st;
-
-    let row = `<tr>
-      <td class="rk">${i < 3 ? MEDALS[i] : '#' + (i + 1)}</td>
-      <td class="tl" style="padding-left:3px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px;">${p.name}</td>`;
-
-    const cell = (val, colHex) => {
-         const v = val > 0 ? val : '-'; // ถ้าเป็น 0 ใส่ขีด
-         const op = val > 0 ? '1' : '0.25'; // ถ้าเป็น 0 ให้สีจางลง
-         const fw = val > 0 ? '700' : '500';
-         return `<td style="color:${colHex}; opacity:${op}; font-weight:${fw}">${v}</td>`;
-    };
-
-    // แถวยืนพื้น
-    row += cell(c.le, cLe);
-    row += cell(c.db, cDb);
-    row += cell(c.bg, cBg);
-    row += cell(c.pa, cPa);
-    row += cell(c.bd, cBd);
-
-    // แถวพิเศษ (แสดงเฉพาะเมื่อกลุ่มนี้มีสกอร์นั้น)
-    if (totals.eg > 0) row += cell(c.eg, cEg);
-    if (totals.ab > 0) row += cell(c.ab, cAb);
-    if (totals.hio > 0) row += cell(c.hio, cHio);
-
-    row += `<td class="tot-n" style="${nc}">${net}${done ? '' : '<span class="star">*</span>'}</td></tr>`;
-    return row;
+    const tot=p.total||0, hcp=p.hcp||0, net=tot-hcp, done=p.holesPlayed===18;
+    const f9 = p.scores && p.scores.slice(0,9).some(v=>v!==null) ? p.scores.slice(0,9).reduce((a,v)=>a+(v||0),0) : null;
+    const b9 = p.scores && p.scores.slice(9).some(v=>v!==null)   ? p.scores.slice(9).reduce((a,v)=>a+(v||0),0)   : null;
+    return `<tr>
+      <td class="rk">${i<3?MEDALS[i]:'#'+(i+1)}</td>
+      <td class="tl" style="padding-left:7px;font-weight:700">${p.name}
+        <div style="font-size:.6em;opacity:.38;font-weight:400">${p.room||'—'} · HCP${hcp}</div></td>
+      <td class="sub">${f9!==null?f9:'—'}</td>
+      <td class="sub" style="${b9===null?'opacity:.35':''}">${b9!==null?b9:'—'}</td>
+      <td class="tot-g">${tot||'—'}${done?'':'<span class="star">*</span>'}</td>
+      <td class="tot-n" style="${nc}">${net}${done?'':'<span class="star">*</span>'}</td>
+    </tr>`;
   }).join('');
-
   return `<div class="tbl-wrap"><table>
-    <thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div>`;
+    <thead><tr>
+      <th style="width:10%">H</th>
+      <th class="tl" style="padding-left:7px">ชื่อ</th>
+      <th style="width:13%">F9</th><th style="width:13%">B9</th>
+      <th style="width:14%;color:${thc}">Gross</th>
+      <th style="width:14%;color:${thc}">Net</th>
+    </tr></thead><tbody>${rows}</tbody></table></div>`;
 }
-
 function renderPortSG(list) {
   if (!list.length) return '<div class="loading-msg">ยังไม่มีข้อมูล FW·GIR·Putt</div>';
   const dk=isDark, gc=dk?'#30d158':'#1a7a3a', bc=dk?'#4da3ff':'#0060cc';
@@ -828,7 +774,7 @@ function renderPortSG(list) {
 }
 
 /* ════════════════════════════════════════════════════
-   LANDSCAPE RENDER (NO CHANGES)
+   LANDSCAPE RENDER
 ════════════════════════════════════════════════════ */
 function getLandList() {
   let list = allP.filter(p => !room || p.room === room);
@@ -897,6 +843,7 @@ function renderLandscape() {
   }
   document.getElementById('land-score-body').innerHTML = rows;
 
+  // SG — 6 แถวเสมอ
   const dk=isDark, gc=dk?'#30d158':'#1a7a3a', bc=dk?'#4da3ff':'#0060cc';
   const sgAll = allP.filter(p=>!room||p.room===room).filter(p=>p.putt!=null).sort((a,b)=>a.putt-b.putt);
   const EMPTY_NM = `<span style="visibility:hidden">ประสิทธิ์ ม.</span>`;
@@ -923,6 +870,7 @@ function renderLandscape() {
   }
   document.getElementById('land-sg-body').innerHTML = sgRows;
 
+  // view title
   const ROOM_NAMES = { '': '🏆 ผู้นำการแข่งขัน' };
   const ROOM_SUBS  = { '': 'แสดง Top 6 · เรียงตาม Net Score' };
   ssRooms.forEach(r => {
@@ -998,11 +946,11 @@ function buildTickerContent() {
   const ts    = now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   const ds    = now.toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'});
   const sep   = '<span style="margin:0 1em;opacity:.25">◆</span>';
-  
   const item  = (lbl,val,hi) =>
     `<span style="display:inline-flex;align-items:center;margin-right:1.5em">` +
     `<span class="t-lbl">${lbl}</span>&nbsp;<span class="${hi?'t-hi':'t-val'}">${val}</span></span>`;
 
+  // LIVE info (ticker2)
   const liveItems = [
     lead  ? item('🏆 ผู้นำ', lead.name+' Net '+((lead.total||0)-(lead.hcp||0)), true) : null,
     puLd  ? item('⛳ Putt', puLd.name+' '+puLd.putt+' พัต', true) : null,
@@ -1013,10 +961,11 @@ function buildTickerContent() {
     item('📡', 'อัปเดตทุก '+CFG.refreshSec+' วิ', false),
   ].filter(Boolean).join(sep);
 
+  // Birdie alerts (ticker1)
   const alerts = Object.values(confirmed);
   let alertHTML = '';
   if (!alerts.length) {
-    const ph = `<span class="t-empty" style="padding:0 1em">รอสกอร์ Birdie+ แรกของวัน...</span>`;
+    const ph = `<span class="t-empty" style="padding:0 1em">รอ Birdie+ แรกของวัน...</span>`;
     alertHTML = ph + ph;
   } else {
     alerts.sort((a,b) => a.hole - b.hole);
@@ -1026,7 +975,7 @@ function buildTickerContent() {
       `<span class="a-chip ${a.cls}">${a.score}</span>` +
       `<span style="font-weight:800;color:#fff">${a.name}</span>` +
       `<span class="a-tag ${a.cls}" style="padding:1px 5px">${a.type}</span>` +
-      `<span class="ahole" style="padding:1px 4px; color:#fff">หลุม ${a.hole+1}</span>` +
+      `<span class="ahole" style="padding:1px 4px">หลุม ${a.hole+1}</span>` +
       `<span class="atime">${a.time}</span>` +
       `</span>`).join(psep);
     alertHTML = items + psep + items;
@@ -1041,26 +990,18 @@ function buildTickerContent() {
 
 function renderTicker() {
   const { t1, t2, histMode } = buildTickerContent();
-  
-  const pTick = document.getElementById('port-tickers');
-  if (pTick) {
-    pTick.innerHTML =
+  const mkTickers = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML =
+      `<div class="tick1"><div class="tbadge">สกอร์</div><div class="tscroll"><div class="trow r1">${t1}</div></div></div>` +
       `<div class="${histMode?'tick2 tick-hist':'tick2'}">` +
         `<div class="tbadge" ${histMode?'style="background:#444"':''}>` +
           `${histMode?'📂 เก็บ':'⛳ LIVE'}</div>` +
-        `<div class="tscroll"><div class="trow r2" style="animation-duration:20s">${t2}</div></div></div>` +
-      `<div class="tick1"><div class="tbadge">สกอร์</div><div class="tscroll"><div class="trow r1" style="animation-duration:100s">${t1}</div></div></div>`;
-  }
-
-  const lTick = document.getElementById('land-tickers');
-  if (lTick) {
-    lTick.innerHTML =
-      `<div class="tick1"><div class="tbadge">สกอร์</div><div class="tscroll"><div class="trow r1" style="animation-duration:40s">${t1}</div></div></div>` +
-      `<div class="${histMode?'tick2 tick-hist':'tick2'}">` +
-        `<div class="tbadge" ${histMode?'style="background:#444"':''}>` +
-          `${histMode?'📂 เก็บ':'⛳ LIVE'}</div>` +
-        `<div class="tscroll"><div class="trow r2" style="animation-duration:20s">${t2}</div></div></div>`;
-  }
+        `<div class="tscroll"><div class="trow r2">${t2}</div></div></div>`;
+  };
+  mkTickers('port-tickers');
+  mkTickers('land-tickers');
 }
 
 function tickClock() { renderTicker(); }
