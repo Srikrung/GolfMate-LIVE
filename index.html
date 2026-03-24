@@ -61,7 +61,7 @@ body.dark{background:#070710;}
 .dark .tick2{background:#090916;border-top:1.5px solid rgba(255,255,255,0.09);}
 .dark .tick-hist{background:#101020;}
 .dark .t-lbl{color:rgba(255,255,255,0.5);}
-.dark .t-val{color:#ffffff;} /* บังคับสีขาวสว่าง */
+.dark .t-val{color:#ffffff;} 
 .dark .t-empty{color:rgba(255,255,255,0.28);}
 /* dark landscape extras */
 .dark .view-title{background:#09091a;}
@@ -104,8 +104,7 @@ body.light{background:#f0f0f5;}
 .light td.rk{background:#dde0ec!important;color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1)!important;}
 .light td.sub{background:#cce0ff;color:#003f8a;border-color:rgba(0,100,200,0.28)!important;}
 .light td.tot-g{background:#e4f2e4;color:#1a6020;}
-
-/* ★ แก้สี Net พื้นเขียว โหมดสว่าง ให้เป็นสีเหลือง ★ */
+/* แก้สี Net โหมดสว่าง เป็นสีเหลือง */
 .light td.tot-n{background:#1a6b1a;color:#ffd60a;}
 .light td.net-cell{background:#1a6b1a!important;color:#ffd60a!important;border-right-color:rgba(10,132,255,0.38)!important;}
 
@@ -119,7 +118,7 @@ body.light{background:#f0f0f5;}
 .light .tick1{background:#0a3010;border-top:1px solid rgba(48,209,88,0.25);}
 .light .tick2{background:#18183a;border-top:1px solid rgba(0,0,0,0.1);}
 .light .t-lbl{color:rgba(255,255,255,0.6);}
-.light .t-val{color:#ffffff;} /* บังคับสีขาวสว่าง */
+.light .t-val{color:#ffffff;} 
 .light .t-empty{color:rgba(255,255,255,0.4);}
 /* light landscape extras */
 .light .view-title{background:#eceef6;}
@@ -166,7 +165,9 @@ body.light{background:#f0f0f5;}
 .fb{font-weight:700;cursor:pointer;}
 
 /* ── TABLE SHARED ── */
-table{border-collapse:collapse;width:100%;table-layout:fixed;}
+table{border-collapse:collapse;}
+body.port table {table-layout:auto; width:100%;} /* ปลดล็อกให้ตารางหดขยายได้อิสระในมือถือ */
+body.land table {table-layout:fixed; width:100%;}
 th{text-align:center;border:1px solid;font-weight:700;}
 th.tl{text-align:left;}
 td{text-align:center;border:1px solid;font-weight:600;vertical-align:middle;}
@@ -229,7 +230,7 @@ td.tot-n{font-weight:800;border-right:2px solid;}
    PORTRAIT (UPDATED)
 ════════════════════════════════════════ */
 body.port{overflow:hidden;}
-/* ★ หดหน้าจอ ใช้ 100dvh หลบ URL มือถือ ★ */
+/* หดหน้าจอ ใช้ 100dvh หลบ URL มือถือ */
 body.port .scr{
   display:flex; flex-direction:column; height:100vh; height:100dvh; max-width:480px; margin:0 auto; overflow:hidden;
 }
@@ -259,32 +260,29 @@ body.port .fmeta{font-size:10px;}
 #port-content { display:flex; flex-direction:column; flex:1; overflow:hidden; }
 
 /* tabs */
-body.port .tabs{display:flex;gap:4px;padding:5px 10px 0px; flex-shrink:0;} /* ★ ชิดตารางมากขึ้น */
+body.port .tabs{display:flex;gap:4px;padding:5px 10px 0px; flex-shrink:0;} /* ชิดตารางมากขึ้น */
 body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;}
 
-/* ★ สี Tabs โหมดมืด ให้เป็นสีขาว เพื่อความสว่างคมชัด ★ */
-.dark body.port .tab.on,.dark .port .tab.on{background:#0a84ff;color:#ffffff;}
-.dark body.port .tab.off,.dark .port .tab.off{background:rgba(255,255,255,0.15);color:#ffffff;}
+/* ★ สี Tabs โหมดมืด ให้เป็นสีขาว 100% บังคับด้วย !important ★ */
+.dark body.port .tab.on, .dark .port .tab.on { background:#0a84ff; color:#ffffff !important; }
+.dark body.port .tab.off, .dark .port .tab.off { background:rgba(255,255,255,0.15); color:#ffffff !important; }
 
 .light body.port .tab.on,.light .port .tab.on{background:#0060cc;color:#ffffff;}
 .light body.port .tab.off,.light .port .tab.off{background:rgba(0,0,0,0.08);color:#333333;}
 body.port .dark .tabs{background:#09090f;}
 body.port .light .tabs{background:#e8eaf2;}
 
-/* scroll area — ขยายเต็มจอ & จัดให้อยู่ตรงกลาง (Vertical Center) */
+/* scroll area — ยกเลิกการจัดกึ่งกลาง (Vertical Center) ปล่อยตารางชิดบนธรรมชาติ */
 body.port .tbl-scroll{
   overflow-y:auto; flex:1; max-height:none;
-  display:flex; flex-direction:column;
 }
-body.port #port-body { margin: auto 0; } /* ★ ดึงตารางให้ลอยอยู่ตรงกลางจอพอดี ★ */
-body.port .tbl-wrap{padding:2px 4px 6px;} /* ★ ลด padding ด้านบนเพื่อให้ชิด Tab ★ */
+body.port #port-body { width: 100%; } /* เอา margin: auto 0 ออกเรียบร้อย */
+body.port .tbl-wrap{padding:2px 4px 6px; width: 100%;} /* ลด padding ด้านบนเพื่อให้ชิด Tab */
 
-/* table text 8 columns */
-body.port th{font-size:9.5px;padding:6px 1px;}
-body.port td{font-size:12px;padding:8px 1px;}
-body.port td.rk{font-size:11px;}
-body.port td.sub{font-size:11.5px;}
-body.port td.tot-g,body.port td.tot-n{font-size:12.5px;}
+/* Auto-Sizing Font สำหรับตารางมือถือ */
+body.port th{font-size:clamp(9px, 2.4vw, 11px); padding:6px 1px; white-space:nowrap;}
+body.port td{font-size:clamp(10px, 2.8vw, 12px); padding:8px 1px; white-space:nowrap;}
+body.port td.rk{font-size:clamp(9px, 2.4vw, 11px);}
 body.port .sg-lbl{font-size:11px;padding:5px 11px 2px;}
 body.port .sg-tbl th,body.port .sg-tbl td{font-size:12px;padding:6px 3px;border:0.5px solid;}
 
@@ -297,7 +295,7 @@ body.port .a-tag{padding:1px 4px;font-size:9px;}
 body.port .ahole{padding:1px 4px;font-size:9px;}
 body.port .atime{font-size:9px;}
 
-/* ★ กันบั๊กทีวี: ซ่อน Ticker มือถือในจอ Landscape ทิ้ง ★ */
+/* กันบั๊กทีวี: ซ่อน Ticker มือถือในจอ Landscape ทิ้ง */
 body.land #port-tickers { display: none !important; }
 body.port #land-tickers { display: none !important; }
 
@@ -702,7 +700,7 @@ function renderAll() {
 }
 
 /* ════════════════════════════════════════════════════
-   PORTRAIT RENDER
+   PORTRAIT RENDER (NEW SMART TABLE)
 ════════════════════════════════════════════════════ */
 function getPortList() {
   let list = allP.filter(p => !room || p.room === room);
@@ -713,6 +711,7 @@ function getPortList() {
     return an - bn;
   });
 }
+
 function renderPortrait() {
   const list = getPortList();
   const el = document.getElementById('port-body');
@@ -725,52 +724,84 @@ function renderPortrait() {
 function renderPortScore(list) {
   const dk = isDark, thc = dk ? '#4da3ff' : '#0060cc';
   const nc = dk ? 'color:#34d16a' : 'color:#ffd60a';
+
+  // 1. คำนวณสถิติของทุกคนในกลุ่ม (เละ, DB, BG, Par, BD, EG, AB, HIO)
+  let totals = { le:0, db:0, bg:0, pa:0, bd:0, eg:0, ab:0, hio:0 };
+  
+  list.forEach(p => {
+    let c = { le:0, db:0, bg:0, pa:0, bd:0, eg:0, ab:0, hio:0 };
+    const pars = p.pars || PARS;
+    (p.scores || []).forEach((s, h) => {
+      if (s == null) return;
+      if (s === 1) { c.hio++; return; } // HIO
+      
+      let diff = s - pars[h];
+      if (diff >= 3) c.le++;        // เละ (+3 หรือแย่กว่า)
+      else if (diff === 2) c.db++;  // DB (+2)
+      else if (diff === 1) c.bg++;  // BG (+1)
+      else if (diff === 0) c.pa++;  // Par (0)
+      else if (diff === -1) c.bd++; // BD (-1)
+      else if (diff === -2) c.eg++; // EG (-2)
+      else if (diff <= -3) c.ab++;  // AB (-3 หรือดีกว่า)
+    });
+    p._st = c; // เก็บสถิติไว้ในตัวแปรของแต่ละคน
+    Object.keys(totals).forEach(k => totals[k] += c[k]); // บวกเข้ายอดรวมกลุ่ม
+  });
+
+  // 2. สร้างหัวตาราง (Dynamic Header) - แสดงเฉพาะคอลัมน์ที่มีข้อมูล
+  let headers = `<th>H</th><th class="tl" style="width:100%; padding-left:3px">ชื่อ</th>`;
+  if (totals.le > 0) headers += `<th>เละ</th>`;
+  if (totals.db > 0) headers += `<th>DB</th>`;
+  if (totals.bg > 0) headers += `<th>BG</th>`;
+  if (totals.pa > 0) headers += `<th>Par</th>`;
+  if (totals.bd > 0) headers += `<th>BD</th>`;
+  if (totals.eg > 0) headers += `<th>EG</th>`;
+  if (totals.ab > 0) headers += `<th>AB</th>`;
+  if (totals.hio > 0) headers += `<th>HIO</th>`;
+  headers += `<th style="color:${thc}">Net</th>`;
+
+  // สีเฉพาะสำหรับแต่ละสถิติ
+  const cLe = dk ? '#ff453a' : '#cc0000'; // แดงเข้ม
+  const cDb = dk ? '#ff9f0a' : '#d2691e'; // ส้ม
+  const cBg = dk ? 'rgba(255,255,255,0.4)' : '#666666'; // เทา
+  const cPa = dk ? '#4da3ff' : '#0060cc'; // น้ำเงิน
+  const cBd = dk ? '#ff8080' : '#cc0000'; // ชมพู/แดง
+  const cEg = dk ? '#60b4ff' : '#004fc4'; // ฟ้า
+  const cAb = dk ? '#ffd060' : '#b08d00'; // ทอง
+  const cHio = dk ? '#ffd60a' : '#e6b800'; // เหลือง
+
+  // 3. สร้างแถวข้อมูลตาราง
   const rows = list.map((p, i) => {
-    const tot=p.total||0, hcp=p.hcp||0, net=tot-hcp, done=p.holesPlayed===18;
-    const f9 = p.scores && p.scores.slice(0,9).some(v=>v!==null) ? p.scores.slice(0,9).reduce((a,v)=>a+(v||0),0) : null;
-    const b9 = p.scores && p.scores.slice(9).some(v=>v!==null)   ? p.scores.slice(9).reduce((a,v)=>a+(v||0),0)   : null;
+    const tot = p.total || 0, hcp = p.hcp || 0, net = tot - hcp, done = p.holesPlayed === 18;
+    let c = p._st;
 
-    let toParStr = '-';
-    let pColor = '';
-    if (p.scores) {
-      let playedPar = 0;
-      let playedGross = 0;
-      p.scores.forEach((s, idx) => {
-        if (s !== null) {
-          playedPar += PARS[idx];
-          playedGross += s;
-        }
-      });
-      if (playedPar > 0) {
-        const diff = playedGross - playedPar;
-        if (diff === 0) { toParStr = 'E'; pColor = dk ? '#fff' : '#333'; }
-        else if (diff > 0) { toParStr = '+'+diff; pColor = dk ? 'rgba(255,255,255,0.4)' : '#777'; }
-        else { toParStr = diff; pColor = '#ff453a'; } 
-      }
-    }
+    let row = `<tr>
+      <td class="rk">${i < 3 ? MEDALS[i] : '#' + (i + 1)}</td>
+      <td class="tl" style="padding-left:3px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px;">${p.name}</td>`;
 
-    return `<tr>
-      <td class="rk">${i<3?MEDALS[i]:'#'+(i+1)}</td>
-      <td style="font-weight:700; color:${pColor}; font-size:11px;">${toParStr}</td>
-      <td class="tl" style="padding-left:3px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px;">${p.name}</td>
-      <td style="font-size:11.5px;opacity:0.8">${hcp}</td>
-      <td class="sub">${f9!==null?f9:'-'}</td>
-      <td class="sub" style="${b9===null?'opacity:.35':''}">${b9!==null?b9:'-'}</td>
-      <td class="tot-g">${tot||'-'}${done?'':'<span class="star">*</span>'}</td>
-      <td class="tot-n" style="${nc}">${net}${done?'':'<span class="star">*</span>'}</td>
-    </tr>`;
+    // ฟังก์ชันช่วยสร้างช่องสถิติ (ถ้าทำไม่ได้=จางและมีขีด)
+    const cell = (val, colHex) => {
+         const v = val > 0 ? val : '-';
+         const op = val > 0 ? '1' : '0.25';
+         const fw = val > 0 ? '700' : '500';
+         return `<td style="color:${colHex}; opacity:${op}; font-weight:${fw}">${v}</td>`;
+    };
+
+    if (totals.le > 0) row += cell(c.le, cLe);
+    if (totals.db > 0) row += cell(c.db, cDb);
+    if (totals.bg > 0) row += cell(c.bg, cBg);
+    if (totals.pa > 0) row += cell(c.pa, cPa);
+    if (totals.bd > 0) row += cell(c.bd, cBd);
+    if (totals.eg > 0) row += cell(c.eg, cEg);
+    if (totals.ab > 0) row += cell(c.ab, cAb);
+    if (totals.hio > 0) row += cell(c.hio, cHio);
+
+    row += `<td class="tot-n" style="${nc}">${net}${done ? '' : '<span class="star">*</span>'}</td></tr>`;
+    return row;
   }).join('');
 
   return `<div class="tbl-wrap"><table>
-    <thead><tr>
-      <th style="width:10%">H</th>
-      <th style="width:11%">P</th>
-      <th class="tl" style="width:23%;padding-left:3px">ชื่อ</th>
-      <th style="width:12%">HCP</th>
-      <th style="width:11%">F9</th><th style="width:11%">B9</th>
-      <th style="width:11%;color:${thc}">Gross</th>
-      <th style="width:11%;color:${thc}">Net</th>
-    </tr></thead><tbody>${rows}</tbody></table></div>`;
+    <thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function renderPortSG(list) {
@@ -968,7 +999,6 @@ function buildTickerContent() {
   const ds    = now.toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'});
   const sep   = '<span style="margin:0 1em;opacity:.25">◆</span>';
   
-  // LIVE info (t2)
   const item  = (lbl,val,hi) =>
     `<span style="display:inline-flex;align-items:center;margin-right:1.5em">` +
     `<span class="t-lbl">${lbl}</span>&nbsp;<span class="${hi?'t-hi':'t-val'}">${val}</span></span>`;
@@ -983,7 +1013,6 @@ function buildTickerContent() {
     item('📡', 'อัปเดตทุก '+CFG.refreshSec+' วิ', false),
   ].filter(Boolean).join(sep);
 
-  // Birdie alerts (t1) - ไม่เอานก ชื่อหลุมสีขาวสว่าง
   const alerts = Object.values(confirmed);
   let alertHTML = '';
   if (!alerts.length) {
@@ -1013,7 +1042,6 @@ function buildTickerContent() {
 function renderTicker() {
   const { t1, t2, histMode } = buildTickerContent();
   
-  // ★ Ticker แนวตั้ง (Portrait) - สลับบน LIVE (20วิ) / ล่าง Birdie (100วิ)
   const pTick = document.getElementById('port-tickers');
   if (pTick) {
     pTick.innerHTML =
@@ -1024,7 +1052,6 @@ function renderTicker() {
       `<div class="tick1"><div class="tbadge">สกอร์</div><div class="tscroll"><div class="trow r1" style="animation-duration:100s">${t1}</div></div></div>`;
   }
 
-  // Ticker แนวนอนทีวี (Landscape) - ปกติ ไม่โดนแก้
   const lTick = document.getElementById('land-tickers');
   if (lTick) {
     lTick.innerHTML =
