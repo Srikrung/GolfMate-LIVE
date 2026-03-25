@@ -28,7 +28,7 @@ body.dark{background:#070710;}
 .dark .hdr-sub{color:rgba(255,255,255,0.3);}
 .dark .stxt{color:rgba(255,255,255,0.38);}
 .dark .hbtn{border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.5);}
-.dark .dbar{background:#0b0b1a;border-bottom:1px solid rgba(255,255,255,0.06);}
+.dark .dbar{background:#0b0b1a; border-bottom:none !important;} /* เอาเส้นขอบล่างออก เพื่อเชื่อมกับบรรทัดใหม่ */
 .dark .ddate{color:#fff;}
 .dark .dnav{color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.12);}
 .dark .hbanner{background:rgba(10,132,255,0.07);border-bottom:1px solid rgba(10,132,255,0.18);}
@@ -81,7 +81,7 @@ body.light{background:#f0f0f5;}
 .light .hdr-sub{color:rgba(0,0,0,0.38);}
 .light .stxt{color:rgba(0,0,0,0.38);}
 .light .hbtn{border:1px solid rgba(0,0,0,0.12);background:rgba(0,0,0,0.03);color:rgba(0,0,0,0.45);}
-.light .dbar{background:#e8eaf2;border-bottom:1px solid rgba(0,0,0,0.07);}
+.light .dbar{background:#e8eaf2; border-bottom:none !important;} /* เอาเส้นขอบล่างออก เพื่อเชื่อมกับบรรทัดใหม่ */
 .light .ddate{color:#1c1c1e;}
 .light .dnav{color:rgba(0,0,0,0.4);border-color:rgba(0,0,0,0.1);}
 .light .hbanner{background:rgba(0,96,204,0.06);border-bottom:1px solid rgba(0,96,204,0.14);}
@@ -100,7 +100,7 @@ body.light{background:#f0f0f5;}
 .light td.rk{background:#dde0ec!important;color:rgba(0,0,0,0.48);border-color:rgba(0,0,0,0.1)!important;}
 .light td.sub{background:#cce0ff;color:#003f8a;border-color:rgba(0,100,200,0.28)!important;}
 .light td.tot-g{background:#e4f2e4;color:#1a6020;}
-.light td.tot-n{background:#e4f2e4;color:#1a6020;border-right-color:rgba(0,0,0,0.1)!important;} /* สี Net */
+.light td.tot-n{background:#e4f2e4;color:#1a6020;border-right-color:rgba(0,0,0,0.1)!important;}
 .light .loading-msg{color:rgba(0,0,0,0.3);}
 
 /* light sg */
@@ -142,8 +142,8 @@ body.light{background:#f0f0f5;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
 .hbtn{font-weight:600;cursor:pointer;font-family:inherit;}
 
-/* ── 4. DATE BAR ── */
-.dbar{display:flex;align-items:center;}
+/* ── 4. DATE BAR & META ROW ── */
+.dbar{display:flex;align-items:center;padding-bottom:2px!important;}
 .dnav{background:none;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid;}
 .dnav:disabled{opacity:.2;cursor:default;}
 .dcenter{flex:1;display:flex;align-items:center;justify-content:center;}
@@ -153,6 +153,12 @@ body.light{background:#f0f0f5;}
 .dtag.hist{background:rgba(10,132,255,0.13);color:#4da3ff;border:1px solid rgba(10,132,255,0.3);}
 .ddot{border-radius:50%;background:#30d158;}
 
+/* NEW: บรรทัดข้อมูลใต้วันที่ */
+.dmeta-row { text-align: center; font-size: 11px; padding-bottom: 7px; font-weight: 500; }
+.dark .dmeta-row { background: #0b0b1a; color: rgba(255,255,255,0.4); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.light .dmeta-row { background: #e8eaf2; color: rgba(0,0,0,0.5); border-bottom: 1px solid rgba(0,0,0,0.07); }
+body.land .dmeta-row { display: none !important; } /* ซ่อนในแนวนอน TV */
+
 /* ── 5. HIST BANNER ── */
 .hbanner{display:flex;align-items:center;}
 
@@ -160,6 +166,7 @@ body.light{background:#f0f0f5;}
 .frow{display:flex;align-items:center;justify-content:space-between;}
 .fbtns{display:flex;}
 .fb{font-weight:700;cursor:pointer;}
+body.port .fmeta { display: none !important; } /* ลบข้อมูลวงกลม 2 ออกในแนวตั้ง */
 
 /* ── TABLE SHARED ── */
 table{border-collapse:collapse;width:100%;table-layout:fixed;}
@@ -175,7 +182,7 @@ td.tot-n{font-weight:800;border-right:2px solid;}
 .sg-lbl{font-weight:700;}
 .loading-msg{text-align:center;padding:40px 16px;font-weight:500;}
 
-/* score chips (ค่าพื้นฐานแนวนอนและโหมด Light) */
+/* score chips */
 .sc{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;}
 .sc.bir{background:#7a1a1a;color:#ff8080;}
 .sc.egl{background:#1a3560;color:#60b4ff;}
@@ -240,7 +247,7 @@ body.port .hdr-r{gap:5px;}
 body.port .live-dot,body.port .hist-dot{width:7px;height:7px;}
 body.port .stxt{font-size:11px;}
 body.port .hbtn{padding:5px 9px;border-radius:13px;font-size:11px;}
-body.port .dbar{padding:6px 10px;gap:4px;}
+body.port .dbar{padding:6px 10px 0px;gap:4px;}
 body.port .dnav{width:26px;height:26px;border-radius:8px;font-size:12px;}
 body.port .dcenter{gap:7px;}
 body.port .ddate{font-size:13px;}
@@ -250,15 +257,14 @@ body.port .hbanner{padding:5px 12px;font-size:11px;gap:6px;}
 body.port .frow{padding:5px 11px;}
 body.port .fbtns{gap:5px;}
 body.port .fb{padding:4px 10px;border-radius:12px;font-size:12px;}
-body.port .fmeta{font-size:10px;}
 
 /* tabs */
 body.port .tabs{display:flex;gap:4px;padding:5px 10px 3px;}
 body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;transition:0.2s;}
 
-/* สี Tab สว่างขึ้น ชัดเจนขึ้น */
-.dark body.port .tab.on, .dark .port .tab.on { background: rgba(10, 132, 255, 0.15); color: #4da3ff; border: 1px solid rgba(10, 132, 255, 0.5); }
-.dark body.port .tab.off, .dark .port .tab.off { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.7); border: 1px solid transparent; }
+/* NEW: สี Tab สว่างขาวจั๊วะ 100% */
+.dark body.port .tab.on, .dark .port .tab.on { background: rgba(255, 255, 255, 0.15); color: #ffffff !important; border: 1px solid rgba(255, 255, 255, 0.4); }
+.dark body.port .tab.off, .dark .port .tab.off { background: rgba(255, 255, 255, 0.05); color: #ffffff !important; border: 1px solid transparent; }
 .light body.port .tab.on, .light .port .tab.on { background: rgba(0, 96, 204, 0.1); color: #0060cc; border: 1px solid rgba(0, 96, 204, 0.4); }
 .light body.port .tab.off, .light .port .tab.off { background: rgba(0, 0, 0, 0.04); color: rgba(0, 0, 0, 0.5); border: 1px solid transparent; }
 
@@ -271,12 +277,11 @@ body.port #port-content {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  /* เว้นระยะเผื่อ URL Bar ด้านล่าง */
   padding-bottom: calc(env(safe-area-inset-bottom) + 5px); 
 }
 body.port .tbl-scroll {
   flex: 1;
-  overflow: auto; /* เลื่อนได้ทั้ง X และ Y */
+  overflow: auto; 
   -webkit-overflow-scrolling: touch;
 }
 
@@ -288,14 +293,13 @@ body.port td.sub{font-size:13px;}
 body.port td.tot-g,body.port td.tot-n{font-size:14px;}
 body.port .sg-lbl{font-size:11px;padding:5px 11px 2px;}
 
-/* ── ตารางสถิติแบบกลุ่ม (Group Stats Table) ── */
+/* ── ตารางสถิติแบบกลุ่ม ── */
 body.port .stats-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 body.port .stats-tbl .tl { text-align: left; padding-left: 10px; }
 
-/* ── ล็อคเส้นตารางให้บาง 0.5px ทุกตารางในแนวตั้ง ── */
+/* ── ล็อคเส้นตารางให้บาง 0.5px ── */
 body.port th, body.port td { border: 0.5px solid !important; }
 
-/* ล็อคสีเส้นขอบ (ไม่ให้ดูดสีตัวอักษร) */
 .light body.port th { border-color: rgba(0, 0, 0, 0.1) !important; background: #dde0ec; color: rgba(0,0,0,0.48); }
 .light body.port td { border-color: rgba(0, 0, 0, 0.07) !important; background: #fff; }
 .light body.port tr:nth-child(even) td { background: #f5f5fb; }
@@ -304,29 +308,18 @@ body.port th, body.port td { border: 0.5px solid !important; }
 .dark body.port td { border-color: rgba(255, 255, 255, 0.06) !important; background: #0f0f1c; }
 .dark body.port tr:nth-child(even) td { background: #111122; }
 
-/* ── อัปเดตชุดสีสัญลักษณ์ และ ตัวหนังสือคะแนน (เฉพาะแนวตั้ง ธีมมืด ตามบรีฟ) ── */
-/* HIO: วงกลมเหลืองทอง ตัวดำ */
+/* ── อัปเดตชุดสีสัญลักษณ์ และ ตัวหนังสือคะแนน ── */
 .dark body.port .sc.hio, .dark body.port .a-chip.hio { background: #ffd60a !important; color: #000 !important; }
 .dark body.port .c-hio { color: #ffd60a !important; }
-
-/* Albatross & Eagle: วงกลมน้ำเงิน ตัวฟ้า */
 .dark body.port .sc.egl, .dark body.port .sc.alb, .dark body.port .a-chip.egl, .dark body.port .a-chip.alb { background: #0a84ff !important; color: #b0d4ff !important; }
 .dark body.port .c-alba, .dark body.port .c-egl { color: #0a84ff !important; }
-
-/* Birdie: วงกลมแดง ตัวแดงอ่อน */
 .dark body.port .sc.bir, .dark body.port .a-chip.bir { background: #ff453a !important; color: #ffb3b0 !important; }
 .dark body.port .c-bir { color: #ff453a !important; }
-
-/* Par: ตัวฟ้า */
 .dark body.port .par, .dark body.port .c-par { color: #4da3ff !important; font-weight: 700; }
-
-/* Bogey: ตัวเทา */
 .dark body.port .bog, .dark body.port .c-bog { color: #8e8e93 !important; }
-
-/* Double Bogey & เละ: ตัวแดง */
 .dark body.port .c-dbl, .dark body.port .c-le { color: #ff453a !important; }
 
-/* ── ชุดสีสถิติ ธีมสว่าง (เพื่อให้ไม่เพี้ยน) ── */
+/* ── ชุดสีสถิติ ธีมสว่าง ── */
 .light body.port .c-hio, .light body.port .c-alba, .light body.port .c-egl { color: #d4a000; }
 .light body.port .c-bir { color: #1a7a3a; }
 .light body.port .c-par { color: #1c1c1e; }
@@ -437,6 +430,10 @@ body.land .atime{font-size:0.62vw;}
     </div>
     <button class="dnav" id="dnext" onclick="goNext()" disabled>→</button>
   </div>
+  
+  <div class="dmeta-row" id="dmeta-row">
+    <span id="dmeta-txt">กำลังโหลดข้อมูล...</span>
+  </div>
 
   <div class="hbanner" id="hbanner" style="display:none">
     <span>📂</span>
@@ -446,8 +443,7 @@ body.land .atime{font-size:0.62vw;}
 
   <div class="frow">
     <div class="fbtns" id="filter-wrap"></div>
-    <span class="fmeta" id="fmeta">—</span>
-  </div>
+    <span class="fmeta" id="fmeta">—</span> </div>
 
   <div id="port-content">
     
@@ -598,18 +594,31 @@ function setSt(s, ts) {
 }
 
 /* ════════════════════════════════════════════════════
-   DATE
+   DATE (ระบบตัดรอบตี 5 ประเทศไทย)
 ════════════════════════════════════════════════════ */
+function getAdjustedDate(offset) {
+  const now = new Date();
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const thTime = new Date(utc + (3600000 * 7)); // เวลาไทย
+  thTime.setHours(thTime.getHours() - 5); // ลบ 5 ชั่วโมง (ตัดวันตอน 05:00 น.)
+  thTime.setDate(thTime.getDate() - offset);
+  return thTime;
+}
+
 function getDateKey(offset) {
-  const d = new Date();
-  d.setDate(d.getDate() - offset);
-  return d.toISOString().split('T')[0].replace(/-/g, '');
+  const d = getAdjustedDate(offset);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}${m}${day}`;
 }
+
 function formatDateTH(offset) {
-  const d = new Date();
-  d.setDate(d.getDate() - offset);
-  return d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+  const d = getAdjustedDate(offset);
+  const months = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear() + 543}`;
 }
+
 function updateDateBar() {
   isLive = dateOffset === 0;
   document.getElementById('ddate').textContent = formatDateTH(dateOffset);
@@ -685,7 +694,7 @@ function detectAlerts() {
 }
 
 /* ════════════════════════════════════════════════════
-   FILTER
+   FILTER & META ROW
 ════════════════════════════════════════════════════ */
 function buildFilter() {
   const rooms = [...new Set(allP.map(p => p.room).filter(Boolean))].sort();
@@ -695,14 +704,27 @@ function buildFilter() {
     const c = allP.filter(p => p.room === r).length;
     w.innerHTML += `<button class="fb ${room===r?'on':'off'}" data-room="${r}" onclick="setRoom('${r}')">${r} (${c})</button>`;
   });
+  
   const vis = allP.filter(p => !room || p.room === room);
   const rs = [...new Set(vis.map(p => p.room).filter(Boolean))];
   const course = (allP[0] && allP[0].course) || '';
+  
+  // อัปเดตข้อมูลหัวเรื่อง
   if (course) document.getElementById('hdr-sub').textContent = 'Live · ' + course;
-  document.getElementById('fmeta').textContent = vis.length + ' คน · ' + rs.length + ' กลุ่ม' + (course ? ' · ' + course : '');
+  
+  const infoTxt = vis.length + ' คน · ' + rs.length + ' กลุ่ม' + (course ? ' · ' + course : '');
+  
+  // ให้แนวนอน (TV) ใช้ .fmeta เหมือนเดิม
+  document.getElementById('fmeta').textContent = infoTxt; 
+  
+  // ใหัแนวตั้งใช้บรรทัดใหม่ .dmeta-txt
+  const dmeta = document.getElementById('dmeta-txt');
+  if(dmeta) dmeta.textContent = infoTxt;
+
   ssRooms = ['', ...rooms];
   renderSSDots();
 }
+
 function setRoom(r) {
   room = r;
   buildFilter();
