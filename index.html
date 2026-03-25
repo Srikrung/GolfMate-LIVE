@@ -28,7 +28,7 @@ body.dark{background:#070710;}
 .dark .hdr-sub{color:rgba(255,255,255,0.3);}
 .dark .stxt{color:rgba(255,255,255,0.38);}
 .dark .hbtn{border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.5);}
-.dark .dbar{background:#0b0b1a; border-bottom:none !important;} /* เอาเส้นขอบล่างออก เพื่อเชื่อมกับบรรทัดใหม่ */
+.dark .dbar{background:#0b0b1a; border-bottom:none !important;} 
 .dark .ddate{color:#fff;}
 .dark .dnav{color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.12);}
 .dark .hbanner{background:rgba(10,132,255,0.07);border-bottom:1px solid rgba(10,132,255,0.18);}
@@ -81,7 +81,7 @@ body.light{background:#f0f0f5;}
 .light .hdr-sub{color:rgba(0,0,0,0.38);}
 .light .stxt{color:rgba(0,0,0,0.38);}
 .light .hbtn{border:1px solid rgba(0,0,0,0.12);background:rgba(0,0,0,0.03);color:rgba(0,0,0,0.45);}
-.light .dbar{background:#e8eaf2; border-bottom:none !important;} /* เอาเส้นขอบล่างออก เพื่อเชื่อมกับบรรทัดใหม่ */
+.light .dbar{background:#e8eaf2; border-bottom:none !important;} 
 .light .ddate{color:#1c1c1e;}
 .light .dnav{color:rgba(0,0,0,0.4);border-color:rgba(0,0,0,0.1);}
 .light .hbanner{background:rgba(0,96,204,0.06);border-bottom:1px solid rgba(0,96,204,0.14);}
@@ -262,14 +262,14 @@ body.port .fb{padding:4px 10px;border-radius:12px;font-size:12px;}
 body.port .tabs{display:flex;gap:4px;padding:5px 10px 3px;}
 body.port .tab{flex:1;text-align:center;font-weight:700;cursor:pointer;padding:7px;border-radius:9px;font-size:12px;transition:0.2s;}
 
-/* NEW: สี Tab สว่างขาวจั๊วะ 100% */
-.dark body.port .tab.on, .dark .port .tab.on { background: rgba(255, 255, 255, 0.15); color: #ffffff !important; border: 1px solid rgba(255, 255, 255, 0.4); }
-.dark body.port .tab.off, .dark .port .tab.off { background: rgba(255, 255, 255, 0.05); color: #ffffff !important; border: 1px solid transparent; }
-.light body.port .tab.on, .light .port .tab.on { background: rgba(0, 96, 204, 0.1); color: #0060cc; border: 1px solid rgba(0, 96, 204, 0.4); }
-.light body.port .tab.off, .light .port .tab.off { background: rgba(0, 0, 0, 0.04); color: rgba(0, 0, 0, 0.5); border: 1px solid transparent; }
+/* NEW: สี Tab สว่างขาวจั๊วะ 100% (แก้บั๊ก CSS Selector) */
+body.dark.port .tab.on { background: rgba(255, 255, 255, 0.15); color: #ffffff !important; border: 1px solid rgba(255, 255, 255, 0.4); }
+body.dark.port .tab.off { background: rgba(255, 255, 255, 0.05); color: #ffffff !important; border: 1px solid transparent; }
+body.light.port .tab.on { background: rgba(0, 96, 204, 0.1); color: #0060cc !important; border: 1px solid rgba(0, 96, 204, 0.4); }
+body.light.port .tab.off { background: rgba(0, 0, 0, 0.04); color: rgba(0, 0, 0, 0.5) !important; border: 1px solid transparent; }
 
-body.port .dark .tabs{background:#09090f;}
-body.port .light .tabs{background:#e8eaf2;}
+body.dark.port .tabs { background: #09090f; }
+body.light.port .tabs { background: #e8eaf2; }
 
 /* scroll area */
 body.port #port-content {
@@ -300,31 +300,31 @@ body.port .stats-tbl .tl { text-align: left; padding-left: 10px; }
 /* ── ล็อคเส้นตารางให้บาง 0.5px ── */
 body.port th, body.port td { border: 0.5px solid !important; }
 
-.light body.port th { border-color: rgba(0, 0, 0, 0.1) !important; background: #dde0ec; color: rgba(0,0,0,0.48); }
-.light body.port td { border-color: rgba(0, 0, 0, 0.07) !important; background: #fff; }
-.light body.port tr:nth-child(even) td { background: #f5f5fb; }
+body.light.port th { border-color: rgba(0, 0, 0, 0.1) !important; background: #dde0ec; color: rgba(0,0,0,0.48); }
+body.light.port td { border-color: rgba(0, 0, 0, 0.07) !important; background: #fff; }
+body.light.port tr:nth-child(even) td { background: #f5f5fb; }
 
-.dark body.port th { border-color: rgba(255, 255, 255, 0.09) !important; background: #17172a; color: rgba(255,255,255,0.58); }
-.dark body.port td { border-color: rgba(255, 255, 255, 0.06) !important; background: #0f0f1c; }
-.dark body.port tr:nth-child(even) td { background: #111122; }
+body.dark.port th { border-color: rgba(255, 255, 255, 0.09) !important; background: #17172a; color: rgba(255,255,255,0.58); }
+body.dark.port td { border-color: rgba(255, 255, 255, 0.06) !important; background: #0f0f1c; }
+body.dark.port tr:nth-child(even) td { background: #111122; }
 
 /* ── อัปเดตชุดสีสัญลักษณ์ และ ตัวหนังสือคะแนน ── */
-.dark body.port .sc.hio, .dark body.port .a-chip.hio { background: #ffd60a !important; color: #000 !important; }
-.dark body.port .c-hio { color: #ffd60a !important; }
-.dark body.port .sc.egl, .dark body.port .sc.alb, .dark body.port .a-chip.egl, .dark body.port .a-chip.alb { background: #0a84ff !important; color: #b0d4ff !important; }
-.dark body.port .c-alba, .dark body.port .c-egl { color: #0a84ff !important; }
-.dark body.port .sc.bir, .dark body.port .a-chip.bir { background: #ff453a !important; color: #ffb3b0 !important; }
-.dark body.port .c-bir { color: #ff453a !important; }
-.dark body.port .par, .dark body.port .c-par { color: #4da3ff !important; font-weight: 700; }
-.dark body.port .bog, .dark body.port .c-bog { color: #8e8e93 !important; }
-.dark body.port .c-dbl, .dark body.port .c-le { color: #ff453a !important; }
+body.dark.port .sc.hio, body.dark.port .a-chip.hio { background: #ffd60a !important; color: #000 !important; }
+body.dark.port .c-hio { color: #ffd60a !important; }
+body.dark.port .sc.egl, body.dark.port .sc.alb, body.dark.port .a-chip.egl, body.dark.port .a-chip.alb { background: #0a84ff !important; color: #b0d4ff !important; }
+body.dark.port .c-alba, body.dark.port .c-egl { color: #0a84ff !important; }
+body.dark.port .sc.bir, body.dark.port .a-chip.bir { background: #ff453a !important; color: #ffb3b0 !important; }
+body.dark.port .c-bir { color: #ff453a !important; }
+body.dark.port .par, body.dark.port .c-par { color: #4da3ff !important; font-weight: 700; }
+body.dark.port .bog, body.dark.port .c-bog { color: #8e8e93 !important; }
+body.dark.port .c-dbl, body.dark.port .c-le { color: #ff453a !important; }
 
 /* ── ชุดสีสถิติ ธีมสว่าง ── */
-.light body.port .c-hio, .light body.port .c-alba, .light body.port .c-egl { color: #d4a000; }
-.light body.port .c-bir { color: #1a7a3a; }
-.light body.port .c-par { color: #1c1c1e; }
-.light body.port .c-bog, .light body.port .c-dbl { color: #888; }
-.light body.port .c-le { color: #cc0000; }
+body.light.port .c-hio, body.light.port .c-alba, body.light.port .c-egl { color: #d4a000; }
+body.light.port .c-bir { color: #1a7a3a; }
+body.light.port .c-par { color: #1c1c1e; }
+body.light.port .c-bog, body.light.port .c-dbl { color: #888; }
+body.light.port .c-le { color: #cc0000; }
 .c-zero { color: rgba(255,255,255,0.1); font-weight: 400; }
 .light .c-zero { color: rgba(0,0,0,0.15); font-weight: 400; }
 
@@ -709,8 +709,8 @@ function buildFilter() {
   const rs = [...new Set(vis.map(p => p.room).filter(Boolean))];
   const course = (allP[0] && allP[0].course) || '';
   
-  // อัปเดตข้อมูลหัวเรื่อง
-  if (course) document.getElementById('hdr-sub').textContent = 'Live · ' + course;
+  // (แก้ปัญหาชื่อซ้อนทับด้านบน) ปิดโค้ดอัปเดตชื่อสนามด้านบนสุดทิ้งไป เพื่อให้มันเหลือแค่คำว่า Live Leaderboard
+  // if (course) document.getElementById('hdr-sub').textContent = 'Live · ' + course;
   
   const infoTxt = vis.length + ' คน · ' + rs.length + ' กลุ่ม' + (course ? ' · ' + course : '');
   
