@@ -332,15 +332,15 @@ body.port .atime{font-size:9px;}
 
 
 /* ════════════════════════════════════════
-   LANDSCAPE — TV 50" (UPDATED FOR 8 ROWS)
+   LANDSCAPE — TV 50" (UPDATED FOR 8 ROWS & STATS)
 ════════════════════════════════════════ */
 body.land{overflow:hidden;height:100vh;}
 body.land .scr{
   width:100%;
-  height:calc(100vh - 10.4vh); /* เว้นให้ Ticker ด้านล่าง */
+  height:calc(100vh - 10.4vh);
   display:flex;flex-direction:column;overflow:hidden;
 }
-/* บีบความสูงของ Header ลงเล็กน้อย เพื่อเพิ่มพื้นที่ให้ตาราง 8 แถว */
+
 body.land .hdr{height:6vh;flex-shrink:0;padding:0 1.5vw;}
 body.land .logo{font-size:1.6vw;}
 body.land .hdr-sub{font-size:0.8vw;margin-left:0.6vw;}
@@ -376,15 +376,14 @@ body.land .ss-dot{width:0.45vw;height:0.45vw;border-radius:50%;}
 body.land .slbl{height:2.5vh;flex-shrink:0;font-size:0.8vw;font-weight:700;padding:0 1.4vw;display:flex;align-items:center;gap:0.4vw;}
 body.land .slbl span{font-size:0.6vw;opacity:.35;font-weight:400;}
 
-/* ย่อขนาดตัวหนังสือและช่องไฟในตารางลง เพื่อให้ยัด 8 แถวลงจอได้พอดี */
 body.land .tbl-wrap{flex:1;overflow:hidden;padding:0 1vw;}
 body.land .tbl-wrap table{height:100%;}
 body.land th{font-size:0.85vw;padding:0.2vh 0.1vw;}
-body.land td{font-size:1.1vw;padding:0 0.1vw;} /* ลดจาก 1.4vw */
+body.land td{font-size:1.1vw;padding:0 0.1vw;}
 body.land td.rk{font-size:1vw;}
-body.land td.nm-cell{text-align:left;padding-left:0.5vw!important;font-weight:700;font-size:1.1vw;color:#fff;}
+body.land td.nm-cell{text-align:left;padding-left:0.5vw!important;font-weight:700;font-size:1.1vw;} /* เอา color ออกเพื่อทำสลับธีม */
 body.land td.nm-cell .nsub{font-size:0.65vw;opacity:.38;font-weight:400;display:block;}
-body.land .sc{width:1.5vw;height:1.5vw;font-size:0.8vw;} /* บีบขนาดวงกลมคะแนนให้เล็กลง */
+body.land .sc{width:1.5vw;height:1.5vw;font-size:0.8vw;} 
 body.land td.sub9{font-weight:800;font-size:1.2vw;border-left:2px solid!important;border-right:2px solid!important;}
 body.land td.gross-cell{font-weight:800;font-size:1.2vw;border-left:2px solid!important;}
 body.land td.net-cell{font-weight:800;font-size:1.3vw;border-right:2px solid!important;}
@@ -396,9 +395,24 @@ body.land .sg-lbl{font-size:0.8vw;padding:0 1.4vw;}
 body.land .sg-tbl-wrap{flex-shrink:0;padding:0 1vw 0.3vh;}
 body.land .sg-tbl th{font-size:0.85vw;padding:0.2vh 0.3vw;}
 body.land .sg-tbl td{font-size:1.2vw;padding:0.3vh 0.3vw;}
-body.land .sg-tbl td.nm2{text-align:left;padding-left:0.8vw;font-weight:700;font-size:1.1vw;color:#fff;}
+body.land .sg-tbl td.nm2{text-align:left;padding-left:0.8vw;font-weight:700;font-size:1.1vw;} /* เอา color ออกเพื่อทำสลับธีม */
 
-/* แถบ Ticker ด้านล่างสุด */
+/* ── แก้ปัญหาชื่อผู้เล่นหายในธีมสว่าง (แยกสีธีมมืดและสว่าง) ── */
+body.dark.land td.nm-cell, body.dark.land .sg-tbl td.nm2 { color: #fff; }
+body.light.land td.nm-cell, body.light.land .sg-tbl td.nm2 { color: #1c1c1e; }
+
+/* ── ชุดสีสถิติ ธีมมืด (แนวนอน) ── */
+body.dark.land .c-bir { color: #ff453a !important; }
+body.dark.land .c-par { color: #4da3ff !important; font-weight: 700; }
+body.dark.land .c-bog { color: #8e8e93 !important; }
+body.dark.land .c-le { color: #ff453a !important; }
+
+/* ── ชุดสีสถิติ ธีมสว่าง (แนวนอน) ── */
+body.light.land .c-bir { color: #1a7a3a; }
+body.light.land .c-par { color: #1c1c1e; }
+body.light.land .c-bog { color: #888; }
+body.light.land .c-le { color: #cc0000; }
+
 body.land .tickers{position:fixed;bottom:0;left:0;width:100%;z-index:100;}
 body.land .tick1,body.land .tick2{height:5.2vh;}
 body.land .tbadge{padding:0 1.1vw;font-size:0.85vw;height:100%;}
@@ -479,12 +493,13 @@ body.land .atime{font-size:0.6vw;}
       <table><thead id="land-score-head"></thead><tbody id="land-score-body"></tbody></table>
     </div>
     <div class="divider"></div>
-    <div class="slbl sg-lbl">⛳ FW · GIR · Putt รวม</div>
+    <div class="slbl sg-lbl">⛳ ตารางสถิติผู้เล่น (FW · GIR · Putt & สกอร์รวม)</div>
     <div class="sg-tbl-wrap">
       <table class="sg-tbl">
         <thead><tr>
-          <th class="tl" style="width:18%">ชื่อ</th>
+          <th class="tl" style="width:16%">ชื่อ</th>
           <th>FW</th><th>GIR</th><th>Putt</th><th>เฉลี่ย</th><th>หลุม</th>
+          <th>เบอร์ดี้+</th><th>พาร์</th><th>โบกี้</th><th>ดับเบิ้ล+</th>
         </tr></thead>
         <tbody id="land-sg-body"></tbody>
       </table>
@@ -909,7 +924,7 @@ function renderPortSG(list) {
 }
 
 /* ════════════════════════════════════════════════════
-   LANDSCAPE RENDER (UPDATED: 8 FIXED ROWS)
+   LANDSCAPE RENDER (UPDATED: 8 FIXED ROWS + STATS)
 ════════════════════════════════════════════════════ */
 function getLandList() {
   let list = allP.filter(p => !room || p.room === room);
@@ -918,7 +933,7 @@ function getLandList() {
     if (a.holesPlayed===18 && b.holesPlayed!==18) return -1;
     if (b.holesPlayed===18 && a.holesPlayed!==18) return  1;
     return an-bn;
-  }).slice(0, 8); // ดึงมาสูงสุด 8 คน
+  }).slice(0, 8); 
 }
 
 function scoreCell(s, par) {
@@ -934,7 +949,8 @@ function scoreCell(s, par) {
 function renderLandscape() {
   const list = getLandList();
   const thc = isDark ? '#4da3ff' : '#0060cc';
-  const holeHeaders = PARS.map((_,h) => `<th style="width:2.6%">${h+1}</th>`).join('');
+  const parsArray = (allP.find(x => x.pars) || {pars: PARS}).pars;
+  const holeHeaders = parsArray.map((_,h) => `<th style="width:2.6%">${h+1}</th>`).join('');
   
   // 1. เรนเดอร์หัวตารางสกอร์
   document.getElementById('land-score-head').innerHTML = `<tr>
@@ -947,20 +963,19 @@ function renderLandscape() {
     <th class="net-cell" style="width:3.5%;color:${thc}">Net</th>
   </tr>`;
 
-  // 2. เรนเดอร์ตัวตารางสกอร์ (ล็อค 8 แถวตายตัว)
+  // 2. เรนเดอร์ตัวตารางสกอร์ (ล็อค 8 แถว)
   let rows = '';
   const EMPTY_PH = `<span style="visibility:hidden">ผู้เล่นจำลอง<span class="nsub">A01 · HCP0</span></span>`;
   
   for (let i = 0; i < 8; i++) {
     if (i < list.length) {
-      // มีข้อมูลผู้เล่น ให้แสดงผลตามปกติ
       const p = list[i];
       const gross = (p.scores||[]).filter(v=>v!==null).reduce((a,v)=>a+v, 0);
       const net   = gross - (p.hcp||0);
       const done  = p.holesPlayed===18;
       const f9    = (p.scores||[]).slice(0,9).some(v=>v!==null) ? (p.scores||[]).slice(0,9).filter(v=>v!==null).reduce((a,v)=>a+v,0) : null;
       const b9    = (p.scores||[]).slice(9).some(v=>v!==null)   ? (p.scores||[]).slice(9).filter(v=>v!==null).reduce((a,v)=>a+v,0)   : null;
-      const scores = (p.scores||Array(18).fill(null)).map((s,h) => scoreCell(s, PARS[h])).join('');
+      const scores = (p.scores||Array(18).fill(null)).map((s,h) => scoreCell(s, parsArray[h])).join('');
       rows += `<tr>
         <td class="rk">${i<3?MEDALS[i]:'#'+(i+1)}</td>
         <td class="nm-cell tl">${p.name}<span class="nsub">${p.room||'—'} · HCP${p.hcp||0}</span></td>
@@ -971,8 +986,7 @@ function renderLandscape() {
         <td class="net-cell">${net}${done?'':'<span class="star">*</span>'}</td>
       </tr>`;
     } else {
-      // คนไม่ถึง 8 ให้แสดงแถวว่างสีทึบเพื่อล็อคความสูง
-      const ep = PARS.map(()=>`<td class="erow-cell blk"></td>`).join('');
+      const ep = parsArray.map(()=>`<td class="erow-cell blk"></td>`).join('');
       rows += `<tr>
         <td class="rk erow-cell" style="color:rgba(255,255,255,0.06)!important">—</td>
         <td class="nm-cell tl erow-cell" style="color:rgba(255,255,255,0.06)!important">${EMPTY_PH}</td>
@@ -986,7 +1000,7 @@ function renderLandscape() {
   }
   document.getElementById('land-score-body').innerHTML = rows;
 
-  // 3. เรนเดอร์ตัวตารางสถิติรวม (ล็อค 8 แถวตายตัวเหมือนกัน)
+  // 3. เรนเดอร์ตัวตารางสถิติรวม (เพิ่ม 4 คอลัมน์)
   const dk=isDark, gc=dk?'#30d158':'#1a7a3a', bc=dk?'#4da3ff':'#0060cc';
   const sgAll = allP.filter(p=>!room||p.room===room).filter(p=>p.putt!=null).sort((a,b)=>a.putt-b.putt).slice(0, 8);
   const EMPTY_NM = `<span style="visibility:hidden">ผู้เล่นจำลอง</span>`;
@@ -996,6 +1010,21 @@ function renderLandscape() {
     if (i < sgAll.length) {
       const p = sgAll[i];
       const h=p.holesPlayed||0, avg=h>0?(p.putt/h).toFixed(1):'—';
+      
+      // ระบบคำนวณจำนวน เบอร์ดี้ พาร์ โบกี้ ออกทะเล อัตโนมัติ
+      let counts = { under:0, par:0, bog:0, over:0 };
+      if (p.scores) {
+        p.scores.forEach((s, idx) => {
+          if (s !== null && s !== undefined) {
+             let diff = s - parsArray[idx];
+             if (diff < 0) counts.under++;
+             else if (diff === 0) counts.par++;
+             else if (diff === 1) counts.bog++;
+             else counts.over++;
+          }
+        });
+      }
+
       sgRows += `<tr>
         <td class="nm2">${i<3?MEDALS[i]:'#'+(i+1)} ${p.name}</td>
         <td style="color:${gc};font-weight:700">${p.fw||0}</td>
@@ -1003,12 +1032,18 @@ function renderLandscape() {
         <td style="color:${gc};font-weight:800">${p.putt}</td>
         <td>${avg}</td>
         <td style="opacity:.42;font-size:.82em">${h}/18</td>
+        <td class="${counts.under>0?'c-bir':''}">${counts.under||'—'}</td>
+        <td class="${counts.par>0?'c-par':''}">${counts.par||'—'}</td>
+        <td class="${counts.bog>0?'c-bog':''}">${counts.bog||'—'}</td>
+        <td class="${counts.over>0?'c-le':''}">${counts.over||'—'}</td>
       </tr>`;
     } else {
+      // แถวว่างต้องใส่ td 10 ช่องให้ครบ
       sgRows += `<tr>
         <td class="nm2 erow-cell" style="color:rgba(255,255,255,0.06)!important">${EMPTY_NM}</td>
         <td class="erow-cell">—</td><td class="erow-cell">—</td>
         <td class="erow-cell">—</td><td class="erow-cell">—</td><td class="erow-cell">—</td>
+        <td class="erow-cell">—</td><td class="erow-cell">—</td><td class="erow-cell">—</td><td class="erow-cell">—</td>
       </tr>`;
     }
   }
