@@ -659,67 +659,36 @@ function setTab(t){
 // DRAGON TOURNAMENT TAB
 // ════════════════════════════════════════
 function renderDragonTab(){
-    if(!isPortrait()){ renderPortrait(); return; } // landscape ใช้ portrait fallback
+    if(!isPortrait()){ renderPortrait(); return; }
     const el=document.getElementById('port-body');
-
-    // init rooms ถ้าว่าง
-    if(_drt.rooms.length===0){
-        // pre-fill จาก rooms ที่มีใน allP
-        const auto=[...new Set(allP.map(p=>p.room).filter(Boolean))].sort();
-        _drt.rooms = auto.length ? [...auto] : [''];
-    }
-
-    el.innerHTML = `<div class="drt-wrap">
+    // แสดง loading ทันที แล้ว auto-load
+    el.innerHTML=`<div class="drt-wrap">
         <div class="drt-hdr">
             <div><div class="drt-hdr-title">🐉 Dragon Tournament</div>
-            <div class="drt-hdr-sub">รวมคะแนนทีม A B C ข้ามกลุ่ม</div></div>
-            ${_drt.loaded?`<button class="drt-refresh" onclick="drtLoad()">⟳ รีเฟรช</button>`:''}
+            <div class="drt-hdr-sub">รวมคะแนนทีม A B C ข้ามกลุ่ม · อัปเดต ${formatDateTH(dateOffset)}</div></div>
+            <button class="drt-refresh" onclick="drtLoad()">⟳ รีเฟรช</button>
         </div>
-        <div class="drt-section-lbl">Room Code กลุ่มที่เข้าร่วม</div>
-        <div class="drt-room-inp" id="drt-rooms">${_drt.rooms.map((r,i)=>drtRoomRow(r,i)).join('')}</div>
-        <div class="drt-btns">
-            <button class="drt-add" onclick="drtAddRoom()">+ เพิ่มกลุ่ม</button>
-            <button class="drt-load" onclick="drtLoad()">🔍 โหลดข้อมูล</button>
-        </div>
-        <div id="drt-result">${_drt.loaded?'':'<div class="drt-empty"><div class="drt-icon">🐉</div><div class="drt-msg">กดโหลดข้อมูลเพื่อดูผล</div><div class="drt-sub">ดึงคะแนนทีมจาก Firebase ทุกกลุ่ม</div></div>'}</div>
+        <div id="drt-result"><div class="loading-msg">⟳ กำลังดึงข้อมูล...</div></div>
     </div>`;
-}
-
-function drtRoomRow(val,i){
-    const del=_drt.rooms.length>1?`<button class="drt-del" onclick="drtDelRoom(${i})">×</button>`:'';
-    return `<div class="drt-room-row" id="drt-row-${i}">
-        <div class="drt-room-lbl">กลุ่ม ${i+1}</div>
-        <input type="text" class="drt-room-field" maxlength="3" value="${val}" placeholder="A22"
-            oninput="_drt.rooms[${i}]=this.value.toUpperCase().slice(0,3);this.value=this.value.toUpperCase().slice(0,3)">
-        ${del}
-    </div>`;
-}
-
-function drtAddRoom(){
-    _drt.rooms.push('');
-    renderDragonTab();
-}
-function drtDelRoom(i){
-    _drt.rooms.splice(i,1);
-    renderDragonTab();
+    drtLoad();
 }
 
 async function drtLoad(){
     const el=document.getElementById('drt-result');
     if(!el) return;
 
-    // อ่านค่าจาก input ปัจจุบัน
-    document.querySelectorAll('.drt-room-field').forEach((inp,i)=>{
-        _drt.rooms[i]=inp.value.toUpperCase().slice(0,3);
-    });
+    // ดึง rooms จาก allP ที่โหลดมาแล้ว — ไม่ต้องกรอก
+    const rooms=[...new Set(allP.map(p=>p.room).filter(r=>r&&r.length===3))].sort();
+    if(!rooms.length){
+        el.innerHTML=`<div class="drt-empty"><div class="drt-icon">⛳</div>
+            <div class="drt-msg">ยังไม่มีข้อมูลกลุ่ม</div>
+            <div class="drt-sub">รอผู้เล่นเริ่มเกมและ sync ข้อมูลขึ้น Firebase</div></div>`;
+        return;
+    }
 
-    const rooms=_drt.rooms.filter(r=>r.length===3);
-    if(!rooms.length){ el.innerHTML=`<div class="drt-empty"><div class="drt-icon">⚠️</div><div class="drt-msg">กรุณากรอก Room Code ให้ครบ 3 ตัว</div></div>`; return; }
+    el.innerHTML=`<div class="loading-msg">⟳ กำลังดึงข้อมูล ${rooms.length} กลุ่ม (${rooms.join(', ')})...</div>`;
 
-    el.innerHTML=`<div class="loading-msg">⟳ กำลังดึงข้อมูล ${rooms.length} กลุ่ม...</div>`;
-
-    const dk=getDateKey(dateOffset);
-    const FB=CFG.firebase;
+    const dk=getDateKey(dateOffset), FB=CFG.firebase;
     const teamTotals={A:0,B:0,C:0};
     const potTotals={water:0,sand:0,putt3:0,birdie:0,mul:0,settamaa:0};
     const groupResults=[];
